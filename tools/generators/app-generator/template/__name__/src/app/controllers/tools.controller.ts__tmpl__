@@ -1,5 +1,5 @@
 import { Controller, Get, Header, Logger, UseGuards } from '@nestjs/common';
-import { Prisma } from '@nx-prisma/prisma-clients/Auth';
+import { Prisma } from '@nx-prisma/prisma-clients/<%= name %>';
 
 import { HttpGuard, Roles } from '../auth';
 import { PrismaService } from '../prisma';

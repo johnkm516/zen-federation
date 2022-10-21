@@ -1,0 +1,26 @@
+import { PrismaClient as  <%= className %>PrismaClient } from '.prisma/<%= name %>-client';
+import Chance from 'chance'
+
+const client = new <%= className %>PrismaClient()
+var chance = new Chance();
+
+async function seed() {
+  /*
+  ///Example seed////
+  for (let i = 0; i < 1; i++) {
+    await client.user.create({
+      data: {
+        id: i,
+        createdAt: chance.date(),
+        username: chance.name(),
+        password: chance.word(),
+        email: chance.email(),
+        roles: ["Super"],
+      }
+    })
+  }
+  ////////////////
+  */
+}
+
+seed()

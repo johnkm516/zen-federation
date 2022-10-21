@@ -48,8 +48,8 @@ export async function PrismaClientGenerator(tree: Tree, schema: GeneratorOptions
   }
 
   let exportsContents = tree.read('libs/prisma-clients/index.ts')?.toString() ?? ``
-  if (!exportsContents.includes(`export { ${className}Client } from './${name}';`)) {
-    exportsContents += `export { ${className}Client } from './${name}';\n`
+  if (!exportsContents.includes(`export { ${className}PrismaClient } from './${name}';`)) {
+    exportsContents += `export { ${className}PrismaClient } from './${name}';\n`
   }
   tree.write('libs/prisma-clients/index.ts', exportsContents)
 

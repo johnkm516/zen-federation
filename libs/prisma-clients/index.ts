@@ -1,0 +1,1 @@
+export { AuthPrismaClient } from './Auth';

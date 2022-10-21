@@ -1,7 +1,7 @@
 import { HttpException, UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Throttle } from '@nestjs/throttler';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@nx-prisma/prisma-clients/Auth';
 import { ApiError } from '@zen/api-interfaces';
 import bcrypt from 'bcryptjs';
 import gql from 'graphql-tag';

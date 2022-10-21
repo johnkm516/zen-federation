@@ -1,6 +1,6 @@
 import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User } from '@nx-prisma/prisma-clients/Auth';
 
 import { ConfigService } from '../config';
 import { JwtService } from '../jwt';

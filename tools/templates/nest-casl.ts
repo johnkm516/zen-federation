@@ -1,4 +1,4 @@
-export function NestCaslTemplate(names: string[]) {
+export function NestCaslTemplate(names: string[], subgraphName) {
   let accum = `import { Subjects } from '@casl/prisma';
 import { 
 `;
@@ -7,7 +7,7 @@ import {
     accum += `  ${name},\n`;
   }
 
-  accum += `} from '@prisma/client';
+  accum += `} from '@nx-prisma/prisma-clients/${subgraphName}';
 
 export type PrismaSubjects = Subjects<{
 `;
