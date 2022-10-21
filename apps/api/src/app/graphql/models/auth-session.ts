@@ -1,7 +1,7 @@
-import { User } from '@nx-prisma/prisma-clients/Auth';
+import { RequestUser } from "../../auth/models/request-user";
 
 export interface AuthSession {
-  id: User['id'];
+  id: RequestUser['id'];
   token: string;
   roles: string[];
   rememberMe: boolean;

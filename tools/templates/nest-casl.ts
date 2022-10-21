@@ -1,4 +1,4 @@
-export function NestCaslTemplate(names: string[], subgraphName) {
+export function NestCaslTemplate(names: string[], subgraphName: string) {
   let accum = `import { Subjects } from '@casl/prisma';
 import { 
 `;

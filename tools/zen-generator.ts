@@ -39,8 +39,10 @@ export class ZenGenerator {
   constructor(public config: ZenGeneratorConfig) {}
 
   async run() {
+    const subgraph:string = "Auth";
     console.log(`------------------------ @paljs/generator ------------------------`);
     const palConfig = this.config.palConfig as any;
+    console.log(path.join(this.config.apiOutPath, 'paljs'));
     const palOutPath = palConfig.backend.output
       ? palConfig.backend.output
       : path.join(this.config.apiOutPath, 'paljs');
@@ -77,7 +79,7 @@ export class ZenGenerator {
     let wroteCount = 0;
     if (!this.config.authScheme || this.config.authScheme === 'ABAC') {
       if (this.config.caslOutFile) {
-        await writeFile(this.config.caslOutFile, NestCaslTemplate(prismaNames));
+        await writeFile(this.config.caslOutFile, NestCaslTemplate(prismaNames, subgraph));
         console.log(`- Wrote: ${this.config.caslOutFile}`);
       }
 
