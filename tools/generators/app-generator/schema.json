@@ -6,7 +6,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "Prisma Project Name",
+      "description": "Nest API Name",
       "x-prompt": "What do you want to call the project?"
     },
     "provider": {
