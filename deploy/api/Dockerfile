@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/api
 
-COPY dist/apps/api ./
+COPY dist/apps/auth ./
 COPY dist/package-deploy.json ./package.json
 # COPY package-lock.json ./
 COPY prisma/schema.prisma prisma/schema.prisma

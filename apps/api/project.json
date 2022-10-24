@@ -1,16 +1,16 @@
 {
   "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
-  "sourceRoot": "apps/api/src",
+  "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/api",
-        "main": "apps/api/src/main.ts",
-        "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"],
+        "outputPath": "dist/apps/auth",
+        "main": "apps/auth/src/main.ts",
+        "tsConfig": "apps/auth/tsconfig.app.json",
+        "assets": ["apps/auth/src/assets"],
         "target": "node",
         "compiler": "tsc"
       },
@@ -21,8 +21,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/api/src/environments/environment.ts",
-              "with": "apps/api/src/environments/environment.prod.ts"
+              "replace": "apps/auth/src/environments/environment.ts",
+              "with": "apps/auth/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -33,7 +33,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx compodoc -p apps/api/tsconfig.app.json -s"
+            "command": "npx compodoc -p apps/auth/tsconfig.app.json -s"
           }
         ]
       }
@@ -48,14 +48,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/api/**/*.ts"]
+        "lintFilePatterns": ["apps/auth/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/api"],
+      "outputs": ["coverage/apps/auth"],
       "options": {
-        "jestConfig": "apps/api/jest.config.ts",
+        "jestConfig": "apps/auth/jest.config.ts",
         "passWithNoTests": true
       }
     }
