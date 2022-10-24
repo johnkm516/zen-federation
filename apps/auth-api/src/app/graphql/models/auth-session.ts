@@ -1,4 +1,4 @@
-import { RequestUser } from "../../auth/models/request-user";
+import { RequestUser } from '../../auth/models/request-user';
 
 export interface AuthSession {
   id: RequestUser['id'];

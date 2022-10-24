@@ -45,10 +45,10 @@ export default gql`
     googleProfile
   }
 
-  input Product_UserWhereInput {
-    AND: [Product_UserWhereInput!]
-    OR: [Product_UserWhereInput!]
-    NOT: [Product_UserWhereInput!]
+  input Auth_UserWhereInput {
+    AND: [Auth_UserWhereInput!]
+    OR: [Auth_UserWhereInput!]
+    NOT: [Auth_UserWhereInput!]
     id: IntFilter
     createdAt: DateTimeFilter
     username: StringNullableFilter
@@ -59,7 +59,7 @@ export default gql`
     googleProfile: JsonNullableFilter
   }
 
-  input Product_UserOrderByWithRelationInput {
+  input Auth_UserOrderByWithRelationInput {
     id: SortOrder
     createdAt: SortOrder
     username: SortOrder
@@ -70,14 +70,14 @@ export default gql`
     googleProfile: SortOrder
   }
 
-  input Product_UserWhereUniqueInput {
+  input Auth_UserWhereUniqueInput {
     id: Int
     username: String
     email: String
     googleId: String
   }
 
-  input Product_UserOrderByWithAggregationInput {
+  input Auth_UserOrderByWithAggregationInput {
     id: SortOrder
     createdAt: SortOrder
     username: SortOrder
@@ -86,17 +86,17 @@ export default gql`
     roles: SortOrder
     googleId: SortOrder
     googleProfile: SortOrder
-    _count: Product_UserCountOrderByAggregateInput
-    _avg: Product_UserAvgOrderByAggregateInput
-    _max: Product_UserMaxOrderByAggregateInput
-    _min: Product_UserMinOrderByAggregateInput
-    _sum: Product_UserSumOrderByAggregateInput
+    _count: Auth_UserCountOrderByAggregateInput
+    _avg: Auth_UserAvgOrderByAggregateInput
+    _max: Auth_UserMaxOrderByAggregateInput
+    _min: Auth_UserMinOrderByAggregateInput
+    _sum: Auth_UserSumOrderByAggregateInput
   }
 
-  input Product_UserScalarWhereWithAggregatesInput {
-    AND: [Product_UserScalarWhereWithAggregatesInput!]
-    OR: [Product_UserScalarWhereWithAggregatesInput!]
-    NOT: [Product_UserScalarWhereWithAggregatesInput!]
+  input Auth_UserScalarWhereWithAggregatesInput {
+    AND: [Auth_UserScalarWhereWithAggregatesInput!]
+    OR: [Auth_UserScalarWhereWithAggregatesInput!]
+    NOT: [Auth_UserScalarWhereWithAggregatesInput!]
     id: IntWithAggregatesFilter
     createdAt: DateTimeWithAggregatesFilter
     username: StringNullableWithAggregatesFilter
@@ -107,7 +107,7 @@ export default gql`
     googleProfile: JsonNullableWithAggregatesFilter
   }
 
-  input Product_UserCreateInput {
+  input Auth_UserCreateInput {
     createdAt: DateTime
     username: String
     password: String
@@ -117,7 +117,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserUncheckedCreateInput {
+  input Auth_UserUncheckedCreateInput {
     id: Int
     createdAt: DateTime
     username: String
@@ -128,7 +128,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserUpdateInput {
+  input Auth_UserUpdateInput {
     createdAt: DateTime
     username: String
     password: String
@@ -138,7 +138,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserUncheckedUpdateInput {
+  input Auth_UserUncheckedUpdateInput {
     id: Int
     createdAt: DateTime
     username: String
@@ -149,7 +149,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserCreateManyInput {
+  input Auth_UserCreateManyInput {
     id: Int
     createdAt: DateTime
     username: String
@@ -160,7 +160,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserUpdateManyMutationInput {
+  input Auth_UserUpdateManyMutationInput {
     createdAt: DateTime
     username: String
     password: String
@@ -170,7 +170,7 @@ export default gql`
     googleProfile: Json
   }
 
-  input Product_UserUncheckedUpdateManyInput {
+  input Auth_UserUncheckedUpdateManyInput {
     id: Int
     createdAt: DateTime
     username: String
@@ -257,7 +257,7 @@ export default gql`
     not: Json
   }
 
-  input Product_UserCountOrderByAggregateInput {
+  input Auth_UserCountOrderByAggregateInput {
     id: SortOrder
     createdAt: SortOrder
     username: SortOrder
@@ -268,20 +268,11 @@ export default gql`
     googleProfile: SortOrder
   }
 
-  input Product_UserAvgOrderByAggregateInput {
+  input Auth_UserAvgOrderByAggregateInput {
     id: SortOrder
   }
 
-  input Product_UserMaxOrderByAggregateInput {
-    id: SortOrder
-    createdAt: SortOrder
-    username: SortOrder
-    password: SortOrder
-    email: SortOrder
-    googleId: SortOrder
-  }
-
-  input Product_UserMinOrderByAggregateInput {
+  input Auth_UserMaxOrderByAggregateInput {
     id: SortOrder
     createdAt: SortOrder
     username: SortOrder
@@ -290,7 +281,16 @@ export default gql`
     googleId: SortOrder
   }
 
-  input Product_UserSumOrderByAggregateInput {
+  input Auth_UserMinOrderByAggregateInput {
+    id: SortOrder
+    createdAt: SortOrder
+    username: SortOrder
+    password: SortOrder
+    email: SortOrder
+    googleId: SortOrder
+  }
+
+  input Auth_UserSumOrderByAggregateInput {
     id: SortOrder
   }
 
@@ -379,7 +379,7 @@ export default gql`
     _max: NestedJsonNullableFilter
   }
 
-  input Product_UserCreaterolesInput {
+  input Auth_UserCreaterolesInput {
     set: [String!]!
   }
 
@@ -395,7 +395,7 @@ export default gql`
     set: String
   }
 
-  input Product_UserUpdaterolesInput {
+  input Auth_UserUpdaterolesInput {
     set: [String!]
     push: [String!]
   }

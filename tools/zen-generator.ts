@@ -33,6 +33,7 @@ export type ZenGeneratorConfig = {
     /** Defaults to 'prisma' */
     queriesFolderName?: string;
   };
+  subgraphName?: string;
 };
 
 export class ZenGenerator {

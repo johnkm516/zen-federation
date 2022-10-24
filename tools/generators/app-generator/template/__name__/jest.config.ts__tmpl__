@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: '<%= name %>',
+  displayName: '<%= projectname %>',
 
   globals: {
     'ts-jest': {
@@ -12,6 +12,6 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/<%= name %>',
+  coverageDirectory: '../../coverage/apps/<%= projectname %>',
   preset: '../../jest.preset.js',
 };

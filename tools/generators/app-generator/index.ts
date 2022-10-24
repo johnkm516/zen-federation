@@ -30,7 +30,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     tree,
     'angular.json',
     (json) => {
-      json.projects.${options.name} = '${options.name}'
+      json.projects[options.name] = '${options.name}'
       return json;
     }
   )

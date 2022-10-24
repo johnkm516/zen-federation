@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  schema: 'prisma/schema.prisma',
+  schema: 'libs/prisma-clients/Auth/prisma/schema.prisma',
   backend: {
     generator: 'sdl',
     output: 'apps/auth-api/src/app/graphql/paljs',

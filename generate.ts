@@ -1,12 +1,15 @@
 import * as path from 'path';
-
 import { ZenGenerator } from './tools/zen-generator';
-import subgraphs from './subgraphs.json'
+import { readFileSync } from 'fs';
+
 
 async function main() {
+  const subgraphsConfig = JSON.parse(readFileSync('./subgraphs.json').toString());
+
   
-  for (let subgraph in subgraphs) {
-    const subgraphAPIPath = subgraphs[subgraph]; 
+  for (let subgraph in subgraphsConfig.subgraphs) {
+    const subgraphAPIPath = subgraphsConfig.subgraphs[subgraph]; 
+
     const generator = new ZenGenerator({
       palConfig: require(`./${subgraphAPIPath}/pal.js`),
       apiOutPath: path.join(__dirname, `${subgraphAPIPath}/src/app/graphql`),

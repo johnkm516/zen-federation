@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'api',
+  displayName: 'auth-api',
 
   globals: {
     'ts-jest': {

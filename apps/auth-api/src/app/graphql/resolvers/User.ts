@@ -16,16 +16,16 @@ import { PrismaSelectArgs } from '../../prisma';
 import { IContext } from '../models';
 import resolvers from '../paljs/User/resolvers';
 import type {
-  Product_AggregateUserArgs,
-  Product_CreateOneUserArgs,
-  Product_DeleteManyUserArgs,
-  Product_DeleteOneUserArgs,
-  Product_FindFirstUserArgs,
-  Product_FindManyUserArgs,
-  Product_FindUniqueUserArgs,
-  Product_UpdateManyUserArgs,
-  Product_UpdateOneUserArgs,
-  Product_UpsertOneUserArgs,
+  Auth_AggregateUserArgs,
+  Auth_CreateOneUserArgs,
+  Auth_DeleteManyUserArgs,
+  Auth_DeleteOneUserArgs,
+  Auth_FindFirstUserArgs,
+  Auth_FindManyUserArgs,
+  Auth_FindUniqueUserArgs,
+  Auth_UpdateManyUserArgs,
+  Auth_UpdateOneUserArgs,
+  Auth_UpsertOneUserArgs,
 } from '../resolversTypes';
 
 export const typeDefs = null;
@@ -51,12 +51,42 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async Product_findUniqueUser(
-    @Args() args: Product_FindUniqueUserArgs,
+  async Auth_findUniqueUser(
+    @Args() args: Auth_FindUniqueUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.Product_findUniqueUser(
+    return resolvers.Query.Auth_findUniqueUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async Auth_findFirstUser(
+    @Args() args: Auth_FindFirstUserArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_findFirstUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async Auth_findManyUser(
+    @Args() args: Auth_FindManyUserArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_findManyUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async Auth_findManyUserCount(
+    @Args() args: Auth_FindManyUserArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_findManyUserCount(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -66,67 +96,22 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async Product_findFirstUser(
-    @Args() args: Product_FindFirstUserArgs,
+  async Auth_aggregateUser(
+    @Args() args: Auth_AggregateUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.Product_findFirstUser(
-      undefined,
-      PrismaSelectArgs(info, args),
-      ctx,
-      info
-    );
-  }
-
-  @Query()
-  @UseGuards(GqlCaslGuard('read'))
-  async Product_findManyUser(
-    @Args() args: Product_FindManyUserArgs,
-    @Info() info: GraphQLResolveInfo,
-    @Context() ctx: IContext
-  ) {
-    return resolvers.Query.Product_findManyUser(undefined, PrismaSelectArgs(info, args), ctx, info);
-  }
-
-  @Query()
-  @UseGuards(GqlCaslGuard('read'))
-  async Product_findManyUserCount(
-    @Args() args: Product_FindManyUserArgs,
-    @Info() info: GraphQLResolveInfo,
-    @Context() ctx: IContext
-  ) {
-    return resolvers.Query.Product_findManyUserCount(
-      undefined,
-      PrismaSelectArgs(info, args),
-      ctx,
-      info
-    );
-  }
-
-  @Query()
-  @UseGuards(GqlCaslGuard('read'))
-  async Product_aggregateUser(
-    @Args() args: Product_AggregateUserArgs,
-    @Info() info: GraphQLResolveInfo,
-    @Context() ctx: IContext
-  ) {
-    return resolvers.Query.Product_aggregateUser(
-      undefined,
-      PrismaSelectArgs(info, args),
-      ctx,
-      info
-    );
+    return resolvers.Query.Auth_aggregateUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Mutation()
   @UseGuards(GqlCaslGuard('create'))
-  async Product_createOneUser(
-    @Args() args: Product_CreateOneUserArgs,
+  async Auth_createOneUser(
+    @Args() args: Auth_CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_createOneUser(
+    return resolvers.Mutation.Auth_createOneUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -136,12 +121,12 @@ export class UserResolver {
 
   @Mutation()
   @UseGuards(GqlCaslGuard('update'))
-  async Product_updateOneUser(
-    @Args() args: Product_UpdateOneUserArgs,
+  async Auth_updateOneUser(
+    @Args() args: Auth_UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_updateOneUser(
+    return resolvers.Mutation.Auth_updateOneUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -151,12 +136,12 @@ export class UserResolver {
 
   @Mutation()
   @UseGuards(GqlCaslGuard('update'))
-  async Product_updateManyUser(
-    @Args() args: Product_UpdateManyUserArgs,
+  async Auth_updateManyUser(
+    @Args() args: Auth_UpdateManyUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_updateManyUser(
+    return resolvers.Mutation.Auth_updateManyUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -166,12 +151,12 @@ export class UserResolver {
 
   @Mutation()
   @UseGuards(GqlCaslGuard('create', 'update'))
-  async Product_upsertOneUser(
-    @Args() args: Product_UpsertOneUserArgs,
+  async Auth_upsertOneUser(
+    @Args() args: Auth_UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_upsertOneUser(
+    return resolvers.Mutation.Auth_upsertOneUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -181,12 +166,12 @@ export class UserResolver {
 
   @Mutation()
   @UseGuards(GqlCaslGuard('delete'))
-  async Product_deleteOneUser(
-    @Args() args: Product_DeleteOneUserArgs,
+  async Auth_deleteOneUser(
+    @Args() args: Auth_DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_deleteOneUser(
+    return resolvers.Mutation.Auth_deleteOneUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -196,12 +181,12 @@ export class UserResolver {
 
   @Mutation()
   @UseGuards(GqlCaslGuard('delete'))
-  async Product_deleteManyUser(
-    @Args() args: Product_DeleteManyUserArgs,
+  async Auth_deleteManyUser(
+    @Args() args: Auth_DeleteManyUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.Product_deleteManyUser(
+    return resolvers.Mutation.Auth_deleteManyUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,

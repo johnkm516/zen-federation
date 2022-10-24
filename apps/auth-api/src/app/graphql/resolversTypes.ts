@@ -1,4 +1,4 @@
-import * as Client from '@nx-prisma/prisma-clients/Auth';
+import * as Client from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Context } from './context';
@@ -41,33 +41,29 @@ export interface User {
 
 export interface Query {
   [key: string]: Resolver<any, any, any>;
-  Product_findFirstUser?: Resolver<{}, Product_FindFirstUserArgs, Client.User | null>;
-  Product_findManyUser?: Resolver<{}, Product_FindManyUserArgs, Client.User[]>;
-  Product_findManyUserCount?: Resolver<{}, Product_FindManyUserArgs, number>;
-  Product_aggregateUser?: Resolver<
+  Auth_findFirstUser?: Resolver<{}, Auth_FindFirstUserArgs, Client.User | null>;
+  Auth_findManyUser?: Resolver<{}, Auth_FindManyUserArgs, Client.User[]>;
+  Auth_findManyUserCount?: Resolver<{}, Auth_FindManyUserArgs, number>;
+  Auth_aggregateUser?: Resolver<
     {},
-    Product_AggregateUserArgs,
-    Client.Prisma.GetUserAggregateType<Product_AggregateUserArgs>
+    Auth_AggregateUserArgs,
+    Client.Prisma.GetUserAggregateType<Auth_AggregateUserArgs>
   >;
-  Product_groupByUser?: Resolver<
-    {},
-    Product_GroupByUserArgs,
-    Client.Prisma.UserGroupByOutputType[]
-  >;
-  Product_findUniqueUser?: Resolver<{}, Product_FindUniqueUserArgs, Client.User | null>;
+  Auth_groupByUser?: Resolver<{}, Auth_GroupByUserArgs, Client.Prisma.UserGroupByOutputType[]>;
+  Auth_findUniqueUser?: Resolver<{}, Auth_FindUniqueUserArgs, Client.User | null>;
 }
 
 export interface Mutation {
   [key: string]: Resolver<any, any, any>;
-  Product_createOneUser?: Resolver<{}, Product_CreateOneUserArgs, Client.User>;
-  Product_upsertOneUser?: Resolver<{}, Product_UpsertOneUserArgs, Client.User>;
-  Product_createManyUser?: Resolver<{}, Product_CreateManyUserArgs, Client.Prisma.BatchPayload>;
-  Product_deleteOneUser?: Resolver<{}, Product_DeleteOneUserArgs, Client.User | null>;
-  Product_updateOneUser?: Resolver<{}, Product_UpdateOneUserArgs, Client.User | null>;
-  Product_updateManyUser?: Resolver<{}, Product_UpdateManyUserArgs, Client.Prisma.BatchPayload>;
-  Product_deleteManyUser?: Resolver<{}, Product_DeleteManyUserArgs, Client.Prisma.BatchPayload>;
-  Product_executeRaw?: Resolver<{}, Product_ExecuteRawArgs, any>;
-  Product_queryRaw?: Resolver<{}, Product_QueryRawArgs, any>;
+  Auth_createOneUser?: Resolver<{}, Auth_CreateOneUserArgs, Client.User>;
+  Auth_upsertOneUser?: Resolver<{}, Auth_UpsertOneUserArgs, Client.User>;
+  Auth_createManyUser?: Resolver<{}, Auth_CreateManyUserArgs, Client.Prisma.BatchPayload>;
+  Auth_deleteOneUser?: Resolver<{}, Auth_DeleteOneUserArgs, Client.User | null>;
+  Auth_updateOneUser?: Resolver<{}, Auth_UpdateOneUserArgs, Client.User | null>;
+  Auth_updateManyUser?: Resolver<{}, Auth_UpdateManyUserArgs, Client.Prisma.BatchPayload>;
+  Auth_deleteManyUser?: Resolver<{}, Auth_DeleteManyUserArgs, Client.Prisma.BatchPayload>;
+  Auth_executeRaw?: Resolver<{}, Auth_ExecuteRawArgs, any>;
+  Auth_queryRaw?: Resolver<{}, Auth_QueryRawArgs, any>;
 }
 
 export interface AggregateUser {
@@ -168,28 +164,28 @@ export interface UserMaxAggregateOutputType {
   googleId?: Resolver<Client.Prisma.UserMaxAggregateOutputType, {}, string | null>;
 }
 
-export interface Product_FindFirstUserArgs {
-  where?: Product_UserWhereInput | null;
-  orderBy?: Product_UserOrderByWithRelationInput[] | null;
-  cursor?: Product_UserWhereUniqueInput | null;
+export interface Auth_FindFirstUserArgs {
+  where?: Auth_UserWhereInput | null;
+  orderBy?: Auth_UserOrderByWithRelationInput[] | null;
+  cursor?: Auth_UserWhereUniqueInput | null;
   take?: number | null;
   skip?: number | null;
   distinct?: UserScalarFieldEnum[] | null;
 }
 
-export interface Product_FindManyUserArgs {
-  where?: Product_UserWhereInput;
-  orderBy?: Product_UserOrderByWithRelationInput[];
-  cursor?: Product_UserWhereUniqueInput;
+export interface Auth_FindManyUserArgs {
+  where?: Auth_UserWhereInput;
+  orderBy?: Auth_UserOrderByWithRelationInput[];
+  cursor?: Auth_UserWhereUniqueInput;
   take?: number;
   skip?: number;
   distinct?: UserScalarFieldEnum[];
 }
 
-export interface Product_AggregateUserArgs {
-  where?: Product_UserWhereInput;
-  orderBy?: Product_UserOrderByWithRelationInput[];
-  cursor?: Product_UserWhereUniqueInput;
+export interface Auth_AggregateUserArgs {
+  where?: Auth_UserWhereInput;
+  orderBy?: Auth_UserOrderByWithRelationInput[];
+  cursor?: Auth_UserWhereUniqueInput;
   take?: number;
   skip?: number;
   _count?: Client.Prisma.UserCountAggregateInputType;
@@ -199,66 +195,66 @@ export interface Product_AggregateUserArgs {
   _max?: Client.Prisma.UserMaxAggregateInputType;
 }
 
-export interface Product_GroupByUserArgs {
-  where?: Product_UserWhereInput;
-  orderBy?: Product_UserOrderByWithAggregationInput[];
+export interface Auth_GroupByUserArgs {
+  where?: Auth_UserWhereInput;
+  orderBy?: Auth_UserOrderByWithAggregationInput[];
   by: UserScalarFieldEnum[];
-  having?: Product_UserScalarWhereWithAggregatesInput;
+  having?: Auth_UserScalarWhereWithAggregatesInput;
   take?: number;
   skip?: number;
 }
 
-export interface Product_FindUniqueUserArgs {
-  where: Product_UserWhereUniqueInput | null;
+export interface Auth_FindUniqueUserArgs {
+  where: Auth_UserWhereUniqueInput | null;
 }
 
-export interface Product_CreateOneUserArgs {
-  data: Product_UserCreateInput;
+export interface Auth_CreateOneUserArgs {
+  data: Auth_UserCreateInput;
 }
 
-export interface Product_UpsertOneUserArgs {
-  where: Product_UserWhereUniqueInput;
-  create: Product_UserCreateInput;
-  update: Product_UserUpdateInput;
+export interface Auth_UpsertOneUserArgs {
+  where: Auth_UserWhereUniqueInput;
+  create: Auth_UserCreateInput;
+  update: Auth_UserUpdateInput;
 }
 
-export interface Product_CreateManyUserArgs {
-  data: Product_UserCreateManyInput[];
+export interface Auth_CreateManyUserArgs {
+  data: Auth_UserCreateManyInput[];
   skipDuplicates?: boolean;
 }
 
-export interface Product_DeleteOneUserArgs {
-  where: Product_UserWhereUniqueInput | null;
+export interface Auth_DeleteOneUserArgs {
+  where: Auth_UserWhereUniqueInput | null;
 }
 
-export interface Product_UpdateOneUserArgs {
-  data: Product_UserUpdateInput | null;
-  where: Product_UserWhereUniqueInput | null;
+export interface Auth_UpdateOneUserArgs {
+  data: Auth_UserUpdateInput | null;
+  where: Auth_UserWhereUniqueInput | null;
 }
 
-export interface Product_UpdateManyUserArgs {
-  data: Product_UserUpdateManyMutationInput;
-  where?: Product_UserWhereInput;
+export interface Auth_UpdateManyUserArgs {
+  data: Auth_UserUpdateManyMutationInput;
+  where?: Auth_UserWhereInput;
 }
 
-export interface Product_DeleteManyUserArgs {
-  where?: Product_UserWhereInput;
+export interface Auth_DeleteManyUserArgs {
+  where?: Auth_UserWhereInput;
 }
 
-export interface Product_ExecuteRawArgs {
+export interface Auth_ExecuteRawArgs {
   query: string;
   parameters?: any;
 }
 
-export interface Product_QueryRawArgs {
+export interface Auth_QueryRawArgs {
   query: string;
   parameters?: any;
 }
 
-export interface Product_UserWhereInput {
-  AND?: Product_UserWhereInput[];
-  OR?: Product_UserWhereInput[];
-  NOT?: Product_UserWhereInput[];
+export interface Auth_UserWhereInput {
+  AND?: Auth_UserWhereInput[];
+  OR?: Auth_UserWhereInput[];
+  NOT?: Auth_UserWhereInput[];
   id?: IntFilter;
   createdAt?: DateTimeFilter;
   username?: StringNullableFilter | null;
@@ -269,7 +265,7 @@ export interface Product_UserWhereInput {
   googleProfile?: JsonNullableFilter;
 }
 
-export interface Product_UserOrderByWithRelationInput {
+export interface Auth_UserOrderByWithRelationInput {
   id?: SortOrder;
   createdAt?: SortOrder;
   username?: SortOrder;
@@ -280,14 +276,14 @@ export interface Product_UserOrderByWithRelationInput {
   googleProfile?: SortOrder;
 }
 
-export interface Product_UserWhereUniqueInput {
+export interface Auth_UserWhereUniqueInput {
   id?: number;
   username?: string;
   email?: string;
   googleId?: string;
 }
 
-export interface Product_UserOrderByWithAggregationInput {
+export interface Auth_UserOrderByWithAggregationInput {
   id?: SortOrder;
   createdAt?: SortOrder;
   username?: SortOrder;
@@ -296,17 +292,17 @@ export interface Product_UserOrderByWithAggregationInput {
   roles?: SortOrder;
   googleId?: SortOrder;
   googleProfile?: SortOrder;
-  _count?: Product_UserCountOrderByAggregateInput;
-  _avg?: Product_UserAvgOrderByAggregateInput;
-  _max?: Product_UserMaxOrderByAggregateInput;
-  _min?: Product_UserMinOrderByAggregateInput;
-  _sum?: Product_UserSumOrderByAggregateInput;
+  _count?: Auth_UserCountOrderByAggregateInput;
+  _avg?: Auth_UserAvgOrderByAggregateInput;
+  _max?: Auth_UserMaxOrderByAggregateInput;
+  _min?: Auth_UserMinOrderByAggregateInput;
+  _sum?: Auth_UserSumOrderByAggregateInput;
 }
 
-export interface Product_UserScalarWhereWithAggregatesInput {
-  AND?: Product_UserScalarWhereWithAggregatesInput[];
-  OR?: Product_UserScalarWhereWithAggregatesInput[];
-  NOT?: Product_UserScalarWhereWithAggregatesInput[];
+export interface Auth_UserScalarWhereWithAggregatesInput {
+  AND?: Auth_UserScalarWhereWithAggregatesInput[];
+  OR?: Auth_UserScalarWhereWithAggregatesInput[];
+  NOT?: Auth_UserScalarWhereWithAggregatesInput[];
   id?: IntWithAggregatesFilter;
   createdAt?: DateTimeWithAggregatesFilter;
   username?: StringNullableWithAggregatesFilter | null;
@@ -317,76 +313,76 @@ export interface Product_UserScalarWhereWithAggregatesInput {
   googleProfile?: JsonNullableWithAggregatesFilter;
 }
 
-export interface Product_UserCreateInput {
+export interface Auth_UserCreateInput {
   createdAt?: Date;
   username?: string | null;
   password?: string | null;
   email: string;
-  roles?: Product_UserCreaterolesInput;
+  roles?: Auth_UserCreaterolesInput;
   googleId?: string | null;
   googleProfile?: NullableJsonNullValueInput;
 }
 
-export interface Product_UserUncheckedCreateInput {
-  id?: number;
-  createdAt?: Date;
-  username?: string | null;
-  password?: string | null;
-  email: string;
-  roles?: Product_UserCreaterolesInput;
-  googleId?: string | null;
-  googleProfile?: NullableJsonNullValueInput;
-}
-
-export interface Product_UserUpdateInput {
-  createdAt?: Date;
-  username?: string | null;
-  password?: string | null;
-  email?: string;
-  roles?: Product_UserUpdaterolesInput;
-  googleId?: string | null;
-  googleProfile?: NullableJsonNullValueInput;
-}
-
-export interface Product_UserUncheckedUpdateInput {
-  id?: number;
-  createdAt?: Date;
-  username?: string | null;
-  password?: string | null;
-  email?: string;
-  roles?: Product_UserUpdaterolesInput;
-  googleId?: string | null;
-  googleProfile?: NullableJsonNullValueInput;
-}
-
-export interface Product_UserCreateManyInput {
+export interface Auth_UserUncheckedCreateInput {
   id?: number;
   createdAt?: Date;
   username?: string | null;
   password?: string | null;
   email: string;
-  roles?: Product_UserCreaterolesInput;
+  roles?: Auth_UserCreaterolesInput;
   googleId?: string | null;
   googleProfile?: NullableJsonNullValueInput;
 }
 
-export interface Product_UserUpdateManyMutationInput {
+export interface Auth_UserUpdateInput {
   createdAt?: Date;
   username?: string | null;
   password?: string | null;
   email?: string;
-  roles?: Product_UserUpdaterolesInput;
+  roles?: Auth_UserUpdaterolesInput;
   googleId?: string | null;
   googleProfile?: NullableJsonNullValueInput;
 }
 
-export interface Product_UserUncheckedUpdateManyInput {
+export interface Auth_UserUncheckedUpdateInput {
   id?: number;
   createdAt?: Date;
   username?: string | null;
   password?: string | null;
   email?: string;
-  roles?: Product_UserUpdaterolesInput;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+}
+
+export interface Auth_UserCreateManyInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email: string;
+  roles?: Auth_UserCreaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+}
+
+export interface Auth_UserUpdateManyMutationInput {
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+}
+
+export interface Auth_UserUncheckedUpdateManyInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
   googleId?: string | null;
   googleProfile?: NullableJsonNullValueInput;
 }
@@ -467,7 +463,7 @@ export interface JsonNullableFilter {
   not?: any;
 }
 
-export interface Product_UserCountOrderByAggregateInput {
+export interface Auth_UserCountOrderByAggregateInput {
   id?: SortOrder;
   createdAt?: SortOrder;
   username?: SortOrder;
@@ -478,20 +474,11 @@ export interface Product_UserCountOrderByAggregateInput {
   googleProfile?: SortOrder;
 }
 
-export interface Product_UserAvgOrderByAggregateInput {
+export interface Auth_UserAvgOrderByAggregateInput {
   id?: SortOrder;
 }
 
-export interface Product_UserMaxOrderByAggregateInput {
-  id?: SortOrder;
-  createdAt?: SortOrder;
-  username?: SortOrder;
-  password?: SortOrder;
-  email?: SortOrder;
-  googleId?: SortOrder;
-}
-
-export interface Product_UserMinOrderByAggregateInput {
+export interface Auth_UserMaxOrderByAggregateInput {
   id?: SortOrder;
   createdAt?: SortOrder;
   username?: SortOrder;
@@ -500,7 +487,16 @@ export interface Product_UserMinOrderByAggregateInput {
   googleId?: SortOrder;
 }
 
-export interface Product_UserSumOrderByAggregateInput {
+export interface Auth_UserMinOrderByAggregateInput {
+  id?: SortOrder;
+  createdAt?: SortOrder;
+  username?: SortOrder;
+  password?: SortOrder;
+  email?: SortOrder;
+  googleId?: SortOrder;
+}
+
+export interface Auth_UserSumOrderByAggregateInput {
   id?: SortOrder;
 }
 
@@ -589,7 +585,7 @@ export interface JsonNullableWithAggregatesFilter {
   _max?: NestedJsonNullableFilter;
 }
 
-export interface Product_UserCreaterolesInput {
+export interface Auth_UserCreaterolesInput {
   set: string[];
 }
 
@@ -605,7 +601,7 @@ export interface StringFieldUpdateOperationsInput {
   set?: string;
 }
 
-export interface Product_UserUpdaterolesInput {
+export interface Auth_UserUpdaterolesInput {
   set?: string[];
   push?: string;
 }

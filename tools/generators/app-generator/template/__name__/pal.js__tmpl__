@@ -5,10 +5,10 @@
  */
 
 module.exports = {
-  schema: 'prisma/schema.prisma',
+  schema: 'libs/prisma-clients/<%= name %>/prisma/schema.prisma',
   backend: {
     generator: 'sdl',
-    output: 'apps/<%= name %>/src/app/graphql/paljs',
+    output: 'apps/<%= projectname %>/src/app/graphql/paljs',
     doNotUseFieldUpdateOperationsInput: true,
     federation: "<%= name %>",
   },
