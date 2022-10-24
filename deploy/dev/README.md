@@ -3,7 +3,7 @@
 
 - Review [simplest k8s deployment example](https://github.com/jwsy/simplest-k8s/tree/mount-local)
 
-- Build the API docker image via `npm run prod:api`.  It will utilize the production environment variables in `apps/auth/src/environments/environment.prod.ts` and produce a Docker image tagged `zen-api:latest`
+- Build the API docker image via `npm run prod:api`.  It will utilize the production environment variables in `apps/auth-api/src/environments/environment.prod.ts` and produce a Docker image tagged `zen-api:latest`
 
 - Fill out the `k8s-secrets.yaml` in this directory.
 

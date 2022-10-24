@@ -24,7 +24,7 @@ module.exports = {
   ],
 
   scopes: [
-    { name: 'api' },
+    { name: 'auth-api' },
     { name: 'auth' },
     { name: 'deps' },
     { name: 'graphql' },

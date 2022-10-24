@@ -12,6 +12,6 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/auth',
+  coverageDirectory: '../../coverage/apps/auth-api',
   preset: '../../jest.preset.js',
 };
