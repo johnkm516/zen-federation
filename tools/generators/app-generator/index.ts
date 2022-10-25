@@ -1,12 +1,14 @@
-import { Tree } from '@nrwl/devkit';
-//import { PrismaClientGenerator }  from '../prisma-generator'
+import { formatFiles, generateFiles, names, Tree } from '@nrwl/devkit';
+import { PrismaClientGenerator }  from '../prisma-generator'
 import { joinPathFragments, updateJson } from '@nrwl/devkit';
 import { applicationGenerator as NestAppGenerator } from '@nrwl/nest';
+import internal from 'stream';
 
 interface GeneratorOptions {
   name: string;
   provider: string;
   connectionString: string;
+  port: number;
 }
 
 /*
@@ -25,16 +27,34 @@ interface ApplicationGeneratorOptions {
 */
 
 export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
-  //await PrismaClientGenerator(tree, {...options,});
+  //
+  const { name, className, constantName } = names(options.name)
+  const foldername = name.charAt(0).toLowerCase() + name.slice(1);
+  const port = options.port;
+
   updateJson(
     tree,
     'angular.json',
     (json) => {
-      json.projects[options.name] = '${options.name}'
+      json.projects[name] = '${options.name}'
       return json;
     }
   )
-  tree.delete
+
+  generateFiles(
+    tree,
+    joinPathFragments(__dirname, './template'),
+    `apps/${name}`,
+    {
+      tmpl: '',
+      name,
+      port,
+      foldername
+    }
+  )
+  await formatFiles(tree)
+
+  await PrismaClientGenerator(tree, {...options,});
 }
 
 export default NestAPIGenerator;
