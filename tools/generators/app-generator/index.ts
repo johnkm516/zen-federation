@@ -1,8 +1,6 @@
 import { formatFiles, generateFiles, names, Tree } from '@nrwl/devkit';
 import { PrismaClientGenerator }  from '../prisma-generator'
 import { joinPathFragments, updateJson } from '@nrwl/devkit';
-import { applicationGenerator as NestAppGenerator } from '@nrwl/nest';
-import internal from 'stream';
 
 interface GeneratorOptions {
   name: string;
@@ -28,7 +26,7 @@ interface ApplicationGeneratorOptions {
 
 export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   //
-  const { name, className, constantName } = names(options.name)
+  const { name } = names(options.name)
   const foldername = name.charAt(0).toLowerCase() + name.slice(1);
   const port = options.port;
 
