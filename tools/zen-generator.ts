@@ -33,14 +33,14 @@ export type ZenGeneratorConfig = {
     /** Defaults to 'prisma' */
     queriesFolderName?: string;
   };
-  subgraphName?: string;
+  subgraphName: string;
 };
 
 export class ZenGenerator {
   constructor(public config: ZenGeneratorConfig) {}
 
   async run() {
-    const subgraph:string = "Auth";
+    const subgraph = this.config.subgraphName;
     console.log(`------------------------ @paljs/generator ------------------------`);
     const palConfig = this.config.palConfig as any;
     console.log(path.join(this.config.apiOutPath, 'paljs'));
@@ -61,7 +61,14 @@ export class ZenGenerator {
     const dmmf = await pal.run();
 
     console.log(`- Wrote: ${palOutPath}`);
+    console.log(`---------------- Overwriting resolverTypes with custom prisma client import ----------------`);
 
+    if (fs.existsSync(path.join(this.config.apiOutPath, 'resolversTypes.ts'))) {
+        let resolverTypes = fs.readFileSync(path.join(this.config.apiOutPath, 'resolversTypes.ts')).toString();
+        resolverTypes = resolverTypes.replace(`import * as Client from '@prisma/client'`, `import * as Client from '@nx-prisma/prisma-clients/${subgraph}';`);
+        fs.writeFileSync(path.join(this.config.apiOutPath, 'resolversTypes.ts'), resolverTypes, {encoding:'utf8',flag:'w'});
+        console.log(path.join(this.config.apiOutPath, 'resolversTypes.ts') + ' overwritten with custom prisma client');
+    }
     // Get Prisma type names via the directory names under the 'prisma' folder;
     const dirents = await readdir(palOutPath, { withFileTypes: true });
     let prismaNames = dirents.filter(d => d.isDirectory()).map(d => d.name);

@@ -17,6 +17,7 @@ async function main() {
       frontend: {
         outPath: path.join(__dirname, 'libs/graphql/src/lib'),
       },
+      subgraphName: subgraph
     });
   
     await generator.run();
