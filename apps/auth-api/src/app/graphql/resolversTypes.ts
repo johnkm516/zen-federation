@@ -1,4 +1,4 @@
-import * as Client from '@prisma/client';
+import * as Client from '@nx-prisma/prisma-clients/Auth';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Context } from './context';
