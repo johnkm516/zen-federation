@@ -4,4 +4,5 @@
 # Allow files and directories
 !/dist/**
 !package*.json
-!prisma/schema.prisma
+!libs/prisma-clients/**
+!pgadmin/**

@@ -1,16 +1,46 @@
 version: '3'
 name: zen
+
 services:
-  postgres:
+  postgres_auth-api:
     image: postgres:14
-    container_name: zen
+    container_name: postgres_auth-api
     restart: always
     environment:
-      POSTGRES_USER: zenadmin
-      POSTGRES_PASSWORD: temp
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${AUTH_PGDATABASE}
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_auth-api:/var/lib/postgresql/data
     ports:
-      - "5445:5432"
+      - 5445:5432
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin
+    build:
+      context: ./
+      dockerfile: ./deploy/postgres/Dockerfile
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USERNAME}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - ./pgadmin/servers.json:/pgadmin4/servers.json
+      - ./pgadmin/pgpass:/pgadmin4/pgpass
+
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
 volumes:
+  postgres_auth-api:
+  pgadmin:
+
+networks:
   postgres:
+    driver: bridge

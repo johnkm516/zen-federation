@@ -1,0 +1,15 @@
+{
+    "Servers": {
+      "Auth": {
+        "Name": "Auth",
+        "Group": "docker_postgres_group",
+        "Host": "postgres_auth-api",
+        "Port": 5432,
+        "MaintenanceDB": "postgres",
+        "Username": "zenadmin",
+        "PassFile": "/pgpass",
+        "SSLMode": "prefer"
+      }
+    }
+  }
+  

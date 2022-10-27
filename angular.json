@@ -1,9 +1,9 @@
 {
   "version": 2,
   "projects": {
-    "auth-api": "apps/auth-api",
     "api-interfaces": "libs/api-interfaces",
     "auth": "libs/auth",
+    "auth-api": "apps/auth-api",
     "common": "libs/common",
     "components": "libs/components",
     "graphql": "libs/graphql",
