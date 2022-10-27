@@ -22,8 +22,10 @@ services:
     build:
       context: ./
       dockerfile: ./deploy/postgres/Dockerfile
+      args:
+        PGADMIN_EMAIL: ${PGADMIN_EMAIL}
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USERNAME}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
 
     volumes:
@@ -36,6 +38,7 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
 
 volumes:
   postgres_auth-api:
