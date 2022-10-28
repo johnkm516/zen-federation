@@ -4,15 +4,15 @@ import { PrismaClientGenerator }  from '../prisma-generator'
 import { joinPathFragments, updateJson } from '@nrwl/devkit';
 import fs from 'fs'
 import * as YAML from 'yaml';
+import 'dotenv';
+
 
 interface GeneratorOptions {
   name: string;
   provider: string;
-  connectionString: string;
-  port: number;
+  apiPort: number;
+  databasePort: number;
 }
-
-
 
 /*
 interface ApplicationGeneratorOptions {
@@ -34,7 +34,9 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   
   const { name } = names(options.name);
   const projectname = name.charAt(0).toLowerCase() + name.slice(1);
-  const port = options.port;
+  const apiPort = options.apiPort;
+  const databasePort = options.databasePort;
+
   const postgres_containerName = `postgres_${projectname}`;
 
   /*
@@ -72,19 +74,30 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     doc.addIn(['services'], doc.createPair(postgres_containerName, {
       image: 'postgres:14',
       container_name: postgres_containerName,
+      restart: 'always',
       environment: {
-        POSTGRES_USER: 'zenadmin',
-        POSTGRES_PASSWORD: 'temp'
+        POSTGRES_PASSWORD: '${PGPASSWORD}',
+        POSTGRES_USER: '${PGUSER}',
+        POSTGRES_DB: `${name.toUpperCase()}_PGDATABASE`
       },
       volumes: [doc.createPair(postgres_containerName, '/var/lib/postgresql/data')],
-      ports: [`5445:5432`]
+      ports: [`${name.toUpperCase()}_PGDATABASE_PORT:5432`],
+      networks: ['postgres']
     }))
     if (doc.hasIn(['volumes', postgres_containerName])) {
       doc.deleteIn(['volumes', postgres_containerName])
     }
     doc.addIn(['volumes'], doc.createPair(postgres_containerName, ''));
     console.log(doc.toString());
+    console.log(doc.getIn(['services']));
   }
+
+  //Get Available port
+  process.env[`${name.toUpperCase()}_PGDATABASE`] = `${name}`;
+  process.env[`${name.toUpperCase()}_PGDATABASE_PORT`] = `${databasePort}`;
+  process.env[`${name.toUpperCase()}_API_PORT`] = `${apiPort}`;
+
+  console.log(process.env);
   
   await formatFiles(tree)
 }

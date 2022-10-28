@@ -5,6 +5,7 @@ import {
   names,
   Tree
 } from '@nrwl/devkit';
+import 'dotenv';
 
 interface GeneratorOptions {
   name: string;
@@ -34,14 +35,8 @@ export async function PrismaClientGenerator(tree: Tree, schema: GeneratorOptions
     tree.write('.env', '')
   }
 
-  let envContents = tree.read('.env')?.toString() ?? ``
-  if (envContents.includes(`${constantName}_SOURCE_URL=`)) {
-    envContents.replace(new RegExp(`${constantName}_SOURCE_URL=.*?\n`), `${constantName}_SOURCE_URL=${schema.connectionString}\n`)
-  } else {
-    envContents += `\n${constantName}_SOURCE_URL=${schema.connectionString}\n`
-  }
-  tree.write('.env', envContents)
-
+  process.env[`${name.toUpperCase()}_SOURCE_URL`] = `postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}`;
+  
   // Write export
   if ( !tree.exists('libs/prisma-clients/index.ts') ) {
     tree.write('libs/prisma-clients/index.ts', '')

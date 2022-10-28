@@ -1,6 +1,5 @@
 FROM dpage/pgadmin4:latest
 ARG PGADMIN_EMAIL
-
 USER pgadmin
 RUN mkdir -p  /var/lib/pgadmin/storage/$PGADMIN_EMAIL
 COPY ./pgadmin/pgpass /var/lib/pgadmin/storage/$PGADMIN_EMAIL

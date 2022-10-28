@@ -3,7 +3,7 @@ import { EnvironmentBase } from './environment.base';
 export const environment: EnvironmentBase = {
   siteUrl: 'https://site.com/#',
   production: true,
-  expressPort: process.env.PORT,
+  expressPort: process.env.AUTH_API_PORT,
   publicRegistration: true,
   graphql: {
     subscriptions: false,

@@ -2,21 +2,6 @@ version: '3'
 name: zen
 
 services:
-  postgres_auth-api:
-    image: postgres:14
-    container_name: postgres_auth-api
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: ${PGPASSWORD}
-      POSTGRES_USER: ${PGUSER}
-      POSTGRES_DB: ${AUTH_PGDATABASE}
-    volumes:
-      - postgres_auth-api:/var/lib/postgresql/data
-    ports:
-      - 5445:5432
-    networks:
-      - postgres
-
   pgadmin:
     container_name: pgadmin
     build:
@@ -39,10 +24,40 @@ services:
       - postgres
     restart: unless-stopped
 
+  postgres_auth-api:
+    image: postgres:14
+    container_name: postgres_auth-api
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${AUTH_PGDATABASE}
+    volumes:
+      - postgres_auth-api:/var/lib/postgresql/data
+    ports:
+      - ${AUTH_PGDATABASE_PORT}:5432
+    networks:
+      - postgres
+
+  postgres_products:
+    image: postgres:14
+    container_name: postgres_products
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PRODUCTS_PGDATABASE}
+    volumes:
+      - postgres_products:/var/lib/postgresql/data
+    ports:
+      - ${PRODUCTS_PGDATABASE_PORT}:5432
+    networks:
+      - postgres
 
 volumes:
   postgres_auth-api:
   pgadmin:
+  postgres_products:
 
 networks:
   postgres:
