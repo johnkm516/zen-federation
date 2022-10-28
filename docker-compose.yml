@@ -19,7 +19,7 @@ services:
       - ./pgadmin/pgpass:/pgadmin4/pgpass
 
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - '${PGADMIN_PORT:-5050}:80'
     networks:
       - postgres
     restart: unless-stopped
@@ -38,6 +38,7 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres
+
 
 volumes:
   postgres_auth-api:

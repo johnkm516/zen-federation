@@ -151,7 +151,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
         "Host": postgres_containerName,
         "Port": 5432,
         "MaintenanceDB": "postgres",
-        "Username": "admin",
+        "Username": `${envConfig['PGUSER']}`,
         "PassFile": "/pgpass",
         "SSLMode": "prefer"
       }
