@@ -34,7 +34,6 @@
       "description": "Port of postgresql database. Leaving this argument empty will automatically assign an unused port.",
       "x-prompt": "What is the port of this subgraph API?"
     }
-
   },
-  "required": ["name", "provider", "connectionString", "api-port"]
+  "required": ["name", "provider"]
 }

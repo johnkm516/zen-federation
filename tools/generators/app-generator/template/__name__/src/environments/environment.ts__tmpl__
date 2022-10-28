@@ -5,7 +5,7 @@ import { EnvironmentBase } from './environment.base';
 export const environment: EnvironmentBase = {
   siteUrl: 'http://localhost:4200/#',
   production: false,
-  expressPort: <%= port %>,
+  expressPort: <%= apiPort %>,
   publicRegistration: true,
   cors: { credentials: true, origin: true },
   graphql: {

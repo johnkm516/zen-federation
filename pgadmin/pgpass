@@ -1,3 +1,2 @@
 #host:port:db:user:pass
 postgres_auth-api:5432:*:admin:temp
-postgres_products:5432:*:admin:temp

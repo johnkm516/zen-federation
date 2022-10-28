@@ -9,16 +9,6 @@
       "Username": "admin",
       "PassFile": "/pgpass",
       "SSLMode": "prefer"
-    },
-    "Products": {
-      "Name": "Products",
-      "Group": "docker_postgres_group",
-      "Host": "postgres_products",
-      "Port": 5432,
-      "MaintenanceDB": "postgres",
-      "Username": "admin",
-      "PassFile": "/pgpass",
-      "SSLMode": "prefer"
     }
   }
 }

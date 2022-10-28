@@ -2,16 +2,16 @@ import { formatFiles, generateFiles, names, Tree } from '@nrwl/devkit';
 import { DIR_DOCUMENT } from '@angular/cdk/bidi';
 import { PrismaClientGenerator }  from '../prisma-generator'
 import { joinPathFragments, updateJson } from '@nrwl/devkit';
-import fs from 'fs'
+import * as fs from 'fs'; 
 import * as YAML from 'yaml';
-import 'dotenv';
+import * as dotenv from 'dotenv';
 
 
 interface GeneratorOptions {
   name: string;
   provider: string;
-  apiPort: number;
-  databasePort: number;
+  apiPort?: number;
+  databasePort?: number;
 }
 
 /*
@@ -34,37 +34,39 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   
   const { name } = names(options.name);
   const projectname = name.charAt(0).toLowerCase() + name.slice(1);
-  const apiPort = options.apiPort;
-  const databasePort = options.databasePort;
+  let apiPort = options.apiPort;
+  let databasePort = options.databasePort;
 
   const postgres_containerName = `postgres_${projectname}`;
 
-  /*
-  //Update angular.json with new API proj
-  updateJson(
-    tree,
-    'angular.json',
-    (json) => {
-      json.projects[projectname] = `apps/${projectname}`
-      return json;
+  //Get Available port
+  const envOriginalString = fs.readFileSync('.env').toString();
+  let envString = envOriginalString;
+  let envConfig = dotenv.parse(envOriginalString);
+  let databasePorts:number[] = [];
+  let apiPorts:number[] = [];
+  Object.keys(envConfig).forEach(key => {
+    if (key.includes('_PGDATABASE_PORT')) {
+      databasePorts.push(Number(envConfig[key]));
+    } else if (key.includes('_API_PORT')) {
+      apiPorts.push(Number(envConfig[key]));
     }
-  )
+  });
+  databasePorts = databasePorts.sort();
+  apiPorts = apiPorts.sort();
 
-  //Generate Nest API using template files in generator
-  generateFiles(
-    tree,
-    joinPathFragments(__dirname, './template'),
-    `apps/`,
-    {
-      tmpl: '',
-      name,
-      port,
-      projectname
-    }
-  )
+  if (databasePort && databasePorts.includes(databasePort)) {
+    throw new Error("Port conflict! databasePort " + databasePort + " already exists in .env!");
+  } else if (!databasePort) {
+    databasePort = databasePorts[databasePorts.length - 1] + 1
+  }
 
-  await PrismaClientGenerator(tree, {...options,});
-  */
+  if (apiPort && apiPorts.includes(apiPort)) {
+    throw new Error("Port conflict! databasePort " + apiPort + " already exists in .env!");
+  } else if (!apiPort) {
+    apiPort = apiPorts[apiPorts.length - 1] + 1
+  }
+  
   let dockercompose = tree.read('docker-compose.yml')?.toString() ?? ``
   if (dockercompose != '') {
     const doc:YAML.Document = YAML.parseDocument(dockercompose);
@@ -78,26 +80,96 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       environment: {
         POSTGRES_PASSWORD: '${PGPASSWORD}',
         POSTGRES_USER: '${PGUSER}',
-        POSTGRES_DB: `${name.toUpperCase()}_PGDATABASE`
+        POSTGRES_DB: `\${${name.toUpperCase()}_PGDATABASE}`
       },
       volumes: [doc.createPair(postgres_containerName, '/var/lib/postgresql/data')],
-      ports: [`${name.toUpperCase()}_PGDATABASE_PORT:5432`],
+      ports: [`\${${name.toUpperCase()}_PGDATABASE_PORT}:5432`],
       networks: ['postgres']
     }))
     if (doc.hasIn(['volumes', postgres_containerName])) {
-      doc.deleteIn(['volumes', postgres_containerName])
+      doc.deleteIn(['volumes', postgres_containerName]);
     }
-    doc.addIn(['volumes'], doc.createPair(postgres_containerName, ''));
-    console.log(doc.toString());
-    console.log(doc.getIn(['services']));
+    doc.addIn(['volumes'], doc.createPair(postgres_containerName, {}));
+    doc.deleteIn(['volumes', postgres_containerName, {}]);
+
+    tree.write('docker-compose.yml', doc.toString().replace('{}', ''));
   }
 
-  //Get Available port
-  process.env[`${name.toUpperCase()}_PGDATABASE`] = `${name}`;
-  process.env[`${name.toUpperCase()}_PGDATABASE_PORT`] = `${databasePort}`;
-  process.env[`${name.toUpperCase()}_API_PORT`] = `${apiPort}`;
+  if (!envConfig[`${name.toUpperCase()}_PGDATABASE`]) {
+    envString += `${name.toUpperCase()}_PGDATABASE=${name}\n`;
+  } else {
+    console.log(`${name.toUpperCase()}_PGDATABASE already exists in .env!`);
+  }
+  if (!envConfig[`${name.toUpperCase()}_PGDATABASE_PORT`]) {
+    envString += `${name.toUpperCase()}_PGDATABASE_PORT=${databasePort}\n`;
+  } else {
+    console.log(`${name.toUpperCase()}_PGDATABASE already exists in .env!`);
+  }
+  if (!envConfig[`${name.toUpperCase()}_API_PORT`]) {
+    envString += `${name.toUpperCase()}_API_PORT=${apiPort}\n`;
+  } else {
+    console.log(`${name.toUpperCase()}_API_PORT already exists in .env!`);
+  }
+  tree.write('.env', envString);
 
-  console.log(process.env);
+  
+  //Update angular.json with new API proj
+  updateJson(
+    tree,
+    'angular.json',
+    (json) => {
+      json.projects[projectname] = `apps/${projectname}`
+      return json;
+    }
+  )
+
+
+  //Generate Nest API using template files in generator
+  generateFiles(
+    tree,
+    joinPathFragments(__dirname, './template'),
+    `apps/`,
+    {
+      tmpl: '',
+      name: name,
+      ENV_apiPort: `${name.toUpperCase()}_API_PORT`,
+      apiPort: apiPort,
+      projectname: projectname
+    }
+  )
+  
+  //Update server.json with new PostgreSQL connection
+  updateJson(
+    tree,
+    'pgadmin/servers.json',
+    (json) => {
+      json.Servers[name] = {
+        "Name": name,
+        "Group": "docker_postgres_group",
+        "Host": postgres_containerName,
+        "Port": 5432,
+        "MaintenanceDB": "postgres",
+        "Username": "admin",
+        "PassFile": "/pgpass",
+        "SSLMode": "prefer"
+      }
+      return json;
+    }
+  )
+
+  //Update pgpass with new PostgreSQL connection
+  let pgpass = fs.readFileSync('pgadmin/pgpass').toString();
+  if (!pgpass.includes(`${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}`)) { 
+    pgpass += `${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}\n`
+  }
+  tree.write('pgadmin/pgpass', pgpass);
+  
+  //Create Prisma Client for new app
+  await PrismaClientGenerator(tree, {
+    name: name,
+    provider: options.provider,
+    connectionString: `postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}`
+  });
   
   await formatFiles(tree)
 }
