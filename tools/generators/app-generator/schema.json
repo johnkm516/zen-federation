@@ -26,13 +26,13 @@
     },
     "apiPort": {
       "type": "number",
-      "description": "Port of subgraph API",
+      "description": "Port of the subgraph API. Leaving this argument empty will automatically assign an unused port.",
       "x-prompt": "What is the port of this subgraph API?"
     },
     "databasePort": {
       "type": "number",
       "description": "Port of postgresql database. Leaving this argument empty will automatically assign an unused port.",
-      "x-prompt": "What is the port of this subgraph API?"
+      "x-prompt": "What is the port of this API's database?"
     }
   },
   "required": ["name", "provider"]

@@ -112,18 +112,6 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   }
   tree.write('.env', envString);
 
-  
-  //Update angular.json with new API proj
-  updateJson(
-    tree,
-    'angular.json',
-    (json) => {
-      json.projects[projectname] = `apps/${projectname}`
-      return json;
-    }
-  )
-
-
   //Generate Nest API using template files in generator
   generateFiles(
     tree,
@@ -137,6 +125,20 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       projectname: projectname
     }
   )
+
+  //Create Prisma Client for new app
+  await PrismaClientGenerator(tree, {
+    name: name,
+    provider: options.provider,
+    connectionString: `postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}`
+  });
+
+  //Update pgpass with new PostgreSQL connection
+  let pgpass = fs.readFileSync('pgadmin/pgpass').toString();
+  if (!pgpass.includes(`${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}`)) { 
+    pgpass += `${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}\n`
+  }
+  tree.write('pgadmin/pgpass', pgpass);
   
   //Update server.json with new PostgreSQL connection
   updateJson(
@@ -157,19 +159,25 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     }
   )
 
-  //Update pgpass with new PostgreSQL connection
-  let pgpass = fs.readFileSync('pgadmin/pgpass').toString();
-  if (!pgpass.includes(`${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}`)) { 
-    pgpass += `${postgres_containerName}:5432:*:${envConfig['PGUSER']}:${envConfig['PGPASSWORD']}\n`
-  }
-  tree.write('pgadmin/pgpass', pgpass);
-  
-  //Create Prisma Client for new app
-  await PrismaClientGenerator(tree, {
-    name: name,
-    provider: options.provider,
-    connectionString: `postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}`
-  });
+  //Update angular.json with new API proj
+  updateJson(
+    tree,
+    'angular.json',
+    (json) => {
+      json.projects[projectname] = `apps/${projectname}`
+      return json;
+    }
+  )
+
+  //Update subgraphs.json with new API proj
+  updateJson(
+    tree,
+    'subgraphs.json',
+    (json) => {
+      json.subgraphs[name] = `apps/${projectname}`
+      return json;
+    }
+  )
   
   await formatFiles(tree)
 }
