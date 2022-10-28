@@ -110,7 +110,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   } else {
     console.log(`${name.toUpperCase()}_API_PORT already exists in .env!`);
   }
-  tree.write('.env', envString);
+  fs.writeFileSync('.env', envString);
 
   //Generate Nest API using template files in generator
   generateFiles(
