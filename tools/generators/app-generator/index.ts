@@ -82,7 +82,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
         POSTGRES_USER: '${PGUSER}',
         POSTGRES_DB: `\${${name.toUpperCase()}_PGDATABASE}`
       },
-      volumes: [`${postgres_containerName}:/var/lib/postgresql/data)`],
+      volumes: [`${postgres_containerName}:/var/lib/postgresql/data`],
       ports: [`\${${name.toUpperCase()}_PGDATABASE_PORT}:5432`],
       networks: ['postgres']
     }))
