@@ -3,6 +3,7 @@ name: zen
 
 services:
   pgadmin:
+    image: dpage/pgadmin4:latest
     container_name: pgadmin
     build:
       context: ./
@@ -22,16 +23,16 @@ services:
       - postgres
     restart: unless-stopped
 
-  postgres_auth-api:
+  postgres-auth-api:
     image: postgres:14
-    container_name: postgres_auth-api
+    container_name: postgres-auth-api
     restart: always
     environment:
       POSTGRES_PASSWORD: ${PGPASSWORD}
       POSTGRES_USER: ${PGUSER}
       POSTGRES_DB: ${AUTH_PGDATABASE}
     volumes:
-      - postgres_auth-api:/var/lib/postgresql/data
+      - postgres-auth-api:/var/lib/postgresql/data
     ports:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
@@ -39,7 +40,7 @@ services:
 
 
 volumes:
-  postgres_auth-api:
+  postgres-auth-api:
   pgadmin:
 networks:
   postgres:

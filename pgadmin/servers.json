@@ -3,7 +3,7 @@
     "Auth": {
       "Name": "Auth",
       "Group": "docker_postgres_group",
-      "Host": "postgres_auth-api",
+      "Host": "postgres-auth-api",
       "Port": 5432,
       "MaintenanceDB": "postgres",
       "Username": "admin",

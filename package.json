@@ -17,6 +17,8 @@
     "prisma:studio": "prisma studio",
     "prod:apps": "nx build portal --prod",
     "prod:api": "nx build api --prod && npm run dockerize:api",
+    "kompose": "kompose convert -f docker-compose.yml --out ./deploy/k8s/",
+    "kube:deploy": "kubectl apply -f ./deploy/k8s/",
     "dockerize:api": "ts-node tools/create-deploy-package.ts && docker build -f deploy/api/Dockerfile -t zen-api .",
     "docker:run-api": "docker run -d --name zen-api -p 7080:7080 zen-api",
     "docs": "ng compodoc api",

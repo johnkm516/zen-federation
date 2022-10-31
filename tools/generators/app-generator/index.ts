@@ -37,7 +37,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   let apiPort = options.apiPort;
   let databasePort = options.databasePort;
 
-  const postgres_containerName = `postgres_${projectname}`;
+  const postgres_containerName = `postgres-${projectname}`;
 
   //Get Available port
   const envOriginalString = fs.readFileSync('.env').toString();
