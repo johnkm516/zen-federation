@@ -3,6 +3,7 @@ ARG PGADMIN_EMAIL
 USER pgadmin
 RUN mkdir -p  /var/lib/pgadmin/storage/$PGADMIN_EMAIL
 COPY ./pgadmin/pgpass /var/lib/pgadmin/storage/$PGADMIN_EMAIL
+COPY ./pgadmin/servers.json /pgadmin4/servers.json
 USER root
 RUN chown pgadmin /var/lib/pgadmin/storage/$PGADMIN_EMAIL/pgpass
 RUN chmod 0600 /var/lib/pgadmin/storage/$PGADMIN_EMAIL/pgpass

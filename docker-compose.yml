@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 name: zen
 
 services:
@@ -15,8 +15,6 @@ services:
 
     volumes:
       - pgadmin:/var/lib/pgadmin
-      - ./pgadmin/servers.json:/pgadmin4/servers.json
-      - ./pgadmin/pgpass:/pgadmin4/pgpass
 
     ports:
       - '${PGADMIN_PORT:-5050}:80'
