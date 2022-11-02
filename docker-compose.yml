@@ -8,7 +8,7 @@ services:
     container_name: pgadmin
     build:
       context: ./
-      dockerfile: ./deploy/postgres/Dockerfile
+      dockerfile: ./deploy/postgres/PGAdmin_Dockerfile
       args:
         PGADMIN_EMAIL: ${PGADMIN_EMAIL}
     environment:
