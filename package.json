@@ -9,7 +9,7 @@
     "start:products": "nx serve products --verbose",
     "start:e2e": "nx e2e portal-e2e --watch",
     "frontend:gen": "graphql-codegen -c apollo-angular.yml && graphql-codegen -c apollo-possible-types.yml",
-    "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && prisma generate --schema=./libs/prisma-clients/Products/prisma/schema.prisma && ts-node generate.ts",
+    "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
     "prisma:migrate:Auth": "prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
     "prisma:migrate:Products": "prisma migrate dev --schema=./libs/prisma-clients/Products/prisma/schema.prisma && ts-node generate.ts",
     "prisma:create-only": "prisma migrate dev --create-only",

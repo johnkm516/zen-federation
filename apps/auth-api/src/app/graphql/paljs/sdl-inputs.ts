@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
   scalar DateTime
 
-  type BatchPayload {
+  type BatchPayload @shareable {
     count: Int!
   }
   enum JsonNullValueFilter {
@@ -568,7 +568,7 @@ export default gql`
     _max: UserMaxAggregateOutputType
   }
 
-  type UserCountAggregateOutputType @shareable {
+  type UserCountAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {
     id: Int!
     createdAt: Int!
     username: Int!
@@ -580,11 +580,11 @@ export default gql`
     _all: Int!
   }
 
-  type UserAvgAggregateOutputType @shareable {
+  type UserAvgAggregateOutputType @key(fields: "id") @shareable {
     id: Float
   }
 
-  type UserSumAggregateOutputType @shareable {
+  type UserSumAggregateOutputType @key(fields: "id") @shareable {
     id: Int
   }
 
