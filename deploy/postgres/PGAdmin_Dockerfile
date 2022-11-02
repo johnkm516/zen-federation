@@ -13,4 +13,4 @@ RUN PGADMIN_EMAIL_UNDERSCORE=$(echo "$PGADMIN_EMAIL" | sed 's/@/_/g') \
  && rm -r -f /var/lib/pgadmin/storage/$PGADMIN_EMAIL_UNDERSCORE \
  && mv /var/lib/pgadmin/storage/$PGADMIN_EMAIL/ /var/lib/pgadmin/storage/$PGADMIN_EMAIL_UNDERSCORE
 USER pgadmin
-ENTRYPOINT ["/entrypoint.sh", "/pgadmin4/init.sh"]
+ENTRYPOINT ["/pgadmin4/init.sh"]
