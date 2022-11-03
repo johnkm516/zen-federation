@@ -2,13 +2,29 @@ version: '2'
 name: zen
 
 services:
+  subgraph-auth-api:
+    image: zen/subgraph-auth-api
+    container_name: subgraph-auth-api
+    build: 
+      context: ./
+      dockerfile: ./deploy/api/Dockerfile
+      args:
+        PRISMA_CLIENT_PATH: libs/prisma-clients/Auth
+        API_PORT: ${AUTH_API_PORT}
+    environment:
+      AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
+      AUTH_API_PORT: ${AUTH_API_PORT}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+    ports:
+      - '${AUTH_API_PORT}:${AUTH_API_PORT}'
+
   pgadmin:
     image: zen/pgadmin4:latest
     hostname: pgadmin
     container_name: pgadmin
     build:
       context: ./
-      dockerfile: ./deploy/postgres/PGAdmin_Dockerfile
+      dockerfile: ./deploy/postgres/Dockerfile
       args:
         PGADMIN_EMAIL: ${PGADMIN_EMAIL}
     environment:
@@ -39,11 +55,25 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres
+  postgres-products:
+    image: postgres:14
+    container_name: postgres-products
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PRODUCTS_PGDATABASE}
+    volumes:
+      - postgres-products:/var/lib/postgresql/data
+    ports:
+      - ${PRODUCTS_PGDATABASE_PORT}:5432
+    networks:
+      - postgres
 
-      
 volumes:
   postgres-auth-api:
   pgadmin:
+  postgres-products:
 networks:
   postgres:
     driver: bridge
