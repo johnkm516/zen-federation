@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "<%= outputLocation %>"
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {

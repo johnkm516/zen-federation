@@ -109,6 +109,7 @@
     "@nrwl/web": "^15.0.10",
     "@nrwl/workspace": "15.0.10",
     "@paljs/generator": "file:libs/paljs-generator-5.0.1.tgz",
+    "@paljs/schema": "file:libs/paljs-schema-4.1.0.tgz",
     "@prisma/internals": "~4.5.0",
     "@types/apollo-upload-client": "^17.0.2",
     "@types/bcryptjs": "^2.4.2",

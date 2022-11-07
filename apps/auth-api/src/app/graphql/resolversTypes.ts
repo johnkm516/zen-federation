@@ -281,6 +281,13 @@ export interface Auth_UserWhereUniqueInput {
   username?: string;
   email?: string;
   googleId?: string;
+  AND?: Auth_UserWhereInput[];
+  OR?: Auth_UserWhereInput[];
+  NOT?: Auth_UserWhereInput[];
+  createdAt?: DateTimeFilter;
+  password?: StringNullableFilter | null;
+  roles?: StringNullableListFilter;
+  googleProfile?: JsonNullableFilter;
 }
 
 export interface Auth_UserOrderByWithAggregationInput {
