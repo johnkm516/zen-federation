@@ -167,6 +167,7 @@
       "path": "node_modules/cz-customizable"
     }
   },
+  "type": "module",
   "importSort": {
     ".js, .ts": {
       "style": "module",

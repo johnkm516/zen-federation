@@ -11,8 +11,8 @@ export function HttpCaslGuard(...actions: Array<Action>) {
   @Injectable()
   class CaslGuard extends AuthGuard('jwt') {
     constructor(
-      private readonly reflector: Reflector,
-      private readonly caslAbilityFactory: CaslAbilityFactory
+      readonly reflector: Reflector,
+      readonly caslAbilityFactory: CaslAbilityFactory
     ) {
       super();
     }

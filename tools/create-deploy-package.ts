@@ -5,7 +5,6 @@ class Tools {
     const packageFile = await readFile('package.json');
     const packageJson = JSON.parse(packageFile.toString());
     delete packageJson.scripts.postinstall;
-    delete packageJson.devDependencies;
     await writeFile('dist/package-deploy.json', JSON.stringify(packageJson, undefined, 2));
   }
 }

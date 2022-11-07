@@ -4,7 +4,7 @@
 # Allow files and directories
 !/dist/**
 !package*.json
-!libs/prisma-clients/**
-!libs/paljs-generator-5.0.1.tgz 
-!libs/paljs-types-5.0.1.tgz 
+!tsconfig.base.json
+!libs/**
+!/apps/**
 !pgadmin/**

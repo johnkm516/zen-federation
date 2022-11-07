@@ -12,7 +12,8 @@
         "tsConfig": "apps/auth-api/tsconfig.app.json",
         "assets": ["apps/auth-api/src/assets"],
         "target": "node",
-        "compiler": "tsc"
+        "compiler": "tsc",
+        "webpackConfig": "apps/auth-api/webpack.config.ts"
       },
       "configurations": {
         "production": {
