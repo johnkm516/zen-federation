@@ -39,21 +39,21 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres
-  subgraph-auth-api:
-    image: zen/subgraph-auth-api
-    container_name: subgraph-auth-api
-    build: 
-      context: ./
-      dockerfile: ./deploy/api/Dockerfile
-      args:
-        PRISMA_CLIENT_PATH: libs/prisma-clients/Auth
-        API_PORT: ${AUTH_API_PORT}
-    environment:
-      AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
-      AUTH_API_PORT: ${AUTH_API_PORT}
-      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
-    ports:
-      - '${AUTH_API_PORT}:${AUTH_API_PORT}'
+  #subgraph-auth-api:
+  #  image: zen/subgraph-auth-api
+  #  container_name: subgraph-auth-api
+  #  build: 
+  #    context: ./
+  #    dockerfile: ./deploy/api/Dockerfile
+  #    args:
+  #      PRISMA_CLIENT_PATH: libs/prisma-clients/Auth
+  #      API_PORT: ${AUTH_API_PORT}
+  #  environment:
+  #    AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
+  #    AUTH_API_PORT: ${AUTH_API_PORT}
+  #    JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+  #  ports:
+  #    - '${AUTH_API_PORT}:${AUTH_API_PORT}'
 
 volumes:
   postgres-auth-api:

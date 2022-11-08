@@ -1,7 +1,17 @@
 import * as Client from '@nx-prisma/prisma-clients/Auth';
 import { GraphQLResolveInfo } from 'graphql';
-
 import { Context } from './context';
+
+// cause typescript not to expand types and preserve names
+type NoExpand<T> = T extends unknown ? T : never;
+
+// this type assumes the passed object is entirely optional
+type AtLeast<O extends object, K extends string> = NoExpand<
+  O extends unknown
+  ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+    | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
+  : never>;
+
 
 type Resolver<T extends {}, A extends {}, R extends any> = (
   parent: T,
@@ -276,6 +286,38 @@ export interface Auth_UserOrderByWithRelationInput {
   googleProfile?: SortOrder;
 }
 
+
+export type Auth_UserWhereUniqueInput = AtLeast<{
+  id?: number
+  username?: string
+  email?: string
+  googleId?: string
+  AND?: Auth_UserWhereInput[];
+  OR?: Auth_UserWhereInput[];
+  NOT?: Auth_UserWhereInput[];
+  createdAt?: DateTimeFilter | Date | string
+  password?: StringNullableFilter | string | null
+  roles?: StringNullableListFilter
+  googleProfile?: JsonNullableFilter
+}, "id" | "username" | "email" | "googleId">
+
+
+/*
+export interface t {
+  id: number;
+  username?: string;
+  email?: string;
+  googleId?: string;
+  AND?: Auth_UserWhereInput[];
+  OR?: Auth_UserWhereInput[];
+  NOT?: Auth_UserWhereInput[];
+  createdAt?: DateTimeFilter | Date | string;
+  password?: StringNullableFilter | string | null;
+  roles?: StringNullableListFilter;
+  googleProfile?: JsonNullableFilter;
+}
+
+
 export interface Auth_UserWhereUniqueInput {
   id?: number;
   username?: string;
@@ -289,6 +331,9 @@ export interface Auth_UserWhereUniqueInput {
   roles?: StringNullableListFilter;
   googleProfile?: JsonNullableFilter;
 }
+*/
+
+
 
 export interface Auth_UserOrderByWithAggregationInput {
   id?: SortOrder;

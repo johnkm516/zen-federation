@@ -1,10 +1,11 @@
+/*
 import { createWriteStream, existsSync, mkdirSync } from 'fs';
 
 import { Logger, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import gql from 'graphql-tag';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+import { GraphQLUpload } from 'graphql-upload';
 import { interval } from 'rxjs';
 
 import { GqlGuard, GqlUser, RequestUser, Roles } from '../../auth';
@@ -95,3 +96,4 @@ export class SampleResolver {
     return pubSub.asyncIterator('sampleSubscription');
   }
 }
+*/

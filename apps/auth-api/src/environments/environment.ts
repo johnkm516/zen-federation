@@ -14,10 +14,6 @@ export const environment: EnvironmentBase = {
     sandbox: true,
     introspection: true,
     csrfPrevention: true,
-    uploads: {
-      maxFileSize: 20_000_000, // 20 MB
-      maxFiles: 5,
-    },
   },
   jwtOptions: {
     secret: process.env.JWT_PRIVATE_KEY,

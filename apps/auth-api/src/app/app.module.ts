@@ -1,7 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
-
 import { environment } from '../environments/environment';
 import { ZenAuthModule } from './auth';
 import { ConfigModule, ConfigService } from './config';
@@ -29,6 +27,6 @@ import { PrismaModule } from './prisma';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(graphqlUploadExpress(environment.graphql.uploads)).forRoutes('graphql');
+    //consumer.apply(graphqlUploadExpress(environment.graphql.uploads)).forRoutes('graphql');
   }
 }

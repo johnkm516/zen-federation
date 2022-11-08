@@ -1,6 +1,6 @@
 overwrite: true
 schema: 
-  - http://localhost:7080/graphql
+  - http://localhost:${AUTH_API_PORT}/graphql
   - libs/graphql/src/lib/client/schema.gql.ts
 documents: 
   - "libs/**/*.ts"

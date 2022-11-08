@@ -8,7 +8,6 @@ import {
 } from 'apollo-server-core';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { print } from 'graphql';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 
 import { ConfigService } from '../config';
 import { PrismaService } from '../prisma';
@@ -26,7 +25,6 @@ export class GqlConfigService implements GqlOptionsFactory {
 
     return {
       typeDefs: print(ALL_TYPE_DEFS),
-      resolvers: { Upload: GraphQLUpload },
       debug: !this.config.production,
       playground: false,
       plugins,

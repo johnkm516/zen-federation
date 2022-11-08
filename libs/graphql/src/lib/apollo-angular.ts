@@ -867,6 +867,13 @@ export type UserWhereUniqueInput = {
   googleId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   username?: InputMaybe<Scalars['String']>;
+  AND?: InputMaybe<Array<UserWhereInput>>;
+  OR?: InputMaybe<Array<UserWhereInput>>;
+  NOT?: InputMaybe<Array<UserWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  password?: InputMaybe<StringNullableFilter>;
+  roles?: InputMaybe<StringNullableListFilter>;
+  googleProfile?: InputMaybe<JsonNullableFilter>;
 };
 
 export type _Entity = User;
