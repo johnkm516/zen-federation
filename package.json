@@ -10,7 +10,7 @@
     "start:e2e": "nx e2e portal-e2e --watch",
     "frontend:gen": "graphql-codegen -c apollo-angular.yml && graphql-codegen -c apollo-possible-types.yml",
     "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
-    "prisma:migrate": "prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
+    "prisma:migrate": "prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && prisma migrate dev --schema=./libs/prisma-clients/Products/prisma/schema.prisma && ts-node generate.ts",
     "prisma:migrate:Auth": "prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
     "prisma:migrate:Products": "prisma migrate dev --schema=./libs/prisma-clients/Products/prisma/schema.prisma && ts-node generate.ts",
     "prisma:create-only": "prisma migrate dev --create-only",
@@ -29,9 +29,6 @@
     "format": "nx format:write --all",
     "build": "nx build portal",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@apollo/federation": "^0.37.1",
