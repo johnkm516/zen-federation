@@ -4,36 +4,7 @@ rover subgraph introspect \
   rover subgraph publish ###YOUR MANAGED GRAPH REF### \
   --name auth \
   --schema - \
-  --routing-url http://localhost:7080/graphql
+  --routing-url http://localhost:###API_PORT###/graphql
 
-rover subgraph introspect \
-  http://localhost:7084/graphql | \
-  APOLLO_KEY=###YOUR APOLLO STUDIO KEY### \
-  rover subgraph publish ###YOUR MANAGED GRAPH REF### \
-  --name products \
-  --schema - \
-  --routing-url http://localhost:7081/graphql
 
 APOLLO_KEY=###YOUR APOLLO STUDIO KEY### APOLLO_GRAPH_REF=###YOUR MANAGED GRAPH REF### ./router --config ./router.yaml
-
-
-rover subgraph introspect \
-  http://localhost:7083/graphql | \
-  APOLLO_KEY=service:Zen-v7ekr:sLi7Wxe7JcxwhZ3wdUk56w \
-  rover subgraph publish Zen-v7ekr@current \
-  --name auth \
-  --schema - \
-  --routing-url http://localhost:7083/graphql
-
-rover subgraph introspect \
-  http://localhost:7085/graphql | \
-  APOLLO_KEY=service:Zen-v7ekr:sLi7Wxe7JcxwhZ3wdUk56w \
-  rover subgraph publish Zen-v7ekr@current \
-  --name products \
-  --schema - \
-  --routing-url http://localhost:7085/graphql
-
-APOLLO_KEY=service:Zen-v7ekr:sLi7Wxe7JcxwhZ3wdUk56w APOLLO_GRAPH_REF=Zen-v7ekr@current ./router --config ./router.yaml
-
-
-service:Zen-v7ekr:sLi7Wxe7JcxwhZ3wdUk56w
