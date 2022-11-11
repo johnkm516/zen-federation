@@ -21,8 +21,10 @@ import type {
   Auth_DeleteManyUserArgs,
   Auth_DeleteOneUserArgs,
   Auth_FindFirstUserArgs,
+  Auth_FindFirstUserOrThrowArgs,
   Auth_FindManyUserArgs,
   Auth_FindUniqueUserArgs,
+  Auth_FindUniqueUserOrThrowArgs,
   Auth_UpdateManyUserArgs,
   Auth_UpdateOneUserArgs,
   Auth_UpsertOneUserArgs,
@@ -61,12 +63,42 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
+  async Auth_findUniqueUserOrThrow(
+    @Args() args: Auth_FindUniqueUserOrThrowArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_findUniqueUserOrThrow(
+      undefined,
+      PrismaSelectArgs(info, args),
+      ctx,
+      info
+    );
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
   async Auth_findFirstUser(
     @Args() args: Auth_FindFirstUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
     return resolvers.Query.Auth_findFirstUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async Auth_findFirstUserOrThrow(
+    @Args() args: Auth_FindFirstUserOrThrowArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_findFirstUserOrThrow(
+      undefined,
+      PrismaSelectArgs(info, args),
+      ctx,
+      info
+    );
   }
 
   @Query()

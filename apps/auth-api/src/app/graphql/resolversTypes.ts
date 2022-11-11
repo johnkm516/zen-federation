@@ -1,6 +1,13 @@
 import * as Client from '@nx-prisma/prisma-clients/Auth';
 import { GraphQLResolveInfo } from 'graphql';
+
 import { Context } from './context';
+type Resolver<T extends {}, A extends {}, R extends any> = (
+  parent: T,
+  args: A,
+  context: Context,
+  info: GraphQLResolveInfo
+) => Promise<R>;
 
 // cause typescript not to expand types and preserve names
 type NoExpand<T> = T extends unknown ? T : never;
@@ -8,17 +15,11 @@ type NoExpand<T> = T extends unknown ? T : never;
 // this type assumes the passed object is entirely optional
 type AtLeast<O extends object, K extends string> = NoExpand<
   O extends unknown
-  ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
-    | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
-  : never>;
-
-
-type Resolver<T extends {}, A extends {}, R extends any> = (
-  parent: T,
-  args: A,
-  context: Context,
-  info: GraphQLResolveInfo
-) => Promise<R>;
+    ?
+        | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+        | ({ [P in keyof O as P extends K ? K : never]-?: O[P] } & O)
+    : never
+>;
 
 export interface Resolvers {
   [key: string]: { [key: string]: Resolver<any, any, any> };
@@ -52,6 +53,7 @@ export interface User {
 export interface Query {
   [key: string]: Resolver<any, any, any>;
   Auth_findFirstUser?: Resolver<{}, Auth_FindFirstUserArgs, Client.User | null>;
+  Auth_findFirstUserOrThrow?: Resolver<{}, Auth_FindFirstUserOrThrowArgs, Client.User | null>;
   Auth_findManyUser?: Resolver<{}, Auth_FindManyUserArgs, Client.User[]>;
   Auth_findManyUserCount?: Resolver<{}, Auth_FindManyUserArgs, number>;
   Auth_aggregateUser?: Resolver<
@@ -61,6 +63,7 @@ export interface Query {
   >;
   Auth_groupByUser?: Resolver<{}, Auth_GroupByUserArgs, Client.Prisma.UserGroupByOutputType[]>;
   Auth_findUniqueUser?: Resolver<{}, Auth_FindUniqueUserArgs, Client.User | null>;
+  Auth_findUniqueUserOrThrow?: Resolver<{}, Auth_FindUniqueUserOrThrowArgs, Client.User | null>;
 }
 
 export interface Mutation {
@@ -183,6 +186,15 @@ export interface Auth_FindFirstUserArgs {
   distinct?: UserScalarFieldEnum[] | null;
 }
 
+export interface Auth_FindFirstUserOrThrowArgs {
+  where?: Auth_UserWhereInput | null;
+  orderBy?: Auth_UserOrderByWithRelationInput[] | null;
+  cursor?: Auth_UserWhereUniqueInput | null;
+  take?: number | null;
+  skip?: number | null;
+  distinct?: UserScalarFieldEnum[] | null;
+}
+
 export interface Auth_FindManyUserArgs {
   where?: Auth_UserWhereInput;
   orderBy?: Auth_UserOrderByWithRelationInput[];
@@ -215,6 +227,10 @@ export interface Auth_GroupByUserArgs {
 }
 
 export interface Auth_FindUniqueUserArgs {
+  where: Auth_UserWhereUniqueInput | null;
+}
+
+export interface Auth_FindUniqueUserOrThrowArgs {
   where: Auth_UserWhereUniqueInput | null;
 }
 
@@ -286,54 +302,22 @@ export interface Auth_UserOrderByWithRelationInput {
   googleProfile?: SortOrder;
 }
 
-
-export type Auth_UserWhereUniqueInput = AtLeast<{
-  id?: number
-  username?: string
-  email?: string
-  googleId?: string
-  AND?: Auth_UserWhereInput[];
-  OR?: Auth_UserWhereInput[];
-  NOT?: Auth_UserWhereInput[];
-  createdAt?: DateTimeFilter | Date | string
-  password?: StringNullableFilter | string | null
-  roles?: StringNullableListFilter
-  googleProfile?: JsonNullableFilter
-}, "id" | "username" | "email" | "googleId">
-
-
-/*
-export interface t {
-  id: number;
-  username?: string;
-  email?: string;
-  googleId?: string;
-  AND?: Auth_UserWhereInput[];
-  OR?: Auth_UserWhereInput[];
-  NOT?: Auth_UserWhereInput[];
-  createdAt?: DateTimeFilter | Date | string;
-  password?: StringNullableFilter | string | null;
-  roles?: StringNullableListFilter;
-  googleProfile?: JsonNullableFilter;
-}
-
-
-export interface Auth_UserWhereUniqueInput {
-  id?: number;
-  username?: string;
-  email?: string;
-  googleId?: string;
-  AND?: Auth_UserWhereInput[];
-  OR?: Auth_UserWhereInput[];
-  NOT?: Auth_UserWhereInput[];
-  createdAt?: DateTimeFilter;
-  password?: StringNullableFilter | null;
-  roles?: StringNullableListFilter;
-  googleProfile?: JsonNullableFilter;
-}
-*/
-
-
+export type Auth_UserWhereUniqueInput = AtLeast<
+  {
+    id?: number;
+    username?: string;
+    email?: string;
+    googleId?: string;
+    AND?: Auth_UserWhereInput[];
+    OR?: Auth_UserWhereInput[];
+    NOT?: Auth_UserWhereInput[];
+    createdAt?: DateTimeFilter;
+    password?: StringNullableFilter | null;
+    roles?: StringNullableListFilter;
+    googleProfile?: JsonNullableFilter;
+  },
+  'id' | 'email'
+>;
 
 export interface Auth_UserOrderByWithAggregationInput {
   id?: SortOrder;

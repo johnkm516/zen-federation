@@ -14,7 +14,16 @@ export default gql`
 
   type Query {
     Auth_findUniqueUser(where: Auth_UserWhereUniqueInput!): User
+    Auth_findUniqueUserOrThrow(where: Auth_UserWhereUniqueInput!): User
     Auth_findFirstUser(
+      where: Auth_UserWhereInput
+      orderBy: [Auth_UserOrderByWithRelationInput]
+      cursor: Auth_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    Auth_findFirstUserOrThrow(
       where: Auth_UserWhereInput
       orderBy: [Auth_UserOrderByWithRelationInput]
       cursor: Auth_UserWhereUniqueInput

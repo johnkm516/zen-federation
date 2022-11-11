@@ -25,8 +25,10 @@ import type {
   ${federationPrefix}DeleteMany${model.name}Args,
   ${federationPrefix}DeleteOne${model.name}Args,
   ${federationPrefix}FindFirst${model.name}Args,
+  ${federationPrefix}FindFirst${model.name}OrThrowArgs,
   ${federationPrefix}FindMany${model.name}Args,
   ${federationPrefix}FindUnique${model.name}Args,
+  ${federationPrefix}FindUnique${model.name}OrThrowArgs,
   ${model.generateUpdateMany ? `${federationPrefix}UpdateMany${model.name}Args,` : `//UpdateMany is not generated as ${model.name} has only unique fields or relations.`}
   ${federationPrefix}UpdateOne${model.name}Args,
   ${federationPrefix}UpsertOne${model.name}Args,
@@ -65,12 +67,32 @@ export class ${model.name}Resolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
+  async ${federationPrefix}findUnique${model.name}OrThrow(
+    @Args() args: ${federationPrefix}FindUnique${model.name}OrThrowArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.${federationPrefix}findUnique${model.name}OrThrow(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
   async ${federationPrefix}findFirst${model.name}(
     @Args() args: ${federationPrefix}FindFirst${model.name}Args,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
     return resolvers.Query.${federationPrefix}findFirst${model.name}(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async ${federationPrefix}findFirst${model.name}OrThrow(
+    @Args() args: ${federationPrefix}FindFirst${model.name}OrThrowArgs,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.${federationPrefix}findFirst${model.name}OrThrow(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Query()
