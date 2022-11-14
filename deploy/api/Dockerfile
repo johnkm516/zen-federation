@@ -35,8 +35,8 @@ COPY --from=node_cache /cache/ ./
 COPY dist/apps/auth-api ./
 # COPY Prisma Client, create index.js that exports a single prisma client for this API
 COPY ./libs/prisma-clients/Auth/ ./libs/prisma-clients/Auth/
-RUN echo "export { $API_NAMEPrismaClient } from './$API_NAME';" > ./libs/prisma-clients/index.ts
-RUN npx prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma
+RUN echo "export { ${API_NAME}PrismaClient } from './$API_NAME';" > ./libs/prisma-clients/index.ts
+RUN npx prisma generate --schema=./libs/prisma-clients/$API_NAME/prisma/schema.prisma
 RUN cp -r ./node_modules/.prisma ./
 
 #------------------------------------------------------------------------------------------------#

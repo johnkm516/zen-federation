@@ -68,6 +68,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   }
   
   let dockercompose = tree.read('docker-compose.yml')?.toString() ?? ``
+  let dockercompose_prod = tree.read('docker-compose-prod.yml')?.toString() ?? ``
   if (dockercompose != '') {
     const doc:YAML.Document = YAML.parseDocument(dockercompose);
     if (doc.hasIn(['services', postgres_containerName])) {
@@ -93,6 +94,9 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     doc.deleteIn(['volumes', postgres_containerName, {}]);
 
     tree.write('docker-compose.yml', doc.toString().replace('{}', ''));
+  }
+  if (dockercompose_prod != '') {
+    
   }
 
   if (!envConfig[`${name.toUpperCase()}_PGDATABASE`]) {
@@ -120,6 +124,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     {
       tmpl: '',
       name: name,
+      name_upper: name.toUpperCase(),
       ENV_apiPort: `${name.toUpperCase()}_API_PORT`,
       apiPort: apiPort,
       projectname: projectname

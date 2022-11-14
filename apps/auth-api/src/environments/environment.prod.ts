@@ -4,6 +4,7 @@ export const environment: EnvironmentBase = {
   siteUrl: 'https://site.com/#',
   production: true,
   expressPort: process.env.AUTH_API_PORT,
+  dbSourceURL: process.env.AUTH_SOURCE_URL.replace(new RegExp(`localhost:[0-9]*/`), 'postgres-auth-api:5432/'),
   publicRegistration: true,
   graphql: {
     subscriptions: false,
@@ -14,12 +15,22 @@ export const environment: EnvironmentBase = {
   },
   jwtOptions: {
     secret: process.env.JWT_PRIVATE_KEY,
+    /*
     publicKey: process.env.JWT_PUBLIC_KEY,
     signOptions: {
       algorithm: 'ES256',
+      
+       // The client will exchange the token every 30 minutes during active sessions
+       // Refer to: `libs\common\src\lib\environment` for `EnvironmentProd.jwtExchangeInterval`
+       
+      expiresIn: 3600, // 1 hour (in seconds)
+    },
+    */
+    signOptions: {
+      algorithm: 'HS256',
       /**
        * The client will exchange the token every 30 minutes during active sessions
-       * Refer to: `libs\common\src\lib\environment` for `EnvironmentProd.jwtExchangeInterval`
+       * Refer to: `libs\common\src\lib\environment` for `EnvironmentDev.jwtExchangeInterval`
        */
       expiresIn: 3600, // 1 hour (in seconds)
     },

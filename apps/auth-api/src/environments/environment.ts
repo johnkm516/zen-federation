@@ -1,11 +1,10 @@
-import 'dotenv/config';
-
 import { EnvironmentBase } from './environment.base';
 
 export const environment: EnvironmentBase = {
   siteUrl: 'http://localhost:4200/#',
   production: false,
   expressPort: process.env.AUTH_API_PORT,
+  dbSourceURL: process.env.AUTH_SOURCE_URL,
   publicRegistration: true,
   cors: { credentials: true, origin: true },
   graphql: {
