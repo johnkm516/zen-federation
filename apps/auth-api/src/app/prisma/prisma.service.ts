@@ -5,7 +5,6 @@ import { ConfigService } from '../config';
 @Injectable()
 export class PrismaService extends PrismaClient {
   constructor(protected configService: ConfigService) {
-    console.log(configService);
     super({
       datasources: {
         db: {
