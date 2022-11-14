@@ -49,8 +49,6 @@ services:
         API_NAME: Auth
         API_PORT: ${AUTH_API_PORT}
     environment:
-      AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
-      AUTH_API_PORT: ${AUTH_API_PORT}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
       SMTP_SERVER: ${SMTP_SERVER}
       SMTP_LOGIN: ${SMTP_LOGIN}
@@ -59,6 +57,8 @@ services:
       SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
+      AUTH_API_PORT: ${AUTH_API_PORT}
     ports:
       - '${AUTH_API_PORT}:${AUTH_API_PORT}'
     networks:

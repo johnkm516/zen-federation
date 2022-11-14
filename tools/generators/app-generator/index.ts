@@ -153,15 +153,15 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       networks: ['postgres'],
       depends_on: [`${postgres_containerName}`]
     }));
-    if (doc.hasIn(['services/environment', `${nameUpper}_SOURCE_URL`])) {
-      doc.deleteIn(['services/environment', `${nameUpper}_SOURCE_URL`]);
+    if (doc.hasIn(['services', `${api_containername}`, 'environment', `${nameUpper}_SOURCE_URL`])) {
+      doc.deleteIn(['services', `${api_containername}`, 'environment', `${nameUpper}_SOURCE_URL`]);
     }
-    doc.addIn(['services/environment'], doc.createPair(`${nameUpper}_SOURCE_URL`, [`\${${nameUpper}}_SOURCE_URL`]));
+    doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_SOURCE_URL`, `\${${nameUpper}_SOURCE_URL}`));
 
-    if (doc.hasIn(['services/environment', `${nameUpper}_API_PORT`])) {
-      doc.deleteIn(['services/environment', `${nameUpper}_API_PORT`]);
+    if (doc.hasIn(['services', `${api_containername}`, 'environment' , `${nameUpper}_API_PORT`])) {
+      doc.deleteIn(['services', `${api_containername}`, 'environment', `${nameUpper}_API_PORT`]);
     }
-    doc.addIn(['services/environment'], doc.createPair(`${nameUpper}_API_PORT`, [`\${${nameUpper}}_API_PORT`]));
+    doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
 
     tree.write('docker-compose-prod.yml', doc.toString().replace('{}', ''));
   }
