@@ -7,9 +7,9 @@ export const environment: EnvironmentBase = {
   publicRegistration: true,
   graphql: {
     subscriptions: false,
-    trace: false,
-    sandbox: false,
-    introspection: false,
+    trace: false, 
+    sandbox: false, 
+    introspection: false, 
     csrfPrevention: true,
   },
   jwtOptions: {

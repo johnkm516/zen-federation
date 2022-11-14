@@ -39,6 +39,25 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres
+  subgraph-auth-api:
+    image: zen/subgraph-auth-api
+    container_name: subgraph-auth-api
+    build: 
+      context: ./
+      dockerfile: ./deploy/api/Dockerfile
+      args:
+        API_NAME: Auth
+        API_PORT: ${AUTH_API_PORT}
+    environment:
+      AUTH_SOURCE_URL: ${AUTH_SOURCE_URL}
+      AUTH_API_PORT: ${AUTH_API_PORT}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+    ports:
+      - '${AUTH_API_PORT}:${AUTH_API_PORT}'
+    networks:
+      - postgres
+    depends_on:
+      - postgres-auth-api
 
 volumes:
   postgres-auth-api:
