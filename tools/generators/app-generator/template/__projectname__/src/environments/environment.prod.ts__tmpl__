@@ -4,7 +4,7 @@ export const environment: EnvironmentBase = {
   siteUrl: 'https://site.com/#',
   production: true,
   expressPort: process.env.<%= ENV_apiPort %>,
-  dbSourceURL: process.env.<%= name_upper %>_SOURCE_URL.replace(new RegExp(`localhost:[0-9]*/`), 'postgres-<%= name %>-api:5432/'),
+  dbSourceURL: process.env.<%= name_upper %>_SOURCE_URL.replace(new RegExp(`localhost:[0-9]*/`), 'postgres-<%= name_lower %>:5432/'),
   publicRegistration: true,
   graphql: {
     subscriptions: false,

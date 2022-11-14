@@ -34,6 +34,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   
   const { name } = names(options.name);
   const nameUpper = name.toUpperCase();
+  const nameLower = name.toLowerCase();
   const projectname = name.charAt(0).toLowerCase() + name.slice(1);
   let apiPort = options.apiPort;
   let databasePort = options.databasePort;
@@ -197,6 +198,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       tmpl: '',
       name: name,
       name_upper: nameUpper,
+      name_lower: nameLower,
       ENV_apiPort: `${name.toUpperCase()}_API_PORT`,
       apiPort: apiPort,
       projectname: projectname
