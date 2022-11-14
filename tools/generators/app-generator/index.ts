@@ -137,7 +137,8 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
         dockerfile: './deploy/api/Dockerfile',
         args: {
           API_NAME: name,
-          API_PORT: `\${${nameUpper}_API_PORT}`
+          API_PORT: `\${${nameUpper}_API_PORT}`,
+          PROJECT_NAME: `${projectname}`
         }
       },
       environment: {

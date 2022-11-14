@@ -42,12 +42,13 @@ services:
   subgraph-auth-api:
     image: zen/subgraph-auth-api
     container_name: subgraph-auth-api
-    build: 
+    build:
       context: ./
       dockerfile: ./deploy/api/Dockerfile
       args:
         API_NAME: Auth
         API_PORT: ${AUTH_API_PORT}
+        PROJECT_NAME: auth-api
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
       SMTP_SERVER: ${SMTP_SERVER}

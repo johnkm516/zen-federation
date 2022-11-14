@@ -26,15 +26,16 @@ RUN pnpm install --no-lockfile --ignore-scripts --production
 FROM node:18-alpine as build
 
 ARG API_NAME
+ARG PROJECT_NAME
 
 WORKDIR /usr/src/api
 
 # COPY cached files from Stage 1
 COPY --from=node_cache /cache/ ./
 # COPY app dists
-COPY dist/apps/auth-api ./
+COPY dist/apps/$PROJECT_NAME ./
 # COPY Prisma Client, create index.js that exports a single prisma client for this API
-COPY ./libs/prisma-clients/Auth/ ./libs/prisma-clients/Auth/
+COPY ./libs/prisma-clients/$API_NAME/ ./libs/prisma-clients/$API_NAME/
 RUN echo "export { ${API_NAME}PrismaClient } from './$API_NAME';" > ./libs/prisma-clients/index.ts
 RUN npx prisma generate --schema=./libs/prisma-clients/$API_NAME/prisma/schema.prisma
 RUN cp -r ./node_modules/.prisma ./
