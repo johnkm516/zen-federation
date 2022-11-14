@@ -33,11 +33,13 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   //
   
   const { name } = names(options.name);
+  const nameUpper = name.toUpperCase();
   const projectname = name.charAt(0).toLowerCase() + name.slice(1);
   let apiPort = options.apiPort;
   let databasePort = options.databasePort;
 
   const postgres_containerName = `postgres-${projectname}`;
+  const api_containername = `subgraph-${projectname}`;
 
   //Get Available port
   const envOriginalString = fs.readFileSync('.env').toString();
@@ -70,6 +72,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   let dockercompose = tree.read('docker-compose.yml')?.toString() ?? ``
   let dockercompose_prod = tree.read('docker-compose-prod.yml')?.toString() ?? ``
   if (dockercompose != '') {
+    //Postgres
     const doc:YAML.Document = YAML.parseDocument(dockercompose);
     if (doc.hasIn(['services', postgres_containerName])) {
       doc.deleteIn(['services', postgres_containerName])
@@ -96,7 +99,71 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     tree.write('docker-compose.yml', doc.toString().replace('{}', ''));
   }
   if (dockercompose_prod != '') {
-    
+    //Postgres Container
+    const doc:YAML.Document = YAML.parseDocument(dockercompose_prod);
+
+    if (doc.hasIn(['services', postgres_containerName])) {
+      doc.deleteIn(['services', postgres_containerName])
+    }
+    doc.addIn(['services'], doc.createPair(postgres_containerName, {
+      image: 'postgres:14',
+      container_name: postgres_containerName,
+      restart: 'always',
+      environment: {
+        POSTGRES_PASSWORD: '${PGPASSWORD}',
+        POSTGRES_USER: '${PGUSER}',
+        POSTGRES_DB: `\${${name.toUpperCase()}_PGDATABASE}`
+      },
+      volumes: [`${postgres_containerName}:/var/lib/postgresql/data`],
+      ports: [`\${${name.toUpperCase()}_PGDATABASE_PORT}:5432`],
+      networks: ['postgres']
+    }));
+    if (doc.hasIn(['volumes', postgres_containerName])) {
+      doc.deleteIn(['volumes', postgres_containerName]);
+    }
+    doc.addIn(['volumes'], doc.createPair(postgres_containerName, {}));
+    doc.deleteIn(['volumes', postgres_containerName, {}]);
+
+    //API Container
+    if (doc.hasIn(['services', api_containername])) {
+      doc.deleteIn(['services', api_containername])
+    }
+    doc.addIn(['services'], doc.createPair(api_containername, {
+      image: `zen/${api_containername}`,
+      container_name: api_containername,
+      build: {
+        context: './',
+        dockerfile: './deploy/api/Dockerfile',
+        args: {
+          API_NAME: name,
+          API_PORT: `\${${nameUpper}_API_PORT}`
+        }
+      },
+      environment: {
+        JWT_PRIVATE_KEY: `\${JWT_PRIVATE_KEY}`,
+        SMTP_SERVER: `\${SMTP_SERVER}`,
+        SMTP_LOGIN: `\${SMTP_LOGIN}`,
+        SMTP_PASSWORD: `\${SMTP_PASSWORD}`,
+        SMTP_FROM_NAME: `\${SMTP_FROM_NAME}`,
+        SMTP_FROM_EMAIL: `\${SMTP_FROM_EMAIL}`,
+        GOOGLE_CLIENT_ID: `\${GOOGLE_CLIENT_ID}`,
+        GOOGLE_CLIENT_SECRET: `\${GOOGLE_CLIENT_SECRET}`
+      },
+      ports: [`\${${nameUpper}_API_PORT}:\${${nameUpper}_API_PORT}`],
+      networks: ['postgres'],
+      depends_on: [`${postgres_containerName}`]
+    }));
+    if (doc.hasIn(['services/environment', `${nameUpper}_SOURCE_URL`])) {
+      doc.deleteIn(['services/environment', `${nameUpper}_SOURCE_URL`]);
+    }
+    doc.addIn(['services/environment'], doc.createPair(`${nameUpper}_SOURCE_URL`, [`\${${nameUpper}}_SOURCE_URL`]));
+
+    if (doc.hasIn(['services/environment', `${nameUpper}_API_PORT`])) {
+      doc.deleteIn(['services/environment', `${nameUpper}_API_PORT`]);
+    }
+    doc.addIn(['services/environment'], doc.createPair(`${nameUpper}_API_PORT`, [`\${${nameUpper}}_API_PORT`]));
+
+    tree.write('docker-compose-prod.yml', doc.toString().replace('{}', ''));
   }
 
   if (!envConfig[`${name.toUpperCase()}_PGDATABASE`]) {
@@ -114,6 +181,11 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   } else {
     console.log(`${name.toUpperCase()}_API_PORT already exists in .env!`);
   }
+  if (!envConfig[`${name.toUpperCase()}_SOURCE_URL`]) {
+    envString += `${name.toUpperCase()}_SOURCE_URL=postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}  #localhost:PGGDATABASE_PORT will be replaced in environment.prod.ts\n`;
+  } else {
+    console.log(`${name.toUpperCase()}_SOURCE_URL already exists in .env!`);
+  }
   fs.writeFileSync('.env', envString);
 
   //Generate Nest API using template files in generator
@@ -124,7 +196,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     {
       tmpl: '',
       name: name,
-      name_upper: name.toUpperCase(),
+      name_upper: nameUpper,
       ENV_apiPort: `${name.toUpperCase()}_API_PORT`,
       apiPort: apiPort,
       projectname: projectname
