@@ -89,7 +89,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       },
       volumes: [`${postgres_containerName}:/var/lib/postgresql/data`],
       ports: [`\${${name.toUpperCase()}_PGDATABASE_PORT}:5432`],
-      networks: ['postgres']
+      networks: ['postgres-network']
     }))
     if (doc.hasIn(['volumes', postgres_containerName])) {
       doc.deleteIn(['volumes', postgres_containerName]);
@@ -117,7 +117,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       },
       volumes: [`${postgres_containerName}:/var/lib/postgresql/data`],
       ports: [`\${${name.toUpperCase()}_PGDATABASE_PORT}:5432`],
-      networks: ['postgres']
+      networks: ['postgres-network']
     }));
     if (doc.hasIn(['volumes', postgres_containerName])) {
       doc.deleteIn(['volumes', postgres_containerName]);
@@ -152,7 +152,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
         GOOGLE_CLIENT_SECRET: `\${GOOGLE_CLIENT_SECRET}`
       },
       ports: [`\${${nameUpper}_API_PORT}:\${${nameUpper}_API_PORT}`],
-      networks: ['postgres'],
+      networks: ['postgres-network'],
       depends_on: [`${postgres_containerName}`]
     }));
     if (doc.hasIn(['services', `${api_containername}`, 'environment', `${nameUpper}_SOURCE_URL`])) {
