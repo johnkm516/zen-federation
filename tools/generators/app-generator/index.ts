@@ -246,15 +246,57 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   )
 
   //Update subgraphs.json with new API proj
+  let subgraphs;
   updateJson(
     tree,
     'subgraphs.json',
     (json) => {
       json.subgraphs[name] = `apps/${projectname}`
+      subgraphs = json.subgraphs;
       return json;
     }
   )
   
+  updateJson(
+    tree,
+    'package.json',
+    (json) => {
+      let projectnames: string[] = [];
+      let appnames = subgraphs.keys as string[];
+      for (const appname of appnames) {
+        json.scripts[`start:${appname.toLowerCase()}`] = `nx serve ${subgraphs[appname].replace("apps/", "")} --verbose`
+        projectnames.push(subgraphs[appname].replace("apps/", ""));
+      }
+      json.scripts[`start:api`] = projectnames.map(projectname => {
+        return `nx serve ${projectname} --verbose`
+      }).join(` && `);
+
+      json.scripts[`api:gen`] = appnames.map(appname => {
+        return `prisma generate --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma`
+      }).join(` && `) + ` && ts-node generate.ts`;
+
+      json.scripts[`build:dev`] = projectnames.map(projectname => {
+        return `nx build ${projectname}`
+      }).join(` && `);
+
+      json.scripts[`build:prod`] = projectnames.map(projectname => {
+        return `nx build ${projectname} --prod`
+      }).join(` && `);
+
+      //Prisma migrate scripts
+      json.scripts[`prisma:migrate`] = `npm run api:gen && ` + appnames.map(appname => {
+        return `prisma migrate dev --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma"`
+      }).join(` && `)
+
+      for (const appname of appnames) {
+        json.scripts[`prisma:migrate:${appname.toLowerCase()}`] = `npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma`
+      }
+        
+      subgraphs = json.subgraphs;
+      return json;
+    }
+  )
+
   await formatFiles(tree)
 }
 
