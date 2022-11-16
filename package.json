@@ -19,7 +19,7 @@
     "prisma:create-only": "prisma migrate dev --create-only",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio",
-    "kompose": "kompose convert -f docker-compose.yml --out ./deploy/k8s/",
+    "kompose:prod": "kompose convert -f docker-compose-prod.yml --out ./deploy/k8s/",
     "compose:up": "npm run build:dev && ts-node tools/create-deploy-package.ts && docker compose -f ./docker-compose.yml up -d --build && docker compose restart pgadmin",
     "compose:up:prod": "npm run prisma:migrate && npm run build:prod && ts-node tools/create-deploy-package.ts && docker compose -f ./docker-compose-prod.yml up -d --build && docker compose restart pgadmin",
     "kube:deploy": "kubectl apply -f ./deploy/k8s/",
