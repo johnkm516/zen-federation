@@ -5,8 +5,6 @@ import {
   names,
   Tree
 } from '@nrwl/devkit';
-import * as fs from 'fs'; 
-import * as dotenv from 'dotenv';
 
 interface GeneratorOptions {
   name: string;
@@ -30,23 +28,6 @@ export async function PrismaClientGenerator(tree: Tree, schema: GeneratorOptions
       outputLocation: `../../../../node_modules/.prisma/${name}-client`
     }
   )
-
-  // Write .env
-  if (!tree.exists('.env') ) {
-    tree.write('.env', '')
-  }
-
-  const envOriginalString = fs.readFileSync('.env').toString();
-  let envString = envOriginalString;
-  let envConfig = dotenv.parse(envOriginalString);
-
-  if (!envConfig[`${name.toUpperCase()}_SOURCE_URL`]) {
-    envString += `${name.toUpperCase()}_SOURCE_URL=${schema.connectionString}\n`;
-  } else {
-    console.log(`${name.toUpperCase()}_SOURCE_URL`);
-  }
-
-  tree.write('.env', envString);
 
   // Write export
   if (!tree.exists('libs/prisma-clients/index.ts')) {

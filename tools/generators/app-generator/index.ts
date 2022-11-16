@@ -183,11 +183,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   } else {
     console.log(`${name.toUpperCase()}_API_PORT already exists in .env!`);
   }
-  if (!envConfig[`${name.toUpperCase()}_SOURCE_URL`]) {
-    envString += `${name.toUpperCase()}_SOURCE_URL=postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}  #localhost:PGGDATABASE_PORT will be replaced in environment.prod.ts\n`;
-  } else {
-    console.log(`${name.toUpperCase()}_SOURCE_URL already exists in .env!`);
-  }
+  
   fs.writeFileSync('.env', envString);
 
   //Generate Nest API using template files in generator
