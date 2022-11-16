@@ -168,10 +168,10 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     }
     doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
 
-    if (doc.hasIn(['services', `${api_containername}`, 'environment' , `${nameUpper}_PG_DATABASE`])) {
-      doc.deleteIn(['services', `${api_containername}`, 'environment', `${nameUpper}_PG_DATABASE`]);
+    if (doc.hasIn(['services', `${api_containername}`, 'environment' , `${nameUpper}_PGDATABASE`])) {
+      doc.deleteIn(['services', `${api_containername}`, 'environment', `${nameUpper}_PGDATABASE`]);
     }
-    doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_PG_DATABASE`, `\${${nameUpper}_PG_DATABASE}`));
+    doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_PGDATABASE`, `\${${nameUpper}_PGDATABASE}`));
 
 
     tree.write('docker-compose-prod.yml', doc.toString().replace('{}', ''));
