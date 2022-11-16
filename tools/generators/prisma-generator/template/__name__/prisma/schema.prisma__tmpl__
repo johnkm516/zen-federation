@@ -6,6 +6,7 @@ generator client {
 
 datasource db {
   provider = "<%= dbType %>"
-  # DB URL is provided in /app/prisma/prisma.service.ts which uses nest config module to get the URL during runtime. 
-  # The URL changes between production and dev.
+  // DB URL is provided in /app/prisma/prisma.service.ts which uses nest config module to get the URL during runtime. 
+  // The URL changes between production and dev.
+  url = "placeholder-because-prisma-complains"
 }
