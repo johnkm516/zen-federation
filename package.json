@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "start": "nx serve portal",
-    "start:api": "nx serve auth-api --verbose",
     "start:auth": "nx serve auth-api --verbose",
     "start:e2e": "nx e2e portal-e2e --watch",
     "frontend:gen": "graphql-codegen -c apollo-angular.yml && graphql-codegen -c apollo-possible-types.yml",

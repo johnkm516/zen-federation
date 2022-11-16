@@ -5,6 +5,7 @@ import { joinPathFragments, updateJson } from '@nrwl/devkit';
 import * as fs from 'fs'; 
 import * as YAML from 'yaml';
 import * as dotenv from 'dotenv';
+import { hasUncaughtExceptionCaptureCallback } from 'process';
 
 
 interface GeneratorOptions {
@@ -256,20 +257,18 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       return json;
     }
   )
-  
+
   updateJson(
     tree,
     'package.json',
     (json) => {
       let projectnames: string[] = [];
-      let appnames = subgraphs.keys as string[];
-      for (const appname of appnames) {
+      let appnames: string[] = [];;
+      for (const appname in subgraphs) {
         json.scripts[`start:${appname.toLowerCase()}`] = `nx serve ${subgraphs[appname].replace("apps/", "")} --verbose`
         projectnames.push(subgraphs[appname].replace("apps/", ""));
+        appnames.push(appname);
       }
-      json.scripts[`start:api`] = projectnames.map(projectname => {
-        return `nx serve ${projectname} --verbose`
-      }).join(` && `);
 
       json.scripts[`api:gen`] = appnames.map(appname => {
         return `prisma generate --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma`
@@ -292,7 +291,6 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
         json.scripts[`prisma:migrate:${appname.toLowerCase()}`] = `npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma`
       }
         
-      subgraphs = json.subgraphs;
       return json;
     }
   )
