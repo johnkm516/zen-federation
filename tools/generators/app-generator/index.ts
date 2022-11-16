@@ -184,6 +184,11 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   } else {
     console.log(`${name.toUpperCase()}_API_PORT already exists in .env!`);
   }
+  if (!envConfig[`${name.toUpperCase()}_SOURCE_URL`]) {
+    envString += `${name.toUpperCase()}_SOURCE_URL=postgres://\${PGUSER}:\${PGPASSWORD}@localhost:\${${name.toUpperCase()}_PGDATABASE_PORT}/\${${name.toUpperCase()}_PGDATABASE}\n`;
+  } else {
+    console.log(`${name.toUpperCase()}_SOURCE_URL already exists in .env!`);
+  }
   
   fs.writeFileSync('.env', envString);
 
