@@ -284,7 +284,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
 
       //Prisma migrate scripts
       json.scripts[`prisma:migrate`] = `npm run api:gen && ` + appnames.map(appname => {
-        return `prisma migrate dev --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma"`
+        return `prisma migrate dev --schema=./libs/prisma-clients/${appname}/prisma/schema.prisma`
       }).join(` && `)
 
       for (const appname of appnames) {
