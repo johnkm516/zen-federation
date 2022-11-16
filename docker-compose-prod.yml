@@ -50,6 +50,9 @@ services:
         API_PORT: ${AUTH_API_PORT}
         PROJECT_NAME: auth-api
     environment:
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      AUTH_PG_DATABASE: ${AUTH_PG_DATABASE}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
       SMTP_SERVER: ${SMTP_SERVER}
       SMTP_LOGIN: ${SMTP_LOGIN}
