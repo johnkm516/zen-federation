@@ -3,7 +3,7 @@ import { EnvironmentBase } from './environment.base';
 export const environment: EnvironmentBase = {
   siteUrl: 'http://localhost:4200/#',
   production: false,
-  expressPort: process.env.<%= name_upper %>__API_PORT,
+  expressPort: process.env.<%= name_upper %>_API_PORT,
   dbSourceURL: `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:${process.env.AUTH_PGDATABASE_PORT}/${process.env.AUTH_PGDATABASE}`,
   publicRegistration: true,
   cors: { credentials: true, origin: true },
