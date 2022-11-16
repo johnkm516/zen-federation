@@ -4,7 +4,7 @@ export const environment: EnvironmentBase = {
   siteUrl: 'http://localhost:4200/#',
   production: false,
   expressPort: process.env.AUTH_API_PORT,
-  dbSourceURL: process.env.AUTH_SOURCE_URL,
+  dbSourceURL: `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:${process.env.AUTH_PGDATABASE_PORT}/${process.env.AUTH_PGDATABASE}`,
   publicRegistration: true,
   cors: { credentials: true, origin: true },
   graphql: {
