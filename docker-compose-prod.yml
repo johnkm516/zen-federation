@@ -31,6 +31,7 @@ services:
     environment:
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
       APOLLO_KEY: ${APOLLO_KEY}
+      AUTH_API_PORT: ${AUTH_API_PORT}
     networks:
       - postgres-network
     ports:

@@ -198,29 +198,52 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     doc.addIn(['services', `${api_containername}`, 'environment'], doc.createPair(`${nameUpper}_PGDATABASE`, `\${${nameUpper}_PGDATABASE}`));
 
 
+    //Apollo Router Container
+    if (doc.hasIn(['services', 'apollo-router'])) { 
+      if (!doc.hasIn(['services', 'apollo-router', 'environment', `${nameUpper}_API_PORT`])) {
+        doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
+      }
+    } else {
+      doc.addIn(['services'], doc.createPair('apollo-router', {
+        image: 'ghcr.io/apollographql/router:v1.4.0',
+        container_name: 'apollo-router',
+        environment: {
+          APOLLO_GRAPH_REF: '${APOLLO_GRAPH_REF}',
+          APOLLO_KEY: '${APOLLO_KEY}'
+        },
+        networks:
+        - 'postgres-network',
+        ports:
+        - '4000:4000',
+        volumes:
+        - './router-prod.yaml:/dist/config/router.yaml'
+      }));
+      doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
+    }
+
     tree.write('docker-compose-prod.yml', doc.toString().replace('{}', ''));
   }
 
   //Apollo router-dev.yaml config
-  let router_dev = tree.read('router-dev.yml')?.toString() ?? ``
+  let router_dev = tree.read('router-dev.yaml')?.toString() ?? ``
   if (router_dev != '') {
     const doc:YAML.Document = YAML.parseDocument(router_dev);
     if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
       doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `http://host.docker.internal:\${env.${nameUpper}_API_PORT}`));
     }
 
-    tree.write('router-dev.yml', doc.toString().replace('{}', ''));
+    tree.write('router-dev.yaml', doc.toString().replace('{}', ''));
   }
 
   //Apollo router-prod.yaml config
-  let router_prod = tree.read('router-dev.yml')?.toString() ?? ``
+  let router_prod = tree.read('router-dev.yaml')?.toString() ?? ``
   if (router_prod != '') {
     const doc:YAML.Document = YAML.parseDocument(router_prod);
     if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
       doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `http://api_containername:\${env.${nameUpper}_API_PORT}`));
     }
 
-    tree.write('router-prod.yml', doc.toString().replace('{}', ''));
+    tree.write('router-prod.yaml', doc.toString().replace('{}', ''));
   }
 
   //environment variables
