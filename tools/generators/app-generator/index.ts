@@ -244,7 +244,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   if (router_prod != '') {
     const doc:YAML.Document = YAML.parseDocument(router_prod);
     if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
-      doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `http://api_containername:\${env.${nameUpper}_API_PORT}`));
+      doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `"http://${api_containername}:\${env.${nameUpper}_API_PORT}"`));
     }
 
     tree.write('router-prod.yaml', doc.toString().replace('{}', ''));
