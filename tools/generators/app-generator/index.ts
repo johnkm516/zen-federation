@@ -74,7 +74,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   let dockercompose = tree.read('docker-compose.yml')?.toString() ?? ``
   let dockercompose_prod = tree.read('docker-compose-prod.yml')?.toString() ?? ``
   if (dockercompose != '') {
-    //Postgres
+    //Postgres Container
     const doc:YAML.Document = YAML.parseDocument(dockercompose);
     if (doc.hasIn(['services', postgres_containerName])) {
       doc.deleteIn(['services', postgres_containerName])
@@ -97,6 +97,30 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     }
     doc.addIn(['volumes'], doc.createPair(postgres_containerName, {}));
     doc.deleteIn(['volumes', postgres_containerName, {}]);
+
+    //Apollo Router Container
+    if (doc.hasIn(['services', 'apollo-router'])) { 
+      if (!doc.hasIn(['services', 'apollo-router', 'environment', `${nameUpper}_API_PORT`])) {
+        doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
+      }
+    } else {
+      doc.addIn(['services'], doc.createPair('apollo-router', {
+        image: 'ghcr.io/apollographql/router:v1.4.0',
+        container_name: 'apollo-router',
+        environment: {
+          APOLLO_GRAPH_REF: '${APOLLO_GRAPH_REF}',
+          APOLLO_KEY: '${APOLLO_KEY}'
+        },
+        network_mode: 'bridge',
+        extra_hosts:
+        - 'host.docker.internal:host-gateway',
+        ports:
+        - '4000:4000',
+        volumes:
+        - './router-dev.yaml:/dist/config/router.yaml'
+      }));
+      doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
+    }
 
     tree.write('docker-compose.yml', doc.toString().replace('{}', ''));
   }
@@ -177,6 +201,29 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     tree.write('docker-compose-prod.yml', doc.toString().replace('{}', ''));
   }
 
+  //Apollo router-dev.yaml config
+  let router_dev = tree.read('router-dev.yml')?.toString() ?? ``
+  if (router_dev != '') {
+    const doc:YAML.Document = YAML.parseDocument(router_dev);
+    if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
+      doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `http://host.docker.internal:\${env.${nameUpper}_API_PORT}`));
+    }
+
+    tree.write('router-dev.yml', doc.toString().replace('{}', ''));
+  }
+
+  //Apollo router-prod.yaml config
+  let router_prod = tree.read('router-dev.yml')?.toString() ?? ``
+  if (router_prod != '') {
+    const doc:YAML.Document = YAML.parseDocument(router_prod);
+    if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
+      doc.addIn(['override_subgraph_url'], doc.createPair(`${nameLower}`, `http://api_containername:\${env.${nameUpper}_API_PORT}`));
+    }
+
+    tree.write('router-prod.yml', doc.toString().replace('{}', ''));
+  }
+
+  //environment variables
   if (!envConfig[`${name.toUpperCase()}_PGDATABASE`]) {
     envString += `${name.toUpperCase()}_PGDATABASE=${name}\n`;
   } else {

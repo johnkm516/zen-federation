@@ -33,7 +33,7 @@ services:
       AUTH_API_PORT: ${AUTH_API_PORT}
     network_mode: bridge
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - host.docker.internal:host-gateway
     ports:
       - 4000:4000
     volumes:
