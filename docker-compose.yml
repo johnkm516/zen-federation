@@ -30,7 +30,6 @@ services:
     environment:
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
       APOLLO_KEY: ${APOLLO_KEY}
-      AUTH_API_PORT: ${AUTH_API_PORT}
     network_mode: bridge
     extra_hosts:
       - host.docker.internal:host-gateway

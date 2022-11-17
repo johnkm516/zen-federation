@@ -99,6 +99,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     doc.deleteIn(['volumes', postgres_containerName, {}]);
 
     //Apollo Router Container
+    /*
     if (doc.hasIn(['services', 'apollo-router'])) { 
       if (!doc.hasIn(['services', 'apollo-router', 'environment', `${nameUpper}_API_PORT`])) {
         doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
@@ -121,6 +122,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
       }));
       doc.addIn(['services', 'apollo-router', 'environment'], doc.createPair(`${nameUpper}_API_PORT`, `\${${nameUpper}_API_PORT}`));
     }
+    */
 
     tree.write('docker-compose.yml', doc.toString().replace('{}', ''));
   }
@@ -225,6 +227,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   }
 
   //Apollo router-dev.yaml config
+  /*
   let router_dev = tree.read('router-dev.yaml')?.toString() ?? ``
   if (router_dev != '') {
     const doc:YAML.Document = YAML.parseDocument(router_dev);
@@ -234,6 +237,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
 
     tree.write('router-dev.yaml', doc.toString().replace('{}', ''));
   }
+  */
 
   //Apollo router-prod.yaml config
   let router_prod = tree.read('router-dev.yaml')?.toString() ?? ``
