@@ -240,7 +240,7 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
   */
 
   //Apollo router-prod.yaml config
-  let router_prod = tree.read('router-dev.yaml')?.toString() ?? ``
+  let router_prod = tree.read('router-prod.yaml')?.toString() ?? ``
   if (router_prod != '') {
     const doc:YAML.Document = YAML.parseDocument(router_prod);
     if (!doc.hasIn(['override_subgraph_url', `${nameLower}`])) {
