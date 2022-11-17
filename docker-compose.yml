@@ -1,5 +1,4 @@
-version: '2'
-name: zen
+version: '3.7'
 
 services:
   pgadmin:
@@ -25,6 +24,20 @@ services:
       - postgres-network
     restart: always
 
+  apollo-router:
+    image: ghcr.io/apollographql/router:v1.4.0
+    container_name: apollo-router
+    environment:
+      APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
+      APOLLO_KEY: ${APOLLO_KEY}
+    network_mode: bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 4000:4000
+    volumes:
+      - ./router.yaml:/dist/config/router.yaml
+
   postgres-auth-api:
     image: postgres:14
     container_name: postgres-auth-api
@@ -39,10 +52,25 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres-network
+  postgres-products:
+    image: postgres:14
+    container_name: postgres-products
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PRODUCTS_PGDATABASE}
+    volumes:
+      - postgres-products:/var/lib/postgresql/data
+    ports:
+      - ${PRODUCTS_PGDATABASE_PORT}:5432
+    networks:
+      - postgres-network
 
 volumes:
   postgres-auth-api:
   pgadmin:
+  postgres-products:
 networks:
   postgres-network:
     driver: bridge
