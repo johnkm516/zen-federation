@@ -24,6 +24,19 @@ services:
     networks:
       - postgres-network
     restart: always
+  
+  apollo-router:
+    image: ghcr.io/apollographql/router:v1.4.0
+    container_name: apollo-router
+    environment:
+      APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
+      APOLLO_KEY: ${APOLLO_KEY}
+    networks:
+      - postgres-network
+    ports:
+      - 4000:4000
+    volumes:
+      - ./router-prod.yaml:/dist/config/router.yaml
 
   postgres-auth-api:
     image: postgres:14

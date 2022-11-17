@@ -30,13 +30,14 @@ services:
     environment:
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
       APOLLO_KEY: ${APOLLO_KEY}
+      AUTH_API_PORT: ${AUTH_API_PORT}
     network_mode: bridge
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
       - 4000:4000
     volumes:
-      - ./router.yaml:/dist/config/router.yaml
+      - ./router-dev.yaml:/dist/config/router.yaml
 
   postgres-auth-api:
     image: postgres:14

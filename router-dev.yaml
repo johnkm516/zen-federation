@@ -1,0 +1,11 @@
+supergraph:
+  listen: 0.0.0.0:4000
+include_subgraph_errors:
+  all: true # Propagate errors from all subgraphs
+headers:
+  all: # Header rules for all subgraphs
+    request:
+      - propagate:
+          named: "Authorization"
+override_subgraph_url:
+  auth: "http://host.docker.internal:${env.AUTH_API_PORT}"

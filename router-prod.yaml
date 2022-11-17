@@ -7,3 +7,5 @@ headers:
     request:
       - propagate:
           named: "Authorization"
+override_subgraph_url:
+  auth: "http://subgraph-auth-api:${env.AUTH_API_PORT}"
