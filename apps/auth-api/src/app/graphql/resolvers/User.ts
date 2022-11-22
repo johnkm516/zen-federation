@@ -136,6 +136,16 @@ export class UserResolver {
     return resolvers.Query.Auth_aggregateUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
+  @Query()
+  @UseGuards(GqlCaslGuard('read'))
+  async Auth_groupByUser(
+    @Args() args: any,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.Auth_groupByUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
   @Mutation()
   @UseGuards(GqlCaslGuard('create'))
   async Auth_createOneUser(

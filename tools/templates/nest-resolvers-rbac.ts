@@ -105,6 +105,15 @@ export class ${model.name}Resolver {
     return resolvers.Query.${federationPrefix}aggregate${model.name}(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
+  @Query()
+  async ${federationPrefix}groupBy${model.name}(
+    @Args() args: any,
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext
+  ) {
+    return resolvers.Query.${federationPrefix}groupBy${model.name}(undefined, PrismaSelectArgs(info, args), ctx, info);
+  }
+
   @Mutation()
   async ${federationPrefix}createOne${model.name}(
     @Args() args: ${federationPrefix}CreateOne${model.name}Args,

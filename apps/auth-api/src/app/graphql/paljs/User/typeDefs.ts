@@ -54,11 +54,20 @@ export default gql`
       take: Int
       skip: Int
     ): AggregateUser
+    Auth_groupByUser(
+      where: Auth_UserWhereInput
+      orderBy: [Auth_UserOrderByWithAggregationInput]
+      by: [UserScalarFieldEnum!]
+      having: Auth_UserScalarWhereWithAggregatesInput
+      take: Int
+      skip: Int
+    ): [UserGroupByOutputType]
   }
 
   type Mutation {
     Auth_createOneUser(data: Auth_UserCreateInput!): User!
     Auth_updateOneUser(data: Auth_UserUpdateInput!, where: Auth_UserWhereUniqueInput!): User!
+    Auth_updateOneUserSaga(data: Auth_UserUpdateInput!, where: Auth_UserWhereUniqueInput!): User!
     Auth_deleteOneUser(where: Auth_UserWhereUniqueInput!): User
     Auth_upsertOneUser(
       where: Auth_UserWhereUniqueInput!

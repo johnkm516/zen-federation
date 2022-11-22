@@ -575,6 +575,22 @@ export default gql`
     _max: UserMaxAggregateOutputType
   }
 
+  type UserGroupByOutputType @key(fields: "id") @key(fields: "email") @shareable {
+    id: Int!
+    createdAt: DateTime!
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    _count: UserCountAggregateOutputType
+    _avg: UserAvgAggregateOutputType
+    _sum: UserSumAggregateOutputType
+    _min: UserMinAggregateOutputType
+    _max: UserMaxAggregateOutputType
+  }
+
   type UserCountAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {
     id: Int!
     createdAt: Int!

@@ -21,6 +21,10 @@ type AtLeast<O extends object, K extends string> = NoExpand<
     : never
 >;
 
+export type GroupByError =
+  | `Error: Field "${any}" used in "having" needs to be provided in "by".`
+  | [Error, 'Field ', any, ' in "having" needs to be provided in "by"'];
+
 export interface Resolvers {
   [key: string]: { [key: string]: Resolver<any, any, any> };
   User?: User;
@@ -61,7 +65,12 @@ export interface Query {
     Auth_AggregateUserArgs,
     Client.Prisma.GetUserAggregateType<Auth_AggregateUserArgs>
   >;
-  Auth_groupByUser?: Resolver<{}, Auth_GroupByUserArgs, Client.Prisma.UserGroupByOutputType[]>;
+  //Auth_groupByUser is not generated because model has only unique fields or relations.
+  Auth_groupByUser?: Resolver<
+    {},
+    any,
+    Client.Prisma.GetUserGroupByPayload<Auth_GroupByUserArgs> | GroupByError
+  >;
   Auth_findUniqueUser?: Resolver<{}, Auth_FindUniqueUserArgs, Client.User | null>;
   Auth_findUniqueUserOrThrow?: Resolver<{}, Auth_FindUniqueUserOrThrowArgs, Client.User | null>;
 }

@@ -1,3 +1,5 @@
+import { GraphQLError } from 'graphql/error';
+
 import { Resolvers } from '../../resolversTypes';
 
 const resolvers: Resolvers = {
@@ -23,12 +25,31 @@ const resolvers: Resolvers = {
     Auth_aggregateUser: (_parent, args, { prisma }) => {
       return prisma.user.aggregate(args);
     },
+    Auth_groupByUser: async (_parent, args, { prisma }) => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        let result = await prisma.user.groupBy(args);
+        return result;
+      } catch (e) {
+        if (e.toString().includes('Argument by is missing')) {
+          throw new GraphQLError(`Argument 'by' is missing`, {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+            },
+          });
+        }
+      }
+    },
   },
   Mutation: {
     Auth_createOneUser: (_parent, args, { prisma }) => {
       return prisma.user.create(args);
     },
     Auth_updateOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.update(args);
+    },
+    Auth_updateOneUserSaga: (_parent, args, { prisma }) => {
       return prisma.user.update(args);
     },
     Auth_deleteOneUser: async (_parent, args, { prisma }) => {
