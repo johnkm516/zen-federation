@@ -6,22 +6,18 @@ const client = new AuthPrismaClient();
 var chance = new Chance();
 
 async function seed() {
-  /*
+  
   ///Example seed////
-  for (let i = 0; i < 1; i++) {
-    await client.user.create({
-      data: {
-        id: i,
-        createdAt: chance.date(),
-        username: chance.name(),
-        password: chance.word(),
-        email: chance.email(),
-        roles: ["Super"],
-      }
-    })
-  }
+
+  await client.user.create({
+    data: {
+      username: "johnkim",
+      password: "$2a$12$BYV7udxRkgHx0ENumfp1S.N/KwjQm/IoxoaT6eqyreXE1p5jLgprC",
+      email: "abc@abc.com",
+      roles: ["Super"],
+    }
+  })
   ////////////////
-  */
 }
 
 seed();
