@@ -4,3 +4,4 @@ export * from './GoogleProfile.gql';
 export * from './User.gql';
 export * from './Product.gql';
 export * from './Review.gql';
+export * from './Profile.gql';

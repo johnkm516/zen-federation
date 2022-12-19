@@ -17,6 +17,16 @@ export default gql`
     JsonNull
   }
 
+  enum ProfileScalarFieldEnum {
+    userId
+    location
+    joiningDate
+    designation
+    profileImg
+    designationIcon
+    coverImg
+  }
+
   enum QueryMode {
     default
     insensitive
@@ -43,6 +53,8 @@ export default gql`
     roles
     googleId
     googleProfile
+    lastName
+    firstName
   }
 
   input Auth_UserWhereInput {
@@ -57,6 +69,9 @@ export default gql`
     roles: StringNullableListFilter
     googleId: StringNullableFilter
     googleProfile: JsonNullableFilter
+    lastName: StringNullableFilter
+    firstName: StringNullableFilter
+    profile: Auth_ProfileWhereInput
   }
 
   input Auth_UserOrderByWithRelationInput {
@@ -68,6 +83,9 @@ export default gql`
     roles: SortOrder
     googleId: SortOrder
     googleProfile: SortOrder
+    lastName: SortOrder
+    firstName: SortOrder
+    profile: Auth_ProfileOrderByWithRelationInput
   }
 
   input Auth_UserWhereUniqueInput {
@@ -82,6 +100,9 @@ export default gql`
     password: StringNullableFilter
     roles: StringNullableListFilter
     googleProfile: JsonNullableFilter
+    lastName: StringNullableFilter
+    firstName: StringNullableFilter
+    profile: Auth_ProfileWhereInput
   }
 
   input Auth_UserOrderByWithAggregationInput {
@@ -93,6 +114,8 @@ export default gql`
     roles: SortOrder
     googleId: SortOrder
     googleProfile: SortOrder
+    lastName: SortOrder
+    firstName: SortOrder
     _count: Auth_UserCountOrderByAggregateInput
     _avg: Auth_UserAvgOrderByAggregateInput
     _max: Auth_UserMaxOrderByAggregateInput
@@ -112,6 +135,75 @@ export default gql`
     roles: StringNullableListFilter
     googleId: StringNullableWithAggregatesFilter
     googleProfile: JsonNullableWithAggregatesFilter
+    lastName: StringNullableWithAggregatesFilter
+    firstName: StringNullableWithAggregatesFilter
+  }
+
+  input Auth_ProfileWhereInput {
+    AND: [Auth_ProfileWhereInput!]
+    OR: [Auth_ProfileWhereInput!]
+    NOT: [Auth_ProfileWhereInput!]
+    userId: IntFilter
+    user: Auth_UserWhereInput
+    location: StringNullableFilter
+    joiningDate: DateTimeNullableFilter
+    designation: StringNullableFilter
+    profileImg: StringNullableFilter
+    designationIcon: StringNullableFilter
+    coverImg: StringNullableFilter
+  }
+
+  input Auth_ProfileOrderByWithRelationInput {
+    userId: SortOrder
+    user: Auth_UserOrderByWithRelationInput
+    location: SortOrder
+    joiningDate: SortOrder
+    designation: SortOrder
+    profileImg: SortOrder
+    designationIcon: SortOrder
+    coverImg: SortOrder
+  }
+
+  input Auth_ProfileWhereUniqueInput {
+    userId: Int
+    AND: [Auth_ProfileWhereInput!]
+    OR: [Auth_ProfileWhereInput!]
+    NOT: [Auth_ProfileWhereInput!]
+    user: Auth_UserWhereInput
+    location: StringNullableFilter
+    joiningDate: DateTimeNullableFilter
+    designation: StringNullableFilter
+    profileImg: StringNullableFilter
+    designationIcon: StringNullableFilter
+    coverImg: StringNullableFilter
+  }
+
+  input Auth_ProfileOrderByWithAggregationInput {
+    userId: SortOrder
+    location: SortOrder
+    joiningDate: SortOrder
+    designation: SortOrder
+    profileImg: SortOrder
+    designationIcon: SortOrder
+    coverImg: SortOrder
+    _count: Auth_ProfileCountOrderByAggregateInput
+    _avg: Auth_ProfileAvgOrderByAggregateInput
+    _max: Auth_ProfileMaxOrderByAggregateInput
+    _min: Auth_ProfileMinOrderByAggregateInput
+    _sum: Auth_ProfileSumOrderByAggregateInput
+  }
+
+  input Auth_ProfileScalarWhereWithAggregatesInput {
+    AND: [Auth_ProfileScalarWhereWithAggregatesInput!]
+    OR: [Auth_ProfileScalarWhereWithAggregatesInput!]
+    NOT: [Auth_ProfileScalarWhereWithAggregatesInput!]
+    userId: IntWithAggregatesFilter
+    location: StringNullableWithAggregatesFilter
+    joiningDate: DateTimeNullableWithAggregatesFilter
+    designation: StringNullableWithAggregatesFilter
+    profileImg: StringNullableWithAggregatesFilter
+    designationIcon: StringNullableWithAggregatesFilter
+    coverImg: StringNullableWithAggregatesFilter
   }
 
   input Auth_UserCreateInput {
@@ -122,6 +214,9 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileCreateNestedOneWithoutUserInput
   }
 
   input Auth_UserUncheckedCreateInput {
@@ -133,6 +228,9 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   input Auth_UserUpdateInput {
@@ -143,6 +241,9 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUpdateOneWithoutUserNestedInput
   }
 
   input Auth_UserUncheckedUpdateInput {
@@ -154,6 +255,9 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   input Auth_UserCreateManyInput {
@@ -165,6 +269,8 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
   }
 
   input Auth_UserUpdateManyMutationInput {
@@ -175,6 +281,8 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
   }
 
   input Auth_UserUncheckedUpdateManyInput {
@@ -186,6 +294,77 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
+  input Auth_ProfileCreateInput {
+    user: Auth_UserCreateNestedOneWithoutProfileInput!
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUncheckedCreateInput {
+    userId: Int!
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUpdateInput {
+    user: Auth_UserUpdateOneRequiredWithoutProfileNestedInput
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUncheckedUpdateInput {
+    userId: Int
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileCreateManyInput {
+    userId: Int!
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUpdateManyMutationInput {
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUncheckedUpdateManyInput {
+    userId: Int
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
   }
 
   input IntFilter {
@@ -264,6 +443,11 @@ export default gql`
     not: Json
   }
 
+  input Auth_ProfileRelationFilter {
+    is: Auth_ProfileWhereInput
+    isNot: Auth_ProfileWhereInput
+  }
+
   input Auth_UserCountOrderByAggregateInput {
     id: SortOrder
     createdAt: SortOrder
@@ -273,6 +457,8 @@ export default gql`
     roles: SortOrder
     googleId: SortOrder
     googleProfile: SortOrder
+    lastName: SortOrder
+    firstName: SortOrder
   }
 
   input Auth_UserAvgOrderByAggregateInput {
@@ -286,6 +472,8 @@ export default gql`
     password: SortOrder
     email: SortOrder
     googleId: SortOrder
+    lastName: SortOrder
+    firstName: SortOrder
   }
 
   input Auth_UserMinOrderByAggregateInput {
@@ -295,6 +483,8 @@ export default gql`
     password: SortOrder
     email: SortOrder
     googleId: SortOrder
+    lastName: SortOrder
+    firstName: SortOrder
   }
 
   input Auth_UserSumOrderByAggregateInput {
@@ -386,8 +576,88 @@ export default gql`
     _max: NestedJsonNullableFilter
   }
 
+  input Auth_UserRelationFilter {
+    is: Auth_UserWhereInput
+    isNot: Auth_UserWhereInput
+  }
+
+  input DateTimeNullableFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeNullableFilter
+  }
+
+  input Auth_ProfileCountOrderByAggregateInput {
+    userId: SortOrder
+    location: SortOrder
+    joiningDate: SortOrder
+    designation: SortOrder
+    profileImg: SortOrder
+    designationIcon: SortOrder
+    coverImg: SortOrder
+  }
+
+  input Auth_ProfileAvgOrderByAggregateInput {
+    userId: SortOrder
+  }
+
+  input Auth_ProfileMaxOrderByAggregateInput {
+    userId: SortOrder
+    location: SortOrder
+    joiningDate: SortOrder
+    designation: SortOrder
+    profileImg: SortOrder
+    designationIcon: SortOrder
+    coverImg: SortOrder
+  }
+
+  input Auth_ProfileMinOrderByAggregateInput {
+    userId: SortOrder
+    location: SortOrder
+    joiningDate: SortOrder
+    designation: SortOrder
+    profileImg: SortOrder
+    designationIcon: SortOrder
+    coverImg: SortOrder
+  }
+
+  input Auth_ProfileSumOrderByAggregateInput {
+    userId: SortOrder
+  }
+
+  input DateTimeNullableWithAggregatesFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeNullableWithAggregatesFilter
+    _count: NestedIntNullableFilter
+    _min: NestedDateTimeNullableFilter
+    _max: NestedDateTimeNullableFilter
+  }
+
   input Auth_UserCreaterolesInput {
     set: [String!]!
+  }
+
+  input Auth_ProfileCreateNestedOneWithoutUserInput {
+    create: Auth_ProfileUncheckedCreateWithoutUserInput
+    connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
+    connect: Auth_ProfileWhereUniqueInput
+  }
+
+  input Auth_ProfileUncheckedCreateNestedOneWithoutUserInput {
+    create: Auth_ProfileUncheckedCreateWithoutUserInput
+    connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
+    connect: Auth_ProfileWhereUniqueInput
   }
 
   input DateTimeFieldUpdateOperationsInput {
@@ -407,12 +677,50 @@ export default gql`
     push: [String!]
   }
 
+  input Auth_ProfileUpdateOneWithoutUserNestedInput {
+    create: Auth_ProfileUncheckedCreateWithoutUserInput
+    connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
+    upsert: Auth_ProfileUpsertWithoutUserInput
+    disconnect: Auth_ProfileWhereInput
+    delete: Auth_ProfileWhereInput
+    connect: Auth_ProfileWhereUniqueInput
+    update: Auth_ProfileUpdateWithoutUserInput
+  }
+
   input IntFieldUpdateOperationsInput {
     set: Int
     increment: Int
     decrement: Int
     multiply: Int
     divide: Int
+  }
+
+  input Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput {
+    create: Auth_ProfileUncheckedCreateWithoutUserInput
+    connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
+    upsert: Auth_ProfileUpsertWithoutUserInput
+    disconnect: Auth_ProfileWhereInput
+    delete: Auth_ProfileWhereInput
+    connect: Auth_ProfileWhereUniqueInput
+    update: Auth_ProfileUpdateWithoutUserInput
+  }
+
+  input Auth_UserCreateNestedOneWithoutProfileInput {
+    create: Auth_UserUncheckedCreateWithoutProfileInput
+    connectOrCreate: Auth_UserCreateOrConnectWithoutProfileInput
+    connect: Auth_UserWhereUniqueInput
+  }
+
+  input Auth_UserUpdateOneRequiredWithoutProfileNestedInput {
+    create: Auth_UserUncheckedCreateWithoutProfileInput
+    connectOrCreate: Auth_UserCreateOrConnectWithoutProfileInput
+    upsert: Auth_UserUpsertWithoutProfileInput
+    connect: Auth_UserWhereUniqueInput
+    update: Auth_UserUpdateWithoutProfileInput
+  }
+
+  input NullableDateTimeFieldUpdateOperationsInput {
+    set: DateTime
   }
 
   input NestedIntFilter {
@@ -567,6 +875,149 @@ export default gql`
     not: Json
   }
 
+  input NestedDateTimeNullableFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeNullableFilter
+  }
+
+  input NestedDateTimeNullableWithAggregatesFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeNullableWithAggregatesFilter
+    _count: NestedIntNullableFilter
+    _min: NestedDateTimeNullableFilter
+    _max: NestedDateTimeNullableFilter
+  }
+
+  input Auth_ProfileCreateWithoutUserInput {
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUncheckedCreateWithoutUserInput {
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileCreateOrConnectWithoutUserInput {
+    where: Auth_ProfileWhereUniqueInput!
+    create: Auth_ProfileUncheckedCreateWithoutUserInput!
+  }
+
+  input Auth_ProfileUpsertWithoutUserInput {
+    update: Auth_ProfileUncheckedUpdateWithoutUserInput!
+    create: Auth_ProfileUncheckedCreateWithoutUserInput!
+    where: Auth_ProfileWhereInput
+  }
+
+  input Auth_ProfileUpdateToOneWithWhereWithoutUserInput {
+    where: Auth_ProfileWhereInput
+    data: Auth_ProfileUncheckedUpdateWithoutUserInput!
+  }
+
+  input Auth_ProfileUpdateWithoutUserInput {
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_ProfileUncheckedUpdateWithoutUserInput {
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  input Auth_UserCreateWithoutProfileInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
+  input Auth_UserUncheckedCreateWithoutProfileInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
+  input Auth_UserCreateOrConnectWithoutProfileInput {
+    where: Auth_UserWhereUniqueInput!
+    create: Auth_UserUncheckedCreateWithoutProfileInput!
+  }
+
+  input Auth_UserUpsertWithoutProfileInput {
+    update: Auth_UserUncheckedUpdateWithoutProfileInput!
+    create: Auth_UserUncheckedCreateWithoutProfileInput!
+    where: Auth_UserWhereInput
+  }
+
+  input Auth_UserUpdateToOneWithWhereWithoutProfileInput {
+    where: Auth_UserWhereInput
+    data: Auth_UserUncheckedUpdateWithoutProfileInput!
+  }
+
+  input Auth_UserUpdateWithoutProfileInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
+  input Auth_UserUncheckedUpdateWithoutProfileInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
   type AggregateUser @shareable {
     _count: UserCountAggregateOutputType
     _avg: UserAvgAggregateOutputType
@@ -584,11 +1035,36 @@ export default gql`
     roles: [String!]
     googleId: String
     googleProfile: Json
+    lastName: String
+    firstName: String
     _count: UserCountAggregateOutputType
     _avg: UserAvgAggregateOutputType
     _sum: UserSumAggregateOutputType
     _min: UserMinAggregateOutputType
     _max: UserMaxAggregateOutputType
+  }
+
+  type AggregateProfile @shareable {
+    _count: ProfileCountAggregateOutputType
+    _avg: ProfileAvgAggregateOutputType
+    _sum: ProfileSumAggregateOutputType
+    _min: ProfileMinAggregateOutputType
+    _max: ProfileMaxAggregateOutputType
+  }
+
+  type ProfileGroupByOutputType @key(fields: "userId") @shareable {
+    userId: Int!
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+    _count: ProfileCountAggregateOutputType
+    _avg: ProfileAvgAggregateOutputType
+    _sum: ProfileSumAggregateOutputType
+    _min: ProfileMinAggregateOutputType
+    _max: ProfileMaxAggregateOutputType
   }
 
   type UserCountAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {
@@ -600,6 +1076,8 @@ export default gql`
     roles: Int!
     googleId: Int!
     googleProfile: Int!
+    lastName: Int!
+    firstName: Int!
     _all: Int!
   }
 
@@ -618,6 +1096,8 @@ export default gql`
     password: String
     email: String
     googleId: String
+    lastName: String
+    firstName: String
   }
 
   type UserMaxAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {
@@ -627,5 +1107,46 @@ export default gql`
     password: String
     email: String
     googleId: String
+    lastName: String
+    firstName: String
+  }
+
+  type ProfileCountAggregateOutputType @key(fields: "userId") @shareable {
+    userId: Int!
+    location: Int!
+    joiningDate: Int!
+    designation: Int!
+    profileImg: Int!
+    designationIcon: Int!
+    coverImg: Int!
+    _all: Int!
+  }
+
+  type ProfileAvgAggregateOutputType @key(fields: "userId") @shareable {
+    userId: Float
+  }
+
+  type ProfileSumAggregateOutputType @key(fields: "userId") @shareable {
+    userId: Int
+  }
+
+  type ProfileMinAggregateOutputType @key(fields: "userId") @shareable {
+    userId: Int
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
+  }
+
+  type ProfileMaxAggregateOutputType @key(fields: "userId") @shareable {
+    userId: Int
+    location: String
+    joiningDate: DateTime
+    designation: String
+    profileImg: String
+    designationIcon: String
+    coverImg: String
   }
 `;

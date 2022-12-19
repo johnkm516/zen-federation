@@ -19,4 +19,18 @@ model User {
   roles         String[]
   googleId      String?  @unique
   googleProfile Json?
+  lastName      String?
+  firstName     String?
+  profile       Profile?
+}
+
+model Profile {
+  userId            Int  @unique  @id
+  user              User @relation(fields: [userId], references: [id])
+  location          String?
+  joiningDate       DateTime?
+  designation       String?
+  profileImg        String?
+  designationIcon   String?
+  coverImg          String?
 }
