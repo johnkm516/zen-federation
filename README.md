@@ -23,15 +23,29 @@ Major changes and additions from the original Zen repository :
 
 Things I deleted from the original Zen repository : 
 
-- GraphQL upload related code : I agree with Apollo's recommendations (https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/) that file uploads shouldn't be handled with GraphQL. Trying to implement multi-part file uploading in a federated architecture using Apollo Router not only might not be possible at the moment, it's outside the scope of this service layer. Refer to my intended architecture below. 
+- GraphQL upload related code : I agree with [Apollo's recommendations](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/ "Apollo's recommendations") that file uploads shouldn't be handled with GraphQL. Trying to implement multi-part file uploading in a federated architecture using Apollo Router not only might not be possible at the moment, it's outside the scope of this service layer. Refer to my intended architecture below. 
 
-- Frontend related code. As mentioned above this monorepo serves as a data model layer for a greater architecture. Removing the frontend code also gives you the freedom to implement the stack however you want not just in the way I envision. 
+- Frontend related code. As mentioned above this monorepo serves as a data model layer for a greater architecture. Removing the frontend code also gives you the freedom to implement the stack however you want, not just in the way I envision. 
 
 ## 🏰 The Architecture 
 
 ![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/architecture.png?raw=true)
 
+The architecture I envision are separated into three layers : 
 
+1.  The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
+2. The business logic layer ([Zen-Temporal](https://github.com/johnkm516/zen-temporal "Zen-Temporal"))
+3. Frontend layer (In whichever framework you choose, create a web app that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
+
+My rationale behind this architecture : 
+
+- GraphQL endpoints can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD endpoints for models defined in `schema.prisma` each subgraph, and generate new subgraphs with ease. 
+
+- Any simple "one-off" queries and mutations can be called directly by frontend applications via Apollo Client. This project generates and supports GraphQL resolvers with `where` inputs, which you can use to implement *Optimistic Concurrency Control* in cases where it's assumed multiple users modifying the data simultaneously is rare. 
+
+- In cases where you need to implement business logic, [Temporal IO](https://temporal.io/ "Temporal IO") is a workflow engine that is great for microservice orchestration. Temporal UI displays the input / output JSON data of all your activities for every workflow execution - every call to your GraphQL endpoint, external API calls, business logic activities, etc. - which can make debugging distributed systems significantly easier. [Temporal IO](https://temporal.io/ "Temporal IO") is the brain of this entire architecture. Anytime any logic needs to be coded outside of simple CRUD or rendering frontend, it should be implemented as a Temporal workflow / activity in a worker. The *[saga pattern](https://learn.temporal.io/tutorials/php/booking_saga/ "saga pattern")* is supported and comes built-in by Temporal as well; although currently Zen-Federation does not automatically generate compensating resolvers or save event IDs for mutations. You will have to implement this functionality yourself. 
+
+- Because [Temporal IO](https://temporal.io/ "Temporal IO") saves every input/output of your activities, you can take advantage of all this raw data to create ETL workflows for business intelligence, all of it horizontally scalable. 
 
 ---
 
