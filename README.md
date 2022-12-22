@@ -6,7 +6,7 @@
 
 **This repository is a standalone fork of https://github.com/ZenSoftware/zen.**
 
-**Why this is a standalone fork **: 
+**Why this is a standalone fork**: 
 I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three layers. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
 
 Continuing the vision of the original Zen repository, this repository treats `schema.prisma` as a *single source of truth* for data models. From this single file, this project generates all the code necessary to start a GraphQL server in seconds by inputting just a few commands. The difference between the old repository and my fork is that not only can you generate CRUD for models declared in the `schema.prisma` file, you can generate an entire new backend service in seconds, which comes with its own Prisma client and `schema.prisma`, fully supporting an Apollo Federation 2 supergraph out of the box. 
