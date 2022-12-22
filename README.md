@@ -1,16 +1,38 @@
-# ⛩ Zen ⛩
+# ⛩ Zen-Federation ⛩
 
-#### Nest + Prisma + Angular 🏮 Full Stack GraphQL Starter Kit
+#### NestJS + Prisma + Apollo Federation 2 Microservices Starter Kit
 
 ---
 
-What is really nice about Nest and Angular is that their programming idioms carry over seamlessly between the two, allowing for front-end devs to contribute to the back-end. Though, there are complexities in creating the GraphQL endpoint that exposes the various CRUD operations over the Prisma data model on the back-end.  A combination between Nest + Prisma + Angular has provided for new capabilities that the industry has not really seen before. This project code generates all the boilerplate required in bridging these 3 technologies together.
+**This repository is a standalone fork of https://github.com/ZenSoftware/zen.**
 
-There is a tremendous amount of value to be gained by treating the `schema.prisma` file as the single source of truth, and then code generating everything else from that. It guarantees consistency between the front-end and back-end. It also centralizes the CRUD operations over all the Prisma models via a single import endpoint.
+**Why this is a standalone fork **: 
+I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three layers. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
 
-This project also provides solutions for the hardest parts of user authentication as well. I have strictly kept to the Angular and Nest best practices that are being utilized within the ecosystem. This project is an attempt to package the sum total of all the lessons I have learned, and making it publicly available to the community. All the services being generated should be fairly self explanatory, and lots of useful NPM scripts have been provided for the various stages of development to deployment. Better documentation will come with time. 🍜
+Continuing the vision of the original Zen repository, this repository treats `schema.prisma` as a *single source of truth* for data models. From this single file, this project generates all the code necessary to start a GraphQL server in seconds by inputting just a few commands. The difference between the old repository and my fork is that not only can you generate CRUD for models declared in the `schema.prisma` file, you can generate an entire new backend service in seconds, which comes with its own Prisma client and `schema.prisma`, fully supporting an Apollo Federation 2 supergraph out of the box. 
 
-> 🎐 New contributors are welcome!
+Major changes and additions from the original Zen repository : 
+
+- Nx workspace generator that generates an entire new service / apollo subgraph from scratch, which comes with its own Prisma Client and `schema.prisma` file. 
+
+- Docker-compose which works out of the box with no modifications needed, with optimized multi-stage build Dockerfile to minimize container image size. The Nx workspace generator even generates the docker-compose file and modifies it when you generate a new backend service; you can specify the ports or the ports will be automatically assigned for you. The docker compose sets up a fully working environment Apollo Router, PGAdmin, PostgreSQL, and the subgraphs.
+
+- PGAdmin that automatically connects to each service's PostgreSQL server; the Nx workspace generator automatically generates files for PGAdmin that connect to new databases automatically
+
+- A separate fork of the Paljs/Generator library to generate gql schemas and endpoints to make it work with Apollo 2 Federation. Details about my modifications are below and you can find my fork here : https://github.com/johnkm516/prisma-tools-federation
+
+Things I deleted from the original Zen repository : 
+
+- GraphQL upload related code : I agree with Apollo's recommendations (https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/) that file uploads shouldn't be handled with GraphQL. Trying to implement multi-part file uploading in a federated architecture using Apollo Router not only might not be possible at the moment, it's outside the scope of this service layer. Refer to my intended architecture below. 
+
+- Frontend related code. As mentioned above this monorepo serves as a data model layer for a greater architecture. Removing the frontend code also gives you the freedom to implement the stack however you want not just in the way I envision. 
+
+## :tw-26ea: The Architecture 
+
+![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/architecture.png?raw=true)
+
+
+
 
 ---
 
