@@ -27,10 +27,9 @@ Things I deleted from the original Zen repository :
 
 - Frontend related code. As mentioned above this monorepo serves as a data model layer for a greater architecture. Removing the frontend code also gives you the freedom to implement the stack however you want not just in the way I envision. 
 
-## :tw-26ea: The Architecture 
+## 🏰 The Architecture 
 
 ![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/architecture.png?raw=true)
-
 
 
 
