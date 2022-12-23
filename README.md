@@ -46,7 +46,7 @@ Continuing the vision of the original Zen repository, this repository treats `sc
 
 Things I deleted from the original Zen repository : 
 
-- GraphQL upload related code : I agree with [Apollo's recommendations](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/ "Apollo's recommendations") that file uploads shouldn't be handled with GraphQL. Trying to implement multi-part file uploading in a federated architecture using Apollo Router not only might not be possible at the moment, it's outside the scope of this service layer. Refer to my intended architecture below. 
+- GraphQL upload related code : I agree with [Apollo's recommendations](https://www.apollographql.com/blog/backend/file-uploads/file-upload-best-practices/ "Apollo's recommendations") that multipart file uploads shouldn't be handled with GraphQL. Trying to implement multi-part file uploading in a federated architecture using Apollo Router not only might not be possible at the moment, it's outside the scope of this service layer. Refer to my intended architecture below. 
 
 - Frontend related code. As mentioned above this monorepo serves as a data model layer for a greater architecture. Removing the frontend code also gives you the freedom to implement the stack however you want, not just in the way I envision. 
 
