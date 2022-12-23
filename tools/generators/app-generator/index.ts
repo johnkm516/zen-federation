@@ -321,16 +321,6 @@ export async function NestAPIGenerator (tree: Tree, options: GeneratorOptions) {
     }
   )
 
-  //Update angular.json with new API proj
-  updateJson(
-    tree,
-    'angular.json',
-    (json) => {
-      json.projects[projectname] = `apps/${projectname}`
-      return json;
-    }
-  )
-
   //Update subgraphs.json with new API proj
   let subgraphs;
   updateJson(
