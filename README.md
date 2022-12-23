@@ -17,16 +17,15 @@ Table of contents
       * [Rationale](#rationale)
    * [Project Setup Instructions](#setup)
    * [Code-Generation Usage](#usage)
-   * [Docker](#docker)
-     * [Local](#local)
-     * [Public](#public)
+   * [Project Tree](#tree)
+
 <!--te-->
 
 <a name="intro"></a>
 ## ♟️ Introduction
 
 <a name="intro_why"></a>
-**Why this is a standalone fork **: 
+**Why this is a standalone fork**: 
 
 I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three layers. For an enterprise architecture, I expect multiple frontend applications, and as both the frontend and backend get bigger and more bloated with libraries, having everything in a single Nx monorepo with shared dependencies means the container image size will grow too large. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
 
@@ -153,6 +152,10 @@ Build :
 npm run build:dev
 npm run build:prod
 ```
+---
+
+<a name="tree"></a>
+## 🌲 Project Tree
 
 ---
 
