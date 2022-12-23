@@ -58,7 +58,7 @@ The architecture I envision are separated into three layers :
 
 1.  The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
 2. The business logic layer ([Zen-Temporal](https://github.com/johnkm516/zen-temporal "Zen-Temporal"))
-3. Frontend layer (In whichever framework you choose, create a web app that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
+3. Frontend layer (In whichever framework you choose, create web app(s) that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
 4. External / Other services. You can use Temporal workflows to communicate with external / other APIs, and create / use services like an ECM solution for file uploading
 
 <a name="rationale"></a>
@@ -108,24 +108,51 @@ npm run start:auth
 <a name="scripts"></a>
 **Package.json Scripts**
 
+- Generate a new backend subgraph service : 
 
+	- apiPort and databasePort is optional. The script automatically finds and assigns unused ports for you if you don't want to set it yourself
+
+Using VSCode NX Console extension : 
+
+![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/NxConsole.png?raw=true)
+
+Using bash : 
+```bash
+npx nx workspace-generator app-generator --apiPort=SERVICE_PORT --databasePort=POSTGRESQL_PORT --name=YOUR_SERVICE_NAME --provider=postgresql --no-interactive
+```
+
+Generate the Prisma Client for all subgraphs :
 
 ```bash
-# Generate the Prisma Client for all subgraphs. 
 # This script is automatically modified when a new subgraph is generated using the Nx Workspace generator.
 npm run api:gen
 ```
 
+Start your subgraph API : 
+
 ```bash
-# build 
+npm run start:auth
+# The Nx Workspace generator will generate this command
+npm run start:YOUR_SERVICE_NAME_INLOWERCASE
+# For example, for Products and Orders services : 
+npm run start:products
+npm run start:orders
+```
+
+Prisma migrate your subgraph API :
+```bash
+#Prisma migrate your auth service with your auth PostgreSQL db
+npm run prisma:migrate:auth
+#Similarly to above, the Nx Workspace generator will generate this command
+npm run prisma:migrate:YOUR_SERVICE_NAME_INLOWERCASE
+```
+
+Build : 
+```bash
+# These scripts will automatically be modified by the Nx Workspace generator when a new service is added
 npm run build:dev
 npm run build:prod
 ```
-
-
-
-
-
 
 ---
 
