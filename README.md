@@ -18,6 +18,8 @@ Table of contents
    * [Project Setup Instructions](#setup)
    * [Code-Generation Usage](#usage)
    * [Project Tree](#tree)
+   * [GraphQL Features](#features_graphql)
+   * [API Authentication, Performance & Scaling](#features_scaling)
 
 <!--te-->
 
@@ -308,6 +310,7 @@ npm run build:prod
 
 ---
 
+<a name="features_graphql"></a>
 ## 🥢 GraphQL Features
 
 - [x] [Nest GraphQL](https://docs.nestjs.com/graphql/resolvers) resolvers as a gateway to [Prisma Client](https://www.prisma.io).
@@ -323,6 +326,8 @@ npm run build:prod
 	- [x] Generate helper package.json scripts anytime a new subgraph is generated
 
 ---
+
+<a name="features_scaling"></a>
 ## 🍱 API Authentication, Performance & Scaling
 
 - [x] Scalable architecture where you can code-generate new backend GraphQL subgraph service that composes into an Apollo Federation 2 supergraph in seconds with a *database per service*
