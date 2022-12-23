@@ -42,7 +42,7 @@ Continuing the vision of the original Zen repository, this repository treats `sc
 
 - PGAdmin that automatically connects to each service's PostgreSQL server; the Nx workspace generator automatically generates files for PGAdmin that connect to new databases automatically
 
-- A separate fork of the Paljs/Generator library to generate gql schemas and endpoints to make it work with Apollo 2 Federation. Details about my modifications are below and you can find my fork here : https://github.com/johnkm516/prisma-tools-federation
+- A separate fork of the Paljs/Generator library to generate gql schemas and resolvers to make it work with Apollo 2 Federation. Details about my modifications are below and you can find my fork here : https://github.com/johnkm516/prisma-tools-federation
 
 Things I deleted from the original Zen repository : 
 
@@ -65,7 +65,7 @@ The architecture I envision are separated into three layers :
 <a name="rationale"></a>
 **My rationale behind this architecture** : 
 
-- GraphQL endpoints can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD endpoints for models defined in `schema.prisma` each subgraph, and generate new subgraphs with ease.
+- GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` each subgraph, and generate new subgraphs with ease.
 
 - Any simple "one-off" queries and mutations can be called directly by frontend applications via Apollo Client. This project generates and supports GraphQL resolvers with `where` inputs, which you can use to implement *Optimistic Concurrency Control* in cases where it's assumed multiple users modifying the data simultaneously is rare. 
 
