@@ -4,7 +4,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nx serve portal",
     "start:auth": "nx serve auth-api --verbose",
     "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
     "build:dev": "nx build auth-api",
