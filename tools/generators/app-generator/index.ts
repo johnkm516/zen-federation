@@ -1,11 +1,9 @@
 import { formatFiles, generateFiles, names, Tree } from '@nrwl/devkit';
-import { DIR_DOCUMENT } from '@angular/cdk/bidi';
 import { PrismaClientGenerator }  from '../prisma-generator'
 import { joinPathFragments, updateJson } from '@nrwl/devkit';
 import * as fs from 'fs'; 
 import * as YAML from 'yaml';
 import * as dotenv from 'dotenv';
-import { hasUncaughtExceptionCaptureCallback } from 'process';
 
 
 interface GeneratorOptions {
