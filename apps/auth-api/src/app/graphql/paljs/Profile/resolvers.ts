@@ -49,9 +49,6 @@ const resolvers: Resolvers = {
     Auth_updateOneProfile: (_parent, args, { prisma }) => {
       return prisma.profile.update(args);
     },
-    Auth_updateOneProfileSaga: (_parent, args, { prisma }) => {
-      return prisma.profile.update(args);
-    },
     Auth_deleteOneProfile: async (_parent, args, { prisma }) => {
       return prisma.profile.delete(args);
     },

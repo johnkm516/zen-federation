@@ -1149,4 +1149,87 @@ export default gql`
     designationIcon: String
     coverImg: String
   }
+
+  input Auth_createOneUserInput {
+    data: Auth_UserCreateInput
+  }
+
+  input Auth_upsertOneUserInput {
+    where: Auth_UserWhereUniqueInput
+    create: Auth_UserCreateInput
+    update: Auth_UserUpdateInput
+  }
+
+  input Auth_createManyUserInput {
+    data: [Auth_UserCreateManyInput]
+    skipDuplicates: Boolean
+  }
+
+  input Auth_deleteOneUserInput {
+    where: Auth_UserWhereUniqueInput
+  }
+
+  input Auth_updateOneUserInput {
+    data: Auth_UserUpdateInput
+    where: Auth_UserWhereUniqueInput
+  }
+
+  input Auth_updateManyUserInput {
+    data: Auth_UserUpdateManyMutationInput
+    where: Auth_UserWhereInput
+  }
+
+  input Auth_deleteManyUserInput {
+    where: Auth_UserWhereInput
+  }
+
+  input Auth_createOneProfileInput {
+    data: Auth_ProfileCreateInput
+  }
+
+  input Auth_upsertOneProfileInput {
+    where: Auth_ProfileWhereUniqueInput
+    create: Auth_ProfileCreateInput
+    update: Auth_ProfileUpdateInput
+  }
+
+  input Auth_createManyProfileInput {
+    data: [Auth_ProfileCreateManyInput]
+    skipDuplicates: Boolean
+  }
+
+  input Auth_deleteOneProfileInput {
+    where: Auth_ProfileWhereUniqueInput
+  }
+
+  input Auth_updateOneProfileInput {
+    data: Auth_ProfileUpdateInput
+    where: Auth_ProfileWhereUniqueInput
+  }
+
+  input Auth_updateManyProfileInput {
+    data: Auth_ProfileUpdateManyMutationInput
+    where: Auth_ProfileWhereInput
+  }
+
+  input Auth_deleteManyProfileInput {
+    where: Auth_ProfileWhereInput
+  }
+
+  input Auth_transactionalMutationInput {
+    Auth_createOneUser: Auth_createOneUserInput
+    Auth_upsertOneUser: Auth_upsertOneUserInput
+    Auth_createManyUser: Auth_createManyUserInput
+    Auth_deleteOneUser: Auth_deleteOneUserInput
+    Auth_updateOneUser: Auth_updateOneUserInput
+    Auth_updateManyUser: Auth_updateManyUserInput
+    Auth_deleteManyUser: Auth_deleteManyUserInput
+    Auth_createOneProfile: Auth_createOneProfileInput
+    Auth_upsertOneProfile: Auth_upsertOneProfileInput
+    Auth_createManyProfile: Auth_createManyProfileInput
+    Auth_deleteOneProfile: Auth_deleteOneProfileInput
+    Auth_updateOneProfile: Auth_updateOneProfileInput
+    Auth_updateManyProfile: Auth_updateManyProfileInput
+    Auth_deleteManyProfile: Auth_deleteManyProfileInput
+  }
 `;

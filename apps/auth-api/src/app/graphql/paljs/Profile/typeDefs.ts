@@ -70,10 +70,6 @@ export default gql`
       data: Auth_ProfileUpdateInput!
       where: Auth_ProfileWhereUniqueInput!
     ): Profile!
-    Auth_updateOneProfileSaga(
-      data: Auth_ProfileUpdateInput!
-      where: Auth_ProfileWhereUniqueInput!
-    ): Profile!
     Auth_deleteOneProfile(where: Auth_ProfileWhereUniqueInput!): Profile
     Auth_upsertOneProfile(
       where: Auth_ProfileWhereUniqueInput!

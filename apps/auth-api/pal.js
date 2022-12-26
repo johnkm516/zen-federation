@@ -11,5 +11,6 @@ module.exports = {
     output: 'apps/auth-api/src/app/graphql/paljs',
     doNotUseFieldUpdateOperationsInput: true,
     federation: "Auth",
+    includeTransactionalBatchMutation: true
   },
 };

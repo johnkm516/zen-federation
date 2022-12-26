@@ -143,6 +143,7 @@ export interface Mutation {
   Auth_deleteManyProfile?: Resolver<{}, Auth_DeleteManyProfileArgs, Client.Prisma.BatchPayload>;
   Auth_executeRaw?: Resolver<{}, Auth_ExecuteRawArgs, any>;
   Auth_queryRaw?: Resolver<{}, Auth_QueryRawArgs, any>;
+  Auth_transactionalBatchMutation?: Resolver<{}, Auth_TransactionalBatchMutationArgs, any>;
 }
 
 export interface AggregateUser {
@@ -1560,4 +1561,25 @@ export enum UserScalarFieldEnum {
   googleProfile = 'googleProfile',
   lastName = 'lastName',
   firstName = 'firstName',
+}
+
+export interface Auth_TransactionalMutationInput {
+  Auth_CreateOneUser: Auth_CreateOneUserArgs;
+  Auth_UpsertOneUser: Auth_UpsertOneUserArgs;
+  Auth_CreateManyUser: Auth_CreateManyUserArgs;
+  Auth_DeleteOneUser: Auth_DeleteOneUserArgs;
+  Auth_UpdateOneUser: Auth_UpdateOneUserArgs;
+  Auth_UpdateManyUser: Auth_UpdateManyUserArgs;
+  Auth_DeleteManyUser: Auth_DeleteManyUserArgs;
+  Auth_CreateOneProfile: Auth_CreateOneProfileArgs;
+  Auth_UpsertOneProfile: Auth_UpsertOneProfileArgs;
+  Auth_CreateManyProfile: Auth_CreateManyProfileArgs;
+  Auth_DeleteOneProfile: Auth_DeleteOneProfileArgs;
+  Auth_UpdateOneProfile: Auth_UpdateOneProfileArgs;
+  Auth_UpdateManyProfile: Auth_UpdateManyProfileArgs;
+  Auth_DeleteManyProfile: Auth_DeleteManyProfileArgs;
+}
+
+export interface Auth_TransactionalBatchMutationArgs {
+  mutations: Auth_TransactionalMutationInput[];
 }

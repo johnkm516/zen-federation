@@ -11,5 +11,6 @@ module.exports = {
     output: 'apps/<%= projectname %>/src/app/graphql/paljs',
     doNotUseFieldUpdateOperationsInput: true,
     federation: "<%= name %>",
+    includeTransactionalBatchMutation: true
   },
 };

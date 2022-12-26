@@ -18,6 +18,7 @@ import {
   TypeDefsTemplate,
 } from './templates';
 import { Datamodel, Document, Model } from '@paljs/generator/dist/Generators';
+import { NestResolversABACTemplate_TransactionalBatchMutation } from './templates/nest-resolvers-abac-transactionalBatchMutation';
 
 const execAsync = promisify(exec);
 
@@ -74,7 +75,7 @@ export class ZenGenerator {
     let prismaNames = dirents.filter(d => d.isDirectory()).map(d => d.name);
     prismaNames = prismaNames.sort();
     const palTypeDefsFilePath = path.join(palOutPath, 'typeDefs.ts');
-    await writeFile(palTypeDefsFilePath, TypeDefsTemplate(prismaNames));
+    await writeFile(palTypeDefsFilePath, TypeDefsTemplate(prismaNames, this.config.palConfig.backend?.includeTransactionalBatchMutation));
     console.log(`- Wrote: ${palTypeDefsFilePath}`);
 
     console.log(`---------------- Nest GraphQL resolvers generated ----------------`);
@@ -104,6 +105,14 @@ export class ZenGenerator {
       .map(f => path.basename(f, '.ts')); // Remove ".ts" extension from all names
 
     const indexPath = path.join(nestResolversPath, 'index.ts');
+    if (this.config.palConfig.backend?.includeTransactionalBatchMutation) {
+      const outPath = path.join(this.config.apiOutPath, 'resolvers', `TransactionalBatchMutation.ts`);
+
+      if (!fs.existsSync(outPath)) {
+        await writeFile(outPath, NestResolversABACTemplate_TransactionalBatchMutation(this.config.palConfig.backend?.federation));
+        console.log(`- Wrote: ${outPath}`);
+      }
+    }
     await writeFile(indexPath, NestResolversIndexTemplate(dataTypeNames));
     console.log(`- Wrote: ${indexPath}`);
 

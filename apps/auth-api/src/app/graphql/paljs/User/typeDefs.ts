@@ -70,7 +70,6 @@ export default gql`
   type Mutation {
     Auth_createOneUser(data: Auth_UserCreateInput!): User!
     Auth_updateOneUser(data: Auth_UserUpdateInput!, where: Auth_UserWhereUniqueInput!): User!
-    Auth_updateOneUserSaga(data: Auth_UserUpdateInput!, where: Auth_UserWhereUniqueInput!): User!
     Auth_deleteOneUser(where: Auth_UserWhereUniqueInput!): User
     Auth_upsertOneUser(
       where: Auth_UserWhereUniqueInput!
