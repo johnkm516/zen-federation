@@ -19,7 +19,7 @@ Table of contents
    * [Usage](#usage)
       * [Code Generation and Start API](#general_usage)
 	  * [GraphQL](#graphql_usage)
-	  	* [Transactional Batch Mutation](#transactional_mutation)
+	  	* [Transactional Batch Mutation](#graphql_transaction_usage)
    * [Project Tree](#tree)
    * [GraphQL Features](#features_graphql)
    * [API Authentication, Performance & Scaling](#features_scaling)
@@ -158,13 +158,14 @@ npm run build:dev
 npm run build:prod
 ```
 ---
-<a name="GraphQL"></a>
+<a name="graphql_usage"></a>
 ### **GraphQL Usage**
 
 During development, I recommend using Apollo Sandbox. The purpose of this repository is to provide all the capabililties that you would expect from any relational database, such as groupBy, ```WHERE``` filters for every field, nested resolvers, etc. Using Apollo Sandbox, anyone, even without knowledge of SQL can build a query / mutation in seconds. 
 
 ![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/Sandbox.png?raw=true)
 
+<a name="graphql_transaction_usage"></a>
 ### **Transactional Batch Mutation**
 
 I added a new custom resolver for code-generation in PalJS/Generator that generates a mutation that can run any generated CRUD mutation in order, as a [Prisma Transaction](https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api "Prisma Transaction").
