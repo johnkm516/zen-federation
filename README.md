@@ -16,7 +16,10 @@ Table of contents
    * [The Architecture](#architecture)
       * [Rationale](#rationale)
    * [Project Setup Instructions](#setup)
-   * [Code-Generation Usage](#usage)
+   * [Usage](#usage)
+      * [Code Generation and Start API](#general_usage)
+	  * [GraphQL](#graphql_usage)
+	  	* [Transactional Batch Mutation](#transactional_mutation)
    * [Project Tree](#tree)
    * [GraphQL Features](#features_graphql)
    * [API Authentication, Performance & Scaling](#features_scaling)
@@ -27,14 +30,14 @@ Table of contents
 ## ♟️ Introduction
 
 <a name="intro_why"></a>
-**Why this is a standalone fork**: 
+### **Why this is a standalone fork**: 
 
 I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three layers. For an enterprise architecture, I expect multiple frontend applications, and as both the frontend and backend get bigger and more bloated with libraries, having everything in a single Nx monorepo with shared dependencies means the container image size will grow too large. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
 
 Continuing the vision of the original Zen repository, this repository treats `schema.prisma` as a *single source of truth* for data models. From this single file (or in this case, a single *schema per service*), this project generates all the code necessary to start a GraphQL server in seconds by inputting just a few commands. The difference between the old repository and my fork is that not only can you generate CRUD for models declared in the `schema.prisma` file, you can generate an entire new backend service in seconds, which comes with its own Prisma client and `schema.prisma`, with a composable Apollo Federation 2 supergraph out of the box. 
 
 <a name="intro_changes"></a>
-**Major changes and additions from the original Zen repository** : 
+### **Major changes and additions from the original Zen repository** : 
 
 - Nx workspace generator that generates an entire new service / apollo subgraph from scratch, which comes with its own Prisma Client and `schema.prisma` file. 
 
@@ -63,7 +66,7 @@ The architecture I envision are separated into three layers :
 4. External / Other services. You can use Temporal workflows to communicate with external / other APIs, and create / use services like an ECM solution for file uploading
 
 <a name="rationale"></a>
-**My rationale behind this architecture** : 
+### **My rationale behind this architecture** : 
 
 - GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` each subgraph, and generate new subgraphs with ease.
 
@@ -101,13 +104,13 @@ npm run prisma:migrate
 npm run start:auth
 ```
 <a name="usage"></a>
-## 🎴 Code-Generation Usage
+## 🎴 Usage
 **Recommended**
 
 - [VSCode](https://code.visualstudio.com/ "VSCode") with Nx Console extension
 
-<a name="scripts"></a>
-**Package.json Scripts**
+<a name="general_usage"></a>
+### **Code Generation and Start API**
 
 - Generate a new backend subgraph service : 
 
@@ -154,6 +157,25 @@ Build :
 npm run build:dev
 npm run build:prod
 ```
+---
+<a name="GraphQL"></a>
+### **GraphQL Usage**
+
+During development, I recommend using Apollo Sandbox. The purpose of this repository is to provide all the capabililties that you would expect from any relational database, such as groupBy, ```WHERE``` filters for every field, nested resolvers, etc. Using Apollo Sandbox, anyone, even without knowledge of SQL can build a query / mutation in seconds. 
+
+![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/Sandbox.png?raw=true)
+
+### **Transactional Batch Mutation**
+
+I added a new custom resolver for code-generation in PalJS/Generator that generates a mutation that can run any generated CRUD mutation in order, as a [Prisma Transaction](https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api "Prisma Transaction").
+
+This resolver accepts an array of ```#SUBGRAPH_NAME#__transactionalMutationInput```(**take note this input type takes one mutation only for each input in the array; otherwise the resolver will throw an error. When @oneOf directive is added to the spec this resolver will be updated to use that instead**), which contains input args of every CRUD mutation : 
+
+![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/Sandbox_Transaction.png?raw=true)
+
+As the resolver executes the mutations in the input list, if any one of them fails the transaction will fail and rollback. Prisma Client will ensure either all of the mutations succeed, or none of them succeed. 
+
+
 ---
 
 <a name="tree"></a>
@@ -317,7 +339,10 @@ npm run build:prod
 - [x] [Apollo GraphQL SDL bindings to Prisma](https://paljs.com/generator/sdl) generated via my modified fork of [Pal.js/Generator](https://github.com/johnkm516/prisma-tools-federation) Thank you [**@AhmedElywa**](https://github.com/paljs) 🎎
 	- [x] Code-generate Apollo Federation 2 subgraphs that can compose a supergraph out of the box
 	- [x] Code-generate GroupBy resolvers
-	- [ ] (Coming soon) Code-generate transactional batch mutations where you can input a list of mutations and it will run them in order as a [Prisma transaction](https://www.prisma.io/docs/concepts/components/prisma-client/transactions "Prisma transaction")
+	- [x] Code-generate transactional batch mutations where you can input a list of mutations and it will run them in order as a [Prisma transaction](https://www.prisma.io/docs/concepts/components/prisma-client/transactions "Prisma transaction")
+	- [ ] (Coming soon) Code-generate raw SQL input resolvers
+
+
 - [x] [PrismaSelect](https://paljs.com/plugins/select/) to solve the GraphQL N+1 problem for all queries for free.
 - [x] Custom npm scripts to code generate the NestJS GraphQL types and resolvers on Prisma schema changes.
 - [x] Custom Nx workspace generator to : 
