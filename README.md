@@ -68,7 +68,7 @@ The architecture I envision are separated into three layers :
 <a name="rationale"></a>
 ### **My rationale behind this architecture** : 
 
-- GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` each subgraph, and generate new subgraphs with ease.
+- GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` for each subgraph, and generate new subgraphs with ease.
 
 - Any simple "one-off" queries and mutations can be called directly by frontend applications via Apollo Client. This project generates and supports GraphQL resolvers with `where` inputs, which you can use to implement *Optimistic Concurrency Control* in cases where it's assumed multiple users modifying the data simultaneously is rare. 
 
