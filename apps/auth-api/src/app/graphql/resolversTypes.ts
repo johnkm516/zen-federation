@@ -1583,3 +1583,7 @@ export interface Auth_TransactionalMutationInput {
 export interface Auth_TransactionalBatchMutationArgs {
   mutations: Auth_TransactionalMutationInput[];
 }
+
+export interface TransactionSucceeded {
+  transactionSucceeded: boolean;
+}

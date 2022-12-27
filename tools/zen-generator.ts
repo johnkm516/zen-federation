@@ -96,6 +96,15 @@ export class ZenGenerator {
     } else if (this.config.authScheme === 'RBAC') {
       wroteCount = await this.nestRbacResolvers(dmmf.datamodel.models, this.config.palConfig.backend?.federation);
     }
+    if (this.config.palConfig.backend?.includeTransactionalBatchMutation) {
+      const outPath = path.join(this.config.apiOutPath, 'resolvers', `TransactionalBatchMutation.ts`);
+
+      if (!fs.existsSync(outPath)) {
+        await writeFile(outPath, NestResolversABACTemplate_TransactionalBatchMutation(this.config.palConfig.backend?.federation));
+        console.log(`- Wrote: ${outPath}`);
+      }
+      wroteCount++;
+    }
 
     console.log(`* Total resolver files wrote: ${wroteCount}`);
 
@@ -105,14 +114,6 @@ export class ZenGenerator {
       .map(f => path.basename(f, '.ts')); // Remove ".ts" extension from all names
 
     const indexPath = path.join(nestResolversPath, 'index.ts');
-    if (this.config.palConfig.backend?.includeTransactionalBatchMutation) {
-      const outPath = path.join(this.config.apiOutPath, 'resolvers', `TransactionalBatchMutation.ts`);
-
-      if (!fs.existsSync(outPath)) {
-        await writeFile(outPath, NestResolversABACTemplate_TransactionalBatchMutation(this.config.palConfig.backend?.federation));
-        console.log(`- Wrote: ${outPath}`);
-      }
-    }
     await writeFile(indexPath, NestResolversIndexTemplate(dataTypeNames));
     console.log(`- Wrote: ${indexPath}`);
 

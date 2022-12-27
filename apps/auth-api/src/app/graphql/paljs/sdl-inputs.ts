@@ -1150,6 +1150,10 @@ export default gql`
     coverImg: String
   }
 
+  type TransactionSucceeded @shareable {
+    transactionSucceeded: Boolean!
+  }
+
   input Auth_createOneUserInput {
     data: Auth_UserCreateInput
   }
