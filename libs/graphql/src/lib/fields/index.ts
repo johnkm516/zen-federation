@@ -5,3 +5,5 @@ export * from './User.gql';
 export * from './Product.gql';
 export * from './Review.gql';
 export * from './Profile.gql';
+export * from './Team.gql';
+export * from './UsersOnTeams.gql';

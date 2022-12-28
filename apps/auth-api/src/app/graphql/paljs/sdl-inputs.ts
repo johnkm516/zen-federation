@@ -37,6 +37,10 @@ export default gql`
     desc
   }
 
+  enum TeamScalarFieldEnum {
+    teamName
+  }
+
   enum TransactionIsolationLevel {
     ReadUncommitted
     ReadCommitted
@@ -57,6 +61,12 @@ export default gql`
     firstName
   }
 
+  enum UsersOnTeamsScalarFieldEnum {
+    teamName
+    userId
+    assignedAt
+  }
+
   input Auth_UserWhereInput {
     AND: [Auth_UserWhereInput!]
     OR: [Auth_UserWhereInput!]
@@ -72,6 +82,7 @@ export default gql`
     lastName: StringNullableFilter
     firstName: StringNullableFilter
     profile: Auth_ProfileWhereInput
+    teams: Auth_UsersOnTeamsListRelationFilter
   }
 
   input Auth_UserOrderByWithRelationInput {
@@ -86,6 +97,7 @@ export default gql`
     lastName: SortOrder
     firstName: SortOrder
     profile: Auth_ProfileOrderByWithRelationInput
+    teams: Auth_UsersOnTeamsOrderByRelationAggregateInput
   }
 
   input Auth_UserWhereUniqueInput {
@@ -103,6 +115,7 @@ export default gql`
     lastName: StringNullableFilter
     firstName: StringNullableFilter
     profile: Auth_ProfileWhereInput
+    teams: Auth_UsersOnTeamsListRelationFilter
   }
 
   input Auth_UserOrderByWithAggregationInput {
@@ -206,6 +219,92 @@ export default gql`
     coverImg: StringNullableWithAggregatesFilter
   }
 
+  input Auth_UsersOnTeamsWhereInput {
+    AND: [Auth_UsersOnTeamsWhereInput!]
+    OR: [Auth_UsersOnTeamsWhereInput!]
+    NOT: [Auth_UsersOnTeamsWhereInput!]
+    team: Auth_TeamWhereInput
+    teamName: StringFilter
+    user: Auth_UserWhereInput
+    userId: IntFilter
+    assignedAt: DateTimeFilter
+  }
+
+  input Auth_UsersOnTeamsOrderByWithRelationInput {
+    team: Auth_TeamOrderByWithRelationInput
+    teamName: SortOrder
+    user: Auth_UserOrderByWithRelationInput
+    userId: SortOrder
+    assignedAt: SortOrder
+  }
+
+  input Auth_UsersOnTeamsWhereUniqueInput {
+    teamName_userId: UsersOnTeamsTeamNameUserIdCompoundUniqueInput
+    AND: [Auth_UsersOnTeamsWhereInput!]
+    OR: [Auth_UsersOnTeamsWhereInput!]
+    NOT: [Auth_UsersOnTeamsWhereInput!]
+    team: Auth_TeamWhereInput
+    teamName: StringFilter
+    user: Auth_UserWhereInput
+    userId: IntFilter
+    assignedAt: DateTimeFilter
+  }
+
+  input Auth_UsersOnTeamsOrderByWithAggregationInput {
+    teamName: SortOrder
+    userId: SortOrder
+    assignedAt: SortOrder
+    _count: Auth_UsersOnTeamsCountOrderByAggregateInput
+    _avg: Auth_UsersOnTeamsAvgOrderByAggregateInput
+    _max: Auth_UsersOnTeamsMaxOrderByAggregateInput
+    _min: Auth_UsersOnTeamsMinOrderByAggregateInput
+    _sum: Auth_UsersOnTeamsSumOrderByAggregateInput
+  }
+
+  input Auth_UsersOnTeamsScalarWhereWithAggregatesInput {
+    AND: [Auth_UsersOnTeamsScalarWhereWithAggregatesInput!]
+    OR: [Auth_UsersOnTeamsScalarWhereWithAggregatesInput!]
+    NOT: [Auth_UsersOnTeamsScalarWhereWithAggregatesInput!]
+    teamName: StringWithAggregatesFilter
+    userId: IntWithAggregatesFilter
+    assignedAt: DateTimeWithAggregatesFilter
+  }
+
+  input Auth_TeamWhereInput {
+    AND: [Auth_TeamWhereInput!]
+    OR: [Auth_TeamWhereInput!]
+    NOT: [Auth_TeamWhereInput!]
+    teamName: StringFilter
+    users: Auth_UsersOnTeamsListRelationFilter
+  }
+
+  input Auth_TeamOrderByWithRelationInput {
+    teamName: SortOrder
+    users: Auth_UsersOnTeamsOrderByRelationAggregateInput
+  }
+
+  input Auth_TeamWhereUniqueInput {
+    teamName: String
+    AND: [Auth_TeamWhereInput!]
+    OR: [Auth_TeamWhereInput!]
+    NOT: [Auth_TeamWhereInput!]
+    users: Auth_UsersOnTeamsListRelationFilter
+  }
+
+  input Auth_TeamOrderByWithAggregationInput {
+    teamName: SortOrder
+    _count: Auth_TeamCountOrderByAggregateInput
+    _max: Auth_TeamMaxOrderByAggregateInput
+    _min: Auth_TeamMinOrderByAggregateInput
+  }
+
+  input Auth_TeamScalarWhereWithAggregatesInput {
+    AND: [Auth_TeamScalarWhereWithAggregatesInput!]
+    OR: [Auth_TeamScalarWhereWithAggregatesInput!]
+    NOT: [Auth_TeamScalarWhereWithAggregatesInput!]
+    teamName: StringWithAggregatesFilter
+  }
+
   input Auth_UserCreateInput {
     createdAt: DateTime
     username: String
@@ -217,6 +316,7 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
   }
 
   input Auth_UserUncheckedCreateInput {
@@ -231,6 +331,7 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
   }
 
   input Auth_UserUpdateInput {
@@ -244,6 +345,7 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
   }
 
   input Auth_UserUncheckedUpdateInput {
@@ -258,6 +360,7 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   input Auth_UserCreateManyInput {
@@ -367,6 +470,78 @@ export default gql`
     coverImg: String
   }
 
+  input Auth_UsersOnTeamsCreateInput {
+    team: Auth_TeamCreateNestedOneWithoutUsersInput!
+    user: Auth_UserCreateNestedOneWithoutTeamsInput!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedCreateInput {
+    teamName: String!
+    userId: Int!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUpdateInput {
+    team: Auth_TeamUpdateOneRequiredWithoutUsersNestedInput
+    user: Auth_UserUpdateOneRequiredWithoutTeamsNestedInput
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateInput {
+    teamName: String
+    userId: Int
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsCreateManyInput {
+    teamName: String!
+    userId: Int!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUpdateManyMutationInput {
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateManyInput {
+    teamName: String
+    userId: Int
+    assignedAt: DateTime
+  }
+
+  input Auth_TeamCreateInput {
+    teamName: String!
+    users: Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput
+  }
+
+  input Auth_TeamUncheckedCreateInput {
+    teamName: String!
+    users: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  input Auth_TeamUpdateInput {
+    teamName: String
+    users: Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput
+  }
+
+  input Auth_TeamUncheckedUpdateInput {
+    teamName: String
+    users: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
+  input Auth_TeamCreateManyInput {
+    teamName: String!
+  }
+
+  input Auth_TeamUpdateManyMutationInput {
+    teamName: String
+  }
+
+  input Auth_TeamUncheckedUpdateManyInput {
+    teamName: String
+  }
+
   input IntFilter {
     equals: Int
     in: [Int!]
@@ -446,6 +621,16 @@ export default gql`
   input Auth_ProfileRelationFilter {
     is: Auth_ProfileWhereInput
     isNot: Auth_ProfileWhereInput
+  }
+
+  input Auth_UsersOnTeamsListRelationFilter {
+    every: Auth_UsersOnTeamsWhereInput
+    some: Auth_UsersOnTeamsWhereInput
+    none: Auth_UsersOnTeamsWhereInput
+  }
+
+  input Auth_UsersOnTeamsOrderByRelationAggregateInput {
+    _count: SortOrder
   }
 
   input Auth_UserCountOrderByAggregateInput {
@@ -644,6 +829,54 @@ export default gql`
     _max: NestedDateTimeNullableFilter
   }
 
+  input Auth_TeamRelationFilter {
+    is: Auth_TeamWhereInput
+    isNot: Auth_TeamWhereInput
+  }
+
+  input UsersOnTeamsTeamNameUserIdCompoundUniqueInput {
+    teamName: String!
+    userId: Int!
+  }
+
+  input Auth_UsersOnTeamsCountOrderByAggregateInput {
+    teamName: SortOrder
+    userId: SortOrder
+    assignedAt: SortOrder
+  }
+
+  input Auth_UsersOnTeamsAvgOrderByAggregateInput {
+    userId: SortOrder
+  }
+
+  input Auth_UsersOnTeamsMaxOrderByAggregateInput {
+    teamName: SortOrder
+    userId: SortOrder
+    assignedAt: SortOrder
+  }
+
+  input Auth_UsersOnTeamsMinOrderByAggregateInput {
+    teamName: SortOrder
+    userId: SortOrder
+    assignedAt: SortOrder
+  }
+
+  input Auth_UsersOnTeamsSumOrderByAggregateInput {
+    userId: SortOrder
+  }
+
+  input Auth_TeamCountOrderByAggregateInput {
+    teamName: SortOrder
+  }
+
+  input Auth_TeamMaxOrderByAggregateInput {
+    teamName: SortOrder
+  }
+
+  input Auth_TeamMinOrderByAggregateInput {
+    teamName: SortOrder
+  }
+
   input Auth_UserCreaterolesInput {
     set: [String!]!
   }
@@ -654,10 +887,24 @@ export default gql`
     connect: Auth_ProfileWhereUniqueInput
   }
 
+  input Auth_UsersOnTeamsCreateNestedManyWithoutUserInput {
+    create: [Auth_UsersOnTeamsCreateWithoutUserInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutUserInput!]
+    createMany: Auth_UsersOnTeamsCreateManyUserInputEnvelope
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+  }
+
   input Auth_ProfileUncheckedCreateNestedOneWithoutUserInput {
     create: Auth_ProfileUncheckedCreateWithoutUserInput
     connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
     connect: Auth_ProfileWhereUniqueInput
+  }
+
+  input Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput {
+    create: [Auth_UsersOnTeamsCreateWithoutUserInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutUserInput!]
+    createMany: Auth_UsersOnTeamsCreateManyUserInputEnvelope
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
   }
 
   input DateTimeFieldUpdateOperationsInput {
@@ -687,6 +934,20 @@ export default gql`
     update: Auth_ProfileUpdateWithoutUserInput
   }
 
+  input Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput {
+    create: [Auth_UsersOnTeamsCreateWithoutUserInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutUserInput!]
+    upsert: [Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutUserInput!]
+    createMany: Auth_UsersOnTeamsCreateManyUserInputEnvelope
+    set: [Auth_UsersOnTeamsWhereUniqueInput!]
+    disconnect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    delete: [Auth_UsersOnTeamsWhereUniqueInput!]
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    update: [Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [Auth_UsersOnTeamsUpdateManyWithWhereWithoutUserInput!]
+    deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
+  }
+
   input IntFieldUpdateOperationsInput {
     set: Int
     increment: Int
@@ -705,6 +966,20 @@ export default gql`
     update: Auth_ProfileUpdateWithoutUserInput
   }
 
+  input Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput {
+    create: [Auth_UsersOnTeamsCreateWithoutUserInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutUserInput!]
+    upsert: [Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutUserInput!]
+    createMany: Auth_UsersOnTeamsCreateManyUserInputEnvelope
+    set: [Auth_UsersOnTeamsWhereUniqueInput!]
+    disconnect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    delete: [Auth_UsersOnTeamsWhereUniqueInput!]
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    update: [Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany: [Auth_UsersOnTeamsUpdateManyWithWhereWithoutUserInput!]
+    deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
+  }
+
   input Auth_UserCreateNestedOneWithoutProfileInput {
     create: Auth_UserUncheckedCreateWithoutProfileInput
     connectOrCreate: Auth_UserCreateOrConnectWithoutProfileInput
@@ -721,6 +996,76 @@ export default gql`
 
   input NullableDateTimeFieldUpdateOperationsInput {
     set: DateTime
+  }
+
+  input Auth_TeamCreateNestedOneWithoutUsersInput {
+    create: Auth_TeamUncheckedCreateWithoutUsersInput
+    connectOrCreate: Auth_TeamCreateOrConnectWithoutUsersInput
+    connect: Auth_TeamWhereUniqueInput
+  }
+
+  input Auth_UserCreateNestedOneWithoutTeamsInput {
+    create: Auth_UserUncheckedCreateWithoutTeamsInput
+    connectOrCreate: Auth_UserCreateOrConnectWithoutTeamsInput
+    connect: Auth_UserWhereUniqueInput
+  }
+
+  input Auth_TeamUpdateOneRequiredWithoutUsersNestedInput {
+    create: Auth_TeamUncheckedCreateWithoutUsersInput
+    connectOrCreate: Auth_TeamCreateOrConnectWithoutUsersInput
+    upsert: Auth_TeamUpsertWithoutUsersInput
+    connect: Auth_TeamWhereUniqueInput
+    update: Auth_TeamUpdateWithoutUsersInput
+  }
+
+  input Auth_UserUpdateOneRequiredWithoutTeamsNestedInput {
+    create: Auth_UserUncheckedCreateWithoutTeamsInput
+    connectOrCreate: Auth_UserCreateOrConnectWithoutTeamsInput
+    upsert: Auth_UserUpsertWithoutTeamsInput
+    connect: Auth_UserWhereUniqueInput
+    update: Auth_UserUpdateWithoutTeamsInput
+  }
+
+  input Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput {
+    create: [Auth_UsersOnTeamsCreateWithoutTeamInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutTeamInput!]
+    createMany: Auth_UsersOnTeamsCreateManyTeamInputEnvelope
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+  }
+
+  input Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput {
+    create: [Auth_UsersOnTeamsCreateWithoutTeamInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutTeamInput!]
+    createMany: Auth_UsersOnTeamsCreateManyTeamInputEnvelope
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+  }
+
+  input Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput {
+    create: [Auth_UsersOnTeamsCreateWithoutTeamInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutTeamInput!]
+    upsert: [Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutTeamInput!]
+    createMany: Auth_UsersOnTeamsCreateManyTeamInputEnvelope
+    set: [Auth_UsersOnTeamsWhereUniqueInput!]
+    disconnect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    delete: [Auth_UsersOnTeamsWhereUniqueInput!]
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    update: [Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutTeamInput!]
+    updateMany: [Auth_UsersOnTeamsUpdateManyWithWhereWithoutTeamInput!]
+    deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput {
+    create: [Auth_UsersOnTeamsCreateWithoutTeamInput!]
+    connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutTeamInput!]
+    upsert: [Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutTeamInput!]
+    createMany: Auth_UsersOnTeamsCreateManyTeamInputEnvelope
+    set: [Auth_UsersOnTeamsWhereUniqueInput!]
+    disconnect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    delete: [Auth_UsersOnTeamsWhereUniqueInput!]
+    connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+    update: [Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutTeamInput!]
+    updateMany: [Auth_UsersOnTeamsUpdateManyWithWhereWithoutTeamInput!]
+    deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
   }
 
   input NestedIntFilter {
@@ -923,6 +1268,26 @@ export default gql`
     create: Auth_ProfileUncheckedCreateWithoutUserInput!
   }
 
+  input Auth_UsersOnTeamsCreateWithoutUserInput {
+    team: Auth_TeamCreateNestedOneWithoutUsersInput!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedCreateWithoutUserInput {
+    teamName: String!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsCreateOrConnectWithoutUserInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    create: Auth_UsersOnTeamsUncheckedCreateWithoutUserInput!
+  }
+
+  input Auth_UsersOnTeamsCreateManyUserInputEnvelope {
+    data: [Auth_UsersOnTeamsCreateManyUserInput!]!
+    skipDuplicates: Boolean
+  }
+
   input Auth_ProfileUpsertWithoutUserInput {
     update: Auth_ProfileUncheckedUpdateWithoutUserInput!
     create: Auth_ProfileUncheckedCreateWithoutUserInput!
@@ -952,6 +1317,31 @@ export default gql`
     coverImg: String
   }
 
+  input Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutUserInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    update: Auth_UsersOnTeamsUncheckedUpdateWithoutUserInput!
+    create: Auth_UsersOnTeamsUncheckedCreateWithoutUserInput!
+  }
+
+  input Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutUserInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    data: Auth_UsersOnTeamsUncheckedUpdateWithoutUserInput!
+  }
+
+  input Auth_UsersOnTeamsUpdateManyWithWhereWithoutUserInput {
+    where: Auth_UsersOnTeamsScalarWhereInput!
+    data: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamsInput!
+  }
+
+  input Auth_UsersOnTeamsScalarWhereInput {
+    AND: [Auth_UsersOnTeamsScalarWhereInput!]
+    OR: [Auth_UsersOnTeamsScalarWhereInput!]
+    NOT: [Auth_UsersOnTeamsScalarWhereInput!]
+    teamName: StringFilter
+    userId: IntFilter
+    assignedAt: DateTimeFilter
+  }
+
   input Auth_UserCreateWithoutProfileInput {
     createdAt: DateTime
     username: String
@@ -962,6 +1352,7 @@ export default gql`
     googleProfile: Json
     lastName: String
     firstName: String
+    teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
   }
 
   input Auth_UserUncheckedCreateWithoutProfileInput {
@@ -975,6 +1366,7 @@ export default gql`
     googleProfile: Json
     lastName: String
     firstName: String
+    teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
   }
 
   input Auth_UserCreateOrConnectWithoutProfileInput {
@@ -1003,6 +1395,7 @@ export default gql`
     googleProfile: Json
     lastName: String
     firstName: String
+    teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
   }
 
   input Auth_UserUncheckedUpdateWithoutProfileInput {
@@ -1016,6 +1409,185 @@ export default gql`
     googleProfile: Json
     lastName: String
     firstName: String
+    teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  input Auth_TeamCreateWithoutUsersInput {
+    teamName: String!
+  }
+
+  input Auth_TeamUncheckedCreateWithoutUsersInput {
+    teamName: String!
+  }
+
+  input Auth_TeamCreateOrConnectWithoutUsersInput {
+    where: Auth_TeamWhereUniqueInput!
+    create: Auth_TeamUncheckedCreateWithoutUsersInput!
+  }
+
+  input Auth_UserCreateWithoutTeamsInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileCreateNestedOneWithoutUserInput
+  }
+
+  input Auth_UserUncheckedCreateWithoutTeamsInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  input Auth_UserCreateOrConnectWithoutTeamsInput {
+    where: Auth_UserWhereUniqueInput!
+    create: Auth_UserUncheckedCreateWithoutTeamsInput!
+  }
+
+  input Auth_TeamUpsertWithoutUsersInput {
+    update: Auth_TeamUncheckedUpdateWithoutUsersInput!
+    create: Auth_TeamUncheckedCreateWithoutUsersInput!
+    where: Auth_TeamWhereInput
+  }
+
+  input Auth_TeamUpdateToOneWithWhereWithoutUsersInput {
+    where: Auth_TeamWhereInput
+    data: Auth_TeamUncheckedUpdateWithoutUsersInput!
+  }
+
+  input Auth_TeamUpdateWithoutUsersInput {
+    teamName: String
+  }
+
+  input Auth_TeamUncheckedUpdateWithoutUsersInput {
+    teamName: String
+  }
+
+  input Auth_UserUpsertWithoutTeamsInput {
+    update: Auth_UserUncheckedUpdateWithoutTeamsInput!
+    create: Auth_UserUncheckedCreateWithoutTeamsInput!
+    where: Auth_UserWhereInput
+  }
+
+  input Auth_UserUpdateToOneWithWhereWithoutTeamsInput {
+    where: Auth_UserWhereInput
+    data: Auth_UserUncheckedUpdateWithoutTeamsInput!
+  }
+
+  input Auth_UserUpdateWithoutTeamsInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUpdateOneWithoutUserNestedInput
+  }
+
+  input Auth_UserUncheckedUpdateWithoutTeamsInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  input Auth_UsersOnTeamsCreateWithoutTeamInput {
+    user: Auth_UserCreateNestedOneWithoutTeamsInput!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedCreateWithoutTeamInput {
+    userId: Int!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsCreateOrConnectWithoutTeamInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    create: Auth_UsersOnTeamsUncheckedCreateWithoutTeamInput!
+  }
+
+  input Auth_UsersOnTeamsCreateManyTeamInputEnvelope {
+    data: [Auth_UsersOnTeamsCreateManyTeamInput!]!
+    skipDuplicates: Boolean
+  }
+
+  input Auth_UsersOnTeamsUpsertWithWhereUniqueWithoutTeamInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    update: Auth_UsersOnTeamsUncheckedUpdateWithoutTeamInput!
+    create: Auth_UsersOnTeamsUncheckedCreateWithoutTeamInput!
+  }
+
+  input Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutTeamInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput!
+    data: Auth_UsersOnTeamsUncheckedUpdateWithoutTeamInput!
+  }
+
+  input Auth_UsersOnTeamsUpdateManyWithWhereWithoutTeamInput {
+    where: Auth_UsersOnTeamsScalarWhereInput!
+    data: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUsersInput!
+  }
+
+  input Auth_UsersOnTeamsCreateManyUserInput {
+    teamName: String!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUpdateWithoutUserInput {
+    team: Auth_TeamUpdateOneRequiredWithoutUsersNestedInput
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateWithoutUserInput {
+    teamName: String
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamsInput {
+    teamName: String
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsCreateManyTeamInput {
+    userId: Int!
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUpdateWithoutTeamInput {
+    user: Auth_UserUpdateOneRequiredWithoutTeamsNestedInput
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateWithoutTeamInput {
+    userId: Int
+    assignedAt: DateTime
+  }
+
+  input Auth_UsersOnTeamsUncheckedUpdateManyWithoutUsersInput {
+    userId: Int
+    assignedAt: DateTime
   }
 
   type AggregateUser @shareable {
@@ -1065,6 +1637,42 @@ export default gql`
     _sum: ProfileSumAggregateOutputType
     _min: ProfileMinAggregateOutputType
     _max: ProfileMaxAggregateOutputType
+  }
+
+  type AggregateUsersOnTeams @key(fields: "teamName") @shareable {
+    _count: UsersOnTeamsCountAggregateOutputType
+    _avg: UsersOnTeamsAvgAggregateOutputType
+    _sum: UsersOnTeamsSumAggregateOutputType
+    _min: UsersOnTeamsMinAggregateOutputType
+    _max: UsersOnTeamsMaxAggregateOutputType
+  }
+
+  type UsersOnTeamsGroupByOutputType @key(fields: "teamName") @shareable {
+    teamName: String!
+    userId: Int!
+    assignedAt: DateTime!
+    _count: UsersOnTeamsCountAggregateOutputType
+    _avg: UsersOnTeamsAvgAggregateOutputType
+    _sum: UsersOnTeamsSumAggregateOutputType
+    _min: UsersOnTeamsMinAggregateOutputType
+    _max: UsersOnTeamsMaxAggregateOutputType
+  }
+
+  type AggregateTeam @shareable {
+    _count: TeamCountAggregateOutputType
+    _min: TeamMinAggregateOutputType
+    _max: TeamMaxAggregateOutputType
+  }
+
+  type TeamGroupByOutputType @key(fields: "teamName") @shareable {
+    teamName: String!
+    _count: TeamCountAggregateOutputType
+    _min: TeamMinAggregateOutputType
+    _max: TeamMaxAggregateOutputType
+  }
+
+  type UserCountOutputType @shareable {
+    teams: Int!
   }
 
   type UserCountAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {
@@ -1150,6 +1758,50 @@ export default gql`
     coverImg: String
   }
 
+  type UsersOnTeamsCountAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: Int!
+    userId: Int!
+    assignedAt: Int!
+    _all: Int!
+  }
+
+  type UsersOnTeamsAvgAggregateOutputType @key(fields: "teamName") @shareable {
+    userId: Float
+  }
+
+  type UsersOnTeamsSumAggregateOutputType @key(fields: "teamName") @shareable {
+    userId: Int
+  }
+
+  type UsersOnTeamsMinAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: String
+    userId: Int
+    assignedAt: DateTime
+  }
+
+  type UsersOnTeamsMaxAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: String
+    userId: Int
+    assignedAt: DateTime
+  }
+
+  type TeamCountOutputType @shareable {
+    users: Int!
+  }
+
+  type TeamCountAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: Int!
+    _all: Int!
+  }
+
+  type TeamMinAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: String
+  }
+
+  type TeamMaxAggregateOutputType @key(fields: "teamName") @shareable {
+    teamName: String
+  }
+
   type TransactionSucceeded @shareable {
     transactionSucceeded: Boolean!
   }
@@ -1220,6 +1872,72 @@ export default gql`
     where: Auth_ProfileWhereInput
   }
 
+  input Auth_createOneUsersOnTeamsInput {
+    data: Auth_UsersOnTeamsCreateInput
+  }
+
+  input Auth_upsertOneUsersOnTeamsInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput
+    create: Auth_UsersOnTeamsCreateInput
+    update: Auth_UsersOnTeamsUpdateInput
+  }
+
+  input Auth_createManyUsersOnTeamsInput {
+    data: [Auth_UsersOnTeamsCreateManyInput]
+    skipDuplicates: Boolean
+  }
+
+  input Auth_deleteOneUsersOnTeamsInput {
+    where: Auth_UsersOnTeamsWhereUniqueInput
+  }
+
+  input Auth_updateOneUsersOnTeamsInput {
+    data: Auth_UsersOnTeamsUpdateInput
+    where: Auth_UsersOnTeamsWhereUniqueInput
+  }
+
+  input Auth_updateManyUsersOnTeamsInput {
+    data: Auth_UsersOnTeamsUpdateManyMutationInput
+    where: Auth_UsersOnTeamsWhereInput
+  }
+
+  input Auth_deleteManyUsersOnTeamsInput {
+    where: Auth_UsersOnTeamsWhereInput
+  }
+
+  input Auth_createOneTeamInput {
+    data: Auth_TeamCreateInput
+  }
+
+  input Auth_upsertOneTeamInput {
+    where: Auth_TeamWhereUniqueInput
+    create: Auth_TeamCreateInput
+    update: Auth_TeamUpdateInput
+  }
+
+  input Auth_createManyTeamInput {
+    data: [Auth_TeamCreateManyInput]
+    skipDuplicates: Boolean
+  }
+
+  input Auth_deleteOneTeamInput {
+    where: Auth_TeamWhereUniqueInput
+  }
+
+  input Auth_updateOneTeamInput {
+    data: Auth_TeamUpdateInput
+    where: Auth_TeamWhereUniqueInput
+  }
+
+  input Auth_updateManyTeamInput {
+    data: Auth_TeamUpdateManyMutationInput
+    where: Auth_TeamWhereInput
+  }
+
+  input Auth_deleteManyTeamInput {
+    where: Auth_TeamWhereInput
+  }
+
   input Auth_transactionalMutationInput {
     Auth_createOneUser: Auth_createOneUserInput
     Auth_upsertOneUser: Auth_upsertOneUserInput
@@ -1235,5 +1953,19 @@ export default gql`
     Auth_updateOneProfile: Auth_updateOneProfileInput
     Auth_updateManyProfile: Auth_updateManyProfileInput
     Auth_deleteManyProfile: Auth_deleteManyProfileInput
+    Auth_createOneUsersOnTeams: Auth_createOneUsersOnTeamsInput
+    Auth_upsertOneUsersOnTeams: Auth_upsertOneUsersOnTeamsInput
+    Auth_createManyUsersOnTeams: Auth_createManyUsersOnTeamsInput
+    Auth_deleteOneUsersOnTeams: Auth_deleteOneUsersOnTeamsInput
+    Auth_updateOneUsersOnTeams: Auth_updateOneUsersOnTeamsInput
+    Auth_updateManyUsersOnTeams: Auth_updateManyUsersOnTeamsInput
+    Auth_deleteManyUsersOnTeams: Auth_deleteManyUsersOnTeamsInput
+    Auth_createOneTeam: Auth_createOneTeamInput
+    Auth_upsertOneTeam: Auth_upsertOneTeamInput
+    Auth_createManyTeam: Auth_createManyTeamInput
+    Auth_deleteOneTeam: Auth_deleteOneTeamInput
+    Auth_updateOneTeam: Auth_updateOneTeamInput
+    Auth_updateManyTeam: Auth_updateManyTeamInput
+    Auth_deleteManyTeam: Auth_deleteManyTeamInput
   }
 `;

@@ -13,6 +13,15 @@ export default gql`
     lastName: String
     firstName: String
     profile: Profile
+    teams(
+      where: Auth_UsersOnTeamsWhereInput
+      orderBy: Auth_UsersOnTeamsOrderByWithRelationInput
+      cursor: Auth_UsersOnTeamsWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: UsersOnTeamsScalarFieldEnum
+    ): [UsersOnTeams!]!
+    _count: UserCountOutputType!
   }
 
   type Query {

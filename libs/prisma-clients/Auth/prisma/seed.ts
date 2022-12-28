@@ -29,7 +29,22 @@ async function seed() {
       designationIcon: 'mdi:invert-colors',
       coverImg: '/images/pages/profile-banner.png',
     }
+  })
+  
+  const teams = [
+    { teamName: '경영정보부' },
+    { teamName: 'IT 운영팀' },
+    { teamName: '개발자' },
+  ]
+  await client.team.createMany({
+    data: teams
+  })
 
+  const assignTeams = await client.user.update({
+    where: { id: user.id },
+    data: {
+      
+    }
   })
   ////////////////
 
