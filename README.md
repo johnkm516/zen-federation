@@ -18,8 +18,10 @@ Table of contents
    * [Project Setup Instructions](#setup)
    * [Usage](#usage)
       * [Code Generation and Start API](#general_usage)
-	  * [GraphQL](#graphql_usage)
-	  	* [Transactional Batch Mutation](#graphql_transaction_usage)
+   * [GraphQL](#graphql)
+	  * [Important Notes](#important_notes)
+	  * [GraphQL Usage](#graphql_usage)
+	  * [Transactional Batch Mutation](#graphql_transaction_usage)
    * [Project Tree](#tree)
    * [GraphQL Features](#features_graphql)
    * [API Authentication, Performance & Scaling](#features_scaling)
@@ -158,6 +160,13 @@ npm run build:dev
 npm run build:prod
 ```
 ---
+
+<a name="graphql"></a>
+## 🕸️ **GraphQL**
+<a name="important_notes"></a>
+### **Important Notes**
+You will notice queries, mutations, and input types all have a prefix with the subgraph name. This is because as GraphQL is strongly typed, you cannot union input types nor does Apollo Federation 2 merge input types with the same name at the supergraph. Therefore all resolvers and input types have a prefix with the service name. However, output types do not have the service name prefix on their type, and therefore are composable into a single entity in the supergraph. Currently this respository automatically detects keys and candidate keys and sets them as Apollo Federation key-fields in the output types' gql type definitions. This is to make any models you declare in Prisma Schema compose to a supergraph out of the box. In the future I plan to add customizable generator options to opt out specific models from code-generation so you can customize the types and resolvers as you wish. 
+
 <a name="graphql_usage"></a>
 ### **GraphQL Usage**
 
