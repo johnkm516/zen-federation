@@ -132,14 +132,14 @@ export interface Mutation {
   Auth_createManyUser?: Resolver<{}, Auth_CreateManyUserArgs, Client.Prisma.BatchPayload>;
   Auth_deleteOneUser?: Resolver<{}, Auth_DeleteOneUserArgs, Client.User | null>;
   Auth_updateOneUser?: Resolver<{}, Auth_UpdateOneUserArgs, Client.User | null>;
-  Auth_updateManyUser?: Resolver<{}, Auth_UpdateManyUserArgs, Client.Prisma.BatchPayload>;
+  //Auth_updateManyUser is not generated because model has only unique fields or relations.
   Auth_deleteManyUser?: Resolver<{}, Auth_DeleteManyUserArgs, Client.Prisma.BatchPayload>;
   Auth_createOneProfile?: Resolver<{}, Auth_CreateOneProfileArgs, Client.Profile>;
   Auth_upsertOneProfile?: Resolver<{}, Auth_UpsertOneProfileArgs, Client.Profile>;
   Auth_createManyProfile?: Resolver<{}, Auth_CreateManyProfileArgs, Client.Prisma.BatchPayload>;
   Auth_deleteOneProfile?: Resolver<{}, Auth_DeleteOneProfileArgs, Client.Profile | null>;
   Auth_updateOneProfile?: Resolver<{}, Auth_UpdateOneProfileArgs, Client.Profile | null>;
-  Auth_updateManyProfile?: Resolver<{}, Auth_UpdateManyProfileArgs, Client.Prisma.BatchPayload>;
+  //Auth_updateManyProfile is not generated because model has only unique fields or relations.
   Auth_deleteManyProfile?: Resolver<{}, Auth_DeleteManyProfileArgs, Client.Prisma.BatchPayload>;
   Auth_executeRaw?: Resolver<{}, Auth_ExecuteRawArgs, any>;
   Auth_queryRaw?: Resolver<{}, Auth_QueryRawArgs, any>;
@@ -599,7 +599,7 @@ export type Auth_UserWhereUniqueInput = AtLeast<
     firstName?: StringNullableFilter | null;
     profile?: Auth_ProfileWhereInput | null;
   },
-  'id' | 'email'
+  'id' | 'username' | 'email' | 'googleId'
 >;
 
 export interface Auth_UserOrderByWithAggregationInput {
@@ -1569,14 +1569,12 @@ export interface Auth_TransactionalMutationInput {
   Auth_CreateManyUser: Auth_CreateManyUserArgs;
   Auth_DeleteOneUser: Auth_DeleteOneUserArgs;
   Auth_UpdateOneUser: Auth_UpdateOneUserArgs;
-  Auth_UpdateManyUser: Auth_UpdateManyUserArgs;
   Auth_DeleteManyUser: Auth_DeleteManyUserArgs;
   Auth_CreateOneProfile: Auth_CreateOneProfileArgs;
   Auth_UpsertOneProfile: Auth_UpsertOneProfileArgs;
   Auth_CreateManyProfile: Auth_CreateManyProfileArgs;
   Auth_DeleteOneProfile: Auth_DeleteOneProfileArgs;
   Auth_UpdateOneProfile: Auth_UpdateOneProfileArgs;
-  Auth_UpdateManyProfile: Auth_UpdateManyProfileArgs;
   Auth_DeleteManyProfile: Auth_DeleteManyProfileArgs;
 }
 
