@@ -1,7 +1,7 @@
 import { HttpException, UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Throttle } from '@nestjs/throttler';
-import { PrismaClient } from '@nx-prisma/prisma-clients/Auth';
+import { PrismaClient, User } from '@nx-prisma/prisma-clients/Auth';
 import { ApiError } from '@zen/api-interfaces';
 import bcrypt from 'bcryptjs';
 import gql from 'graphql-tag';
@@ -26,7 +26,7 @@ export const typeDefs = gql`
     authLogin(data: AuthLoginInput!): AuthSession!
     authExchangeToken(data: AuthExchangeTokenInput): AuthSession!
     authPasswordResetRequest(data: AuthPasswordResetRequestInput!): Boolean
-    accountInfo: AccountInfo!
+    accountInfo: User!
   }
 
   extend type Mutation {
@@ -118,16 +118,12 @@ export class AuthResolver {
   async accountInfo(
     @Context() ctx: IContext,
     @GqlUser() reqUser: RequestUser
-  ): Promise<AccountInfo> {
+  ): Promise<User> {
     const user = await ctx.prisma.user.findUnique({
       where: { id: reqUser.id },
     });
 
-    return {
-      username: user.username,
-      hasPassword: !!user.password,
-      googleProfile: user.googleProfile as any,
-    };
+    return user;
   }
 
   @Query()
