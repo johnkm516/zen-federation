@@ -43,7 +43,31 @@ async function seed() {
   const assignTeams = await client.user.update({
     where: { id: user.id },
     data: {
-      
+      teams: {
+        create: [
+          {
+            team: {
+              connect: {
+                teamName: teams[0].teamName
+              }
+            }
+          },
+          {
+            team: {
+              connect: {
+                teamName: teams[1].teamName
+              }
+            }
+          },
+          {
+            team: {
+              connect: {
+                teamName: teams[2].teamName
+              }
+            }
+          }
+        ]
+      }
     }
   })
   ////////////////
