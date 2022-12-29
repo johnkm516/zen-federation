@@ -32,7 +32,10 @@ model Profile {
   userId            Int  @unique  @id
   user              User @relation(fields: [userId], references: [id])
   location          String?
-  joiningDate       DateTime?
+  joiningDate       DateTime? @default(now())
+  businessPhone     String?   @unique
+  mobilePhone       String?   @unique
+  kakaoTalkId       String?   @unique
   designation       String?
   profileImg        String?
   designationIcon   String?
@@ -52,4 +55,8 @@ model UsersOnTeams {
 model Team {
   teamName      String  @unique @id
   users         UsersOnTeams[]
+  teamType      String?
+  teamIcon      String?
 }
+
+

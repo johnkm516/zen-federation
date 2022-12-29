@@ -21,6 +21,9 @@ export default gql`
     userId
     location
     joiningDate
+    businessPhone
+    mobilePhone
+    kakaoTalkId
     designation
     profileImg
     designationIcon
@@ -39,6 +42,8 @@ export default gql`
 
   enum TeamScalarFieldEnum {
     teamName
+    teamType
+    teamIcon
   }
 
   enum TransactionIsolationLevel {
@@ -166,6 +171,9 @@ export default gql`
     user: Auth_UserWhereInput
     location: StringNullableFilter
     joiningDate: DateTimeNullableFilter
+    businessPhone: StringNullableFilter
+    mobilePhone: StringNullableFilter
+    kakaoTalkId: StringNullableFilter
     designation: StringNullableFilter
     profileImg: StringNullableFilter
     designationIcon: StringNullableFilter
@@ -177,6 +185,9 @@ export default gql`
     user: Auth_UserOrderByWithRelationInput
     location: SortOrder
     joiningDate: SortOrder
+    businessPhone: SortOrder
+    mobilePhone: SortOrder
+    kakaoTalkId: SortOrder
     designation: SortOrder
     profileImg: SortOrder
     designationIcon: SortOrder
@@ -185,6 +196,9 @@ export default gql`
 
   input Auth_ProfileWhereUniqueInput {
     userId: Int
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     AND: [Auth_ProfileWhereInput!]
     OR: [Auth_ProfileWhereInput!]
     NOT: [Auth_ProfileWhereInput!]
@@ -201,6 +215,9 @@ export default gql`
     userId: SortOrder
     location: SortOrder
     joiningDate: SortOrder
+    businessPhone: SortOrder
+    mobilePhone: SortOrder
+    kakaoTalkId: SortOrder
     designation: SortOrder
     profileImg: SortOrder
     designationIcon: SortOrder
@@ -219,6 +236,9 @@ export default gql`
     userId: IntWithAggregatesFilter
     location: StringNullableWithAggregatesFilter
     joiningDate: DateTimeNullableWithAggregatesFilter
+    businessPhone: StringNullableWithAggregatesFilter
+    mobilePhone: StringNullableWithAggregatesFilter
+    kakaoTalkId: StringNullableWithAggregatesFilter
     designation: StringNullableWithAggregatesFilter
     profileImg: StringNullableWithAggregatesFilter
     designationIcon: StringNullableWithAggregatesFilter
@@ -282,11 +302,15 @@ export default gql`
     NOT: [Auth_TeamWhereInput!]
     teamName: StringFilter
     users: Auth_UsersOnTeamsListRelationFilter
+    teamType: StringNullableFilter
+    teamIcon: StringNullableFilter
   }
 
   input Auth_TeamOrderByWithRelationInput {
     teamName: SortOrder
     users: Auth_UsersOnTeamsOrderByRelationAggregateInput
+    teamType: SortOrder
+    teamIcon: SortOrder
   }
 
   input Auth_TeamWhereUniqueInput {
@@ -295,10 +319,14 @@ export default gql`
     OR: [Auth_TeamWhereInput!]
     NOT: [Auth_TeamWhereInput!]
     users: Auth_UsersOnTeamsListRelationFilter
+    teamType: StringNullableFilter
+    teamIcon: StringNullableFilter
   }
 
   input Auth_TeamOrderByWithAggregationInput {
     teamName: SortOrder
+    teamType: SortOrder
+    teamIcon: SortOrder
     _count: Auth_TeamCountOrderByAggregateInput
     _max: Auth_TeamMaxOrderByAggregateInput
     _min: Auth_TeamMinOrderByAggregateInput
@@ -309,6 +337,8 @@ export default gql`
     OR: [Auth_TeamScalarWhereWithAggregatesInput!]
     NOT: [Auth_TeamScalarWhereWithAggregatesInput!]
     teamName: StringWithAggregatesFilter
+    teamType: StringNullableWithAggregatesFilter
+    teamIcon: StringNullableWithAggregatesFilter
   }
 
   input Auth_UserCreateInput {
@@ -419,6 +449,9 @@ export default gql`
     user: Auth_UserCreateNestedOneWithoutProfileInput!
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -429,6 +462,9 @@ export default gql`
     userId: Int!
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -439,6 +475,9 @@ export default gql`
     user: Auth_UserUpdateOneRequiredWithoutProfileNestedInput
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -449,6 +488,9 @@ export default gql`
     userId: Int
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -459,6 +501,9 @@ export default gql`
     userId: Int!
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -468,6 +513,9 @@ export default gql`
   input Auth_ProfileUpdateManyMutationInput {
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -478,6 +526,9 @@ export default gql`
     userId: Int
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -527,33 +578,47 @@ export default gql`
   input Auth_TeamCreateInput {
     teamName: String!
     users: Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUncheckedCreateInput {
     teamName: String!
     users: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUpdateInput {
     teamName: String
     users: Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUncheckedUpdateInput {
     teamName: String
     users: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamCreateManyInput {
     teamName: String!
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUpdateManyMutationInput {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUncheckedUpdateManyInput {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   input IntFilter {
@@ -805,6 +870,9 @@ export default gql`
     userId: SortOrder
     location: SortOrder
     joiningDate: SortOrder
+    businessPhone: SortOrder
+    mobilePhone: SortOrder
+    kakaoTalkId: SortOrder
     designation: SortOrder
     profileImg: SortOrder
     designationIcon: SortOrder
@@ -819,6 +887,9 @@ export default gql`
     userId: SortOrder
     location: SortOrder
     joiningDate: SortOrder
+    businessPhone: SortOrder
+    mobilePhone: SortOrder
+    kakaoTalkId: SortOrder
     designation: SortOrder
     profileImg: SortOrder
     designationIcon: SortOrder
@@ -829,6 +900,9 @@ export default gql`
     userId: SortOrder
     location: SortOrder
     joiningDate: SortOrder
+    businessPhone: SortOrder
+    mobilePhone: SortOrder
+    kakaoTalkId: SortOrder
     designation: SortOrder
     profileImg: SortOrder
     designationIcon: SortOrder
@@ -891,14 +965,20 @@ export default gql`
 
   input Auth_TeamCountOrderByAggregateInput {
     teamName: SortOrder
+    teamType: SortOrder
+    teamIcon: SortOrder
   }
 
   input Auth_TeamMaxOrderByAggregateInput {
     teamName: SortOrder
+    teamType: SortOrder
+    teamIcon: SortOrder
   }
 
   input Auth_TeamMinOrderByAggregateInput {
     teamName: SortOrder
+    teamType: SortOrder
+    teamIcon: SortOrder
   }
 
   input Auth_UserCreaterolesInput {
@@ -1348,6 +1428,9 @@ export default gql`
   input Auth_ProfileCreateWithoutUserInput {
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -1357,6 +1440,9 @@ export default gql`
   input Auth_ProfileUncheckedCreateWithoutUserInput {
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -1474,6 +1560,9 @@ export default gql`
   input Auth_ProfileUpdateWithoutUserInput {
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -1483,6 +1572,9 @@ export default gql`
   input Auth_ProfileUncheckedUpdateWithoutUserInput {
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -1642,10 +1734,14 @@ export default gql`
 
   input Auth_TeamCreateWithoutUsersInput {
     teamName: String!
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUncheckedCreateWithoutUsersInput {
     teamName: String!
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamCreateOrConnectWithoutUsersInput {
@@ -1702,10 +1798,14 @@ export default gql`
 
   input Auth_TeamUpdateWithoutUsersInput {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_TeamUncheckedUpdateWithoutUsersInput {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   input Auth_UserUpsertWithoutTeamsInput {
@@ -1952,6 +2052,9 @@ export default gql`
     userId: Int!
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -1990,6 +2093,8 @@ export default gql`
 
   type TeamGroupByOutputType @key(fields: "teamName") @shareable {
     teamName: String!
+    teamType: String
+    teamIcon: String
     _count: TeamCountAggregateOutputType
     _min: TeamMinAggregateOutputType
     _max: TeamMaxAggregateOutputType
@@ -2049,6 +2154,9 @@ export default gql`
     userId: Int!
     location: Int!
     joiningDate: Int!
+    businessPhone: Int!
+    mobilePhone: Int!
+    kakaoTalkId: Int!
     designation: Int!
     profileImg: Int!
     designationIcon: Int!
@@ -2068,6 +2176,9 @@ export default gql`
     userId: Int
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -2078,6 +2189,9 @@ export default gql`
     userId: Int
     location: String
     joiningDate: DateTime
+    businessPhone: String
+    mobilePhone: String
+    kakaoTalkId: String
     designation: String
     profileImg: String
     designationIcon: String
@@ -2117,15 +2231,21 @@ export default gql`
 
   type TeamCountAggregateOutputType @key(fields: "teamName") @shareable {
     teamName: Int!
+    teamType: Int!
+    teamIcon: Int!
     _all: Int!
   }
 
   type TeamMinAggregateOutputType @key(fields: "teamName") @shareable {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   type TeamMaxAggregateOutputType @key(fields: "teamName") @shareable {
     teamName: String
+    teamType: String
+    teamIcon: String
   }
 
   type TransactionSucceeded @shareable {

@@ -91,6 +91,9 @@ export interface Profile {
   user?: Resolver<Client.Profile, {}, Client.User>;
   location?: Resolver<Client.Profile, {}, string | null>;
   joiningDate?: Resolver<Client.Profile, {}, Date | null>;
+  businessPhone?: Resolver<Client.Profile, {}, string | null>;
+  mobilePhone?: Resolver<Client.Profile, {}, string | null>;
+  kakaoTalkId?: Resolver<Client.Profile, {}, string | null>;
   designation?: Resolver<Client.Profile, {}, string | null>;
   profileImg?: Resolver<Client.Profile, {}, string | null>;
   designationIcon?: Resolver<Client.Profile, {}, string | null>;
@@ -114,6 +117,8 @@ export interface Team {
   [key: string]: Resolver<any, any, any>;
   teamName?: Resolver<Client.Team, {}, string>;
   users?: Resolver<Client.Team, Auth_TeamUsersArgs, Client.UsersOnTeams[] | null>;
+  teamType?: Resolver<Client.Team, {}, string | null>;
+  teamIcon?: Resolver<Client.Team, {}, string | null>;
   _count?: Resolver<Client.Team, {}, Client.Prisma.TeamCountOutputType>;
 
   __resolveReference?: any;
@@ -352,6 +357,9 @@ export interface ProfileGroupByOutputType {
   userId?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, number>;
   location?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
   joiningDate?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, Date | null>;
+  businessPhone?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
+  mobilePhone?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
+  kakaoTalkId?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
   designation?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
   profileImg?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
   designationIcon?: Resolver<Client.Prisma.ProfileGroupByOutputType, {}, string | null>;
@@ -458,6 +466,8 @@ export interface AggregateTeam {
 export interface TeamGroupByOutputType {
   [key: string]: Resolver<any, any, any>;
   teamName?: Resolver<Client.Prisma.TeamGroupByOutputType, {}, string>;
+  teamType?: Resolver<Client.Prisma.TeamGroupByOutputType, {}, string | null>;
+  teamIcon?: Resolver<Client.Prisma.TeamGroupByOutputType, {}, string | null>;
   _count?: Resolver<
     Client.Prisma.TeamGroupByOutputType,
     {},
@@ -541,6 +551,9 @@ export interface ProfileCountAggregateOutputType {
   userId?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
   location?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
   joiningDate?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
+  businessPhone?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
+  mobilePhone?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
+  kakaoTalkId?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
   designation?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
   profileImg?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
   designationIcon?: Resolver<Client.Prisma.ProfileCountAggregateOutputType, {}, number>;
@@ -563,6 +576,9 @@ export interface ProfileMinAggregateOutputType {
   userId?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, number | null>;
   location?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
   joiningDate?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, Date | null>;
+  businessPhone?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
+  mobilePhone?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
+  kakaoTalkId?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
   designation?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
   profileImg?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
   designationIcon?: Resolver<Client.Prisma.ProfileMinAggregateOutputType, {}, string | null>;
@@ -574,6 +590,9 @@ export interface ProfileMaxAggregateOutputType {
   userId?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, number | null>;
   location?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
   joiningDate?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, Date | null>;
+  businessPhone?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
+  mobilePhone?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
+  kakaoTalkId?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
   designation?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
   profileImg?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
   designationIcon?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
@@ -620,17 +639,23 @@ export interface TeamCountOutputType {
 export interface TeamCountAggregateOutputType {
   [key: string]: Resolver<any, any, any>;
   teamName?: Resolver<Client.Prisma.TeamCountAggregateOutputType, {}, number>;
+  teamType?: Resolver<Client.Prisma.TeamCountAggregateOutputType, {}, number>;
+  teamIcon?: Resolver<Client.Prisma.TeamCountAggregateOutputType, {}, number>;
   _all?: Resolver<Client.Prisma.TeamCountAggregateOutputType, {}, number>;
 }
 
 export interface TeamMinAggregateOutputType {
   [key: string]: Resolver<any, any, any>;
   teamName?: Resolver<Client.Prisma.TeamMinAggregateOutputType, {}, string | null>;
+  teamType?: Resolver<Client.Prisma.TeamMinAggregateOutputType, {}, string | null>;
+  teamIcon?: Resolver<Client.Prisma.TeamMinAggregateOutputType, {}, string | null>;
 }
 
 export interface TeamMaxAggregateOutputType {
   [key: string]: Resolver<any, any, any>;
   teamName?: Resolver<Client.Prisma.TeamMaxAggregateOutputType, {}, string | null>;
+  teamType?: Resolver<Client.Prisma.TeamMaxAggregateOutputType, {}, string | null>;
+  teamIcon?: Resolver<Client.Prisma.TeamMaxAggregateOutputType, {}, string | null>;
 }
 
 export interface Auth_UserTeamsArgs {
@@ -1018,7 +1043,10 @@ export interface Auth_UpdateOneTeamArgs {
   where: Auth_TeamWhereUniqueInput | null;
 }
 
-//UpdateManyTeamArgs is not generated as the related model contains only unique or relation fields
+export interface Auth_UpdateManyTeamArgs {
+  data: Auth_TeamUpdateManyMutationInput;
+  where?: Auth_TeamWhereInput;
+}
 
 export interface Auth_DeleteManyTeamArgs {
   where?: Auth_TeamWhereInput;
@@ -1136,6 +1164,9 @@ export interface Auth_ProfileWhereInput {
   user?: Auth_UserWhereInput;
   location?: StringNullableFilter | null;
   joiningDate?: DateTimeNullableFilter | null;
+  businessPhone?: StringNullableFilter | null;
+  mobilePhone?: StringNullableFilter | null;
+  kakaoTalkId?: StringNullableFilter | null;
   designation?: StringNullableFilter | null;
   profileImg?: StringNullableFilter | null;
   designationIcon?: StringNullableFilter | null;
@@ -1147,6 +1178,9 @@ export interface Auth_ProfileOrderByWithRelationInput {
   user?: Auth_UserOrderByWithRelationInput;
   location?: SortOrder;
   joiningDate?: SortOrder;
+  businessPhone?: SortOrder;
+  mobilePhone?: SortOrder;
+  kakaoTalkId?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
@@ -1156,6 +1190,9 @@ export interface Auth_ProfileOrderByWithRelationInput {
 export type Auth_ProfileWhereUniqueInput = AtLeast<
   {
     userId?: number;
+    businessPhone?: string;
+    mobilePhone?: string;
+    kakaoTalkId?: string;
     AND?: Auth_ProfileWhereInput[];
     OR?: Auth_ProfileWhereInput[];
     NOT?: Auth_ProfileWhereInput[];
@@ -1167,13 +1204,16 @@ export type Auth_ProfileWhereUniqueInput = AtLeast<
     designationIcon?: StringNullableFilter | null;
     coverImg?: StringNullableFilter | null;
   },
-  'userId'
+  'userId' | 'businessPhone' | 'mobilePhone' | 'kakaoTalkId'
 >;
 
 export interface Auth_ProfileOrderByWithAggregationInput {
   userId?: SortOrder;
   location?: SortOrder;
   joiningDate?: SortOrder;
+  businessPhone?: SortOrder;
+  mobilePhone?: SortOrder;
+  kakaoTalkId?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
@@ -1192,6 +1232,9 @@ export interface Auth_ProfileScalarWhereWithAggregatesInput {
   userId?: IntWithAggregatesFilter;
   location?: StringNullableWithAggregatesFilter | null;
   joiningDate?: DateTimeNullableWithAggregatesFilter | null;
+  businessPhone?: StringNullableWithAggregatesFilter | null;
+  mobilePhone?: StringNullableWithAggregatesFilter | null;
+  kakaoTalkId?: StringNullableWithAggregatesFilter | null;
   designation?: StringNullableWithAggregatesFilter | null;
   profileImg?: StringNullableWithAggregatesFilter | null;
   designationIcon?: StringNullableWithAggregatesFilter | null;
@@ -1258,11 +1301,15 @@ export interface Auth_TeamWhereInput {
   NOT?: Auth_TeamWhereInput[];
   teamName?: StringFilter;
   users?: Auth_UsersOnTeamsListRelationFilter;
+  teamType?: StringNullableFilter | null;
+  teamIcon?: StringNullableFilter | null;
 }
 
 export interface Auth_TeamOrderByWithRelationInput {
   teamName?: SortOrder;
   users?: Auth_UsersOnTeamsOrderByRelationAggregateInput;
+  teamType?: SortOrder;
+  teamIcon?: SortOrder;
 }
 
 export type Auth_TeamWhereUniqueInput = AtLeast<
@@ -1272,12 +1319,16 @@ export type Auth_TeamWhereUniqueInput = AtLeast<
     OR?: Auth_TeamWhereInput[];
     NOT?: Auth_TeamWhereInput[];
     users?: Auth_UsersOnTeamsListRelationFilter;
+    teamType?: StringNullableFilter | null;
+    teamIcon?: StringNullableFilter | null;
   },
   'teamName'
 >;
 
 export interface Auth_TeamOrderByWithAggregationInput {
   teamName?: SortOrder;
+  teamType?: SortOrder;
+  teamIcon?: SortOrder;
   _count?: Auth_TeamCountOrderByAggregateInput;
   _max?: Auth_TeamMaxOrderByAggregateInput;
   _min?: Auth_TeamMinOrderByAggregateInput;
@@ -1288,6 +1339,8 @@ export interface Auth_TeamScalarWhereWithAggregatesInput {
   OR?: Auth_TeamScalarWhereWithAggregatesInput[];
   NOT?: Auth_TeamScalarWhereWithAggregatesInput[];
   teamName?: StringWithAggregatesFilter;
+  teamType?: StringNullableWithAggregatesFilter | null;
+  teamIcon?: StringNullableWithAggregatesFilter | null;
 }
 
 export interface Auth_UserCreateInput {
@@ -1398,6 +1451,9 @@ export interface Auth_ProfileCreateInput {
   user: Auth_UserCreateNestedOneWithoutProfileInput;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1408,6 +1464,9 @@ export interface Auth_ProfileUncheckedCreateInput {
   userId: number;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1418,6 +1477,9 @@ export interface Auth_ProfileUpdateInput {
   user?: Auth_UserUpdateOneRequiredWithoutProfileNestedInput;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1428,6 +1490,9 @@ export interface Auth_ProfileUncheckedUpdateInput {
   userId?: number;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1438,6 +1503,9 @@ export interface Auth_ProfileCreateManyInput {
   userId: number;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1447,6 +1515,9 @@ export interface Auth_ProfileCreateManyInput {
 export interface Auth_ProfileUpdateManyMutationInput {
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1457,6 +1528,9 @@ export interface Auth_ProfileUncheckedUpdateManyInput {
   userId?: number;
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -1506,33 +1580,47 @@ export interface Auth_UsersOnTeamsUncheckedUpdateManyInput {
 export interface Auth_TeamCreateInput {
   teamName: string;
   users?: Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUncheckedCreateInput {
   teamName: string;
   users?: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUpdateInput {
   teamName?: string;
   users?: Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUncheckedUpdateInput {
   teamName?: string;
   users?: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamCreateManyInput {
   teamName: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUpdateManyMutationInput {
   teamName?: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUncheckedUpdateManyInput {
   teamName?: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface IntFilter {
@@ -1784,6 +1872,9 @@ export interface Auth_ProfileCountOrderByAggregateInput {
   userId?: SortOrder;
   location?: SortOrder;
   joiningDate?: SortOrder;
+  businessPhone?: SortOrder;
+  mobilePhone?: SortOrder;
+  kakaoTalkId?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
@@ -1798,6 +1889,9 @@ export interface Auth_ProfileMaxOrderByAggregateInput {
   userId?: SortOrder;
   location?: SortOrder;
   joiningDate?: SortOrder;
+  businessPhone?: SortOrder;
+  mobilePhone?: SortOrder;
+  kakaoTalkId?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
@@ -1808,6 +1902,9 @@ export interface Auth_ProfileMinOrderByAggregateInput {
   userId?: SortOrder;
   location?: SortOrder;
   joiningDate?: SortOrder;
+  businessPhone?: SortOrder;
+  mobilePhone?: SortOrder;
+  kakaoTalkId?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
@@ -1870,14 +1967,20 @@ export interface Auth_UsersOnTeamsSumOrderByAggregateInput {
 
 export interface Auth_TeamCountOrderByAggregateInput {
   teamName?: SortOrder;
+  teamType?: SortOrder;
+  teamIcon?: SortOrder;
 }
 
 export interface Auth_TeamMaxOrderByAggregateInput {
   teamName?: SortOrder;
+  teamType?: SortOrder;
+  teamIcon?: SortOrder;
 }
 
 export interface Auth_TeamMinOrderByAggregateInput {
   teamName?: SortOrder;
+  teamType?: SortOrder;
+  teamIcon?: SortOrder;
 }
 
 export interface Auth_UserCreaterolesInput {
@@ -2327,6 +2430,9 @@ export interface NestedDateTimeNullableWithAggregatesFilter {
 export interface Auth_ProfileCreateWithoutUserInput {
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -2336,6 +2442,9 @@ export interface Auth_ProfileCreateWithoutUserInput {
 export interface Auth_ProfileUncheckedCreateWithoutUserInput {
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -2453,6 +2562,9 @@ export interface Auth_ProfileUpdateToOneWithWhereWithoutUserInput {
 export interface Auth_ProfileUpdateWithoutUserInput {
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -2462,6 +2574,9 @@ export interface Auth_ProfileUpdateWithoutUserInput {
 export interface Auth_ProfileUncheckedUpdateWithoutUserInput {
   location?: string | null;
   joiningDate?: Date | null;
+  businessPhone?: string | null;
+  mobilePhone?: string | null;
+  kakaoTalkId?: string | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
@@ -2621,10 +2736,14 @@ export interface Auth_UserUncheckedUpdateWithoutProfileInput {
 
 export interface Auth_TeamCreateWithoutUsersInput {
   teamName: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUncheckedCreateWithoutUsersInput {
   teamName: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamCreateOrConnectWithoutUsersInput {
@@ -2681,10 +2800,14 @@ export interface Auth_TeamUpdateToOneWithWhereWithoutUsersInput {
 
 export interface Auth_TeamUpdateWithoutUsersInput {
   teamName?: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_TeamUncheckedUpdateWithoutUsersInput {
   teamName?: string;
+  teamType?: string | null;
+  teamIcon?: string | null;
 }
 
 export interface Auth_UserUpsertWithoutTeamsInput {
@@ -2906,6 +3029,9 @@ export enum ProfileScalarFieldEnum {
   userId = 'userId',
   location = 'location',
   joiningDate = 'joiningDate',
+  businessPhone = 'businessPhone',
+  mobilePhone = 'mobilePhone',
+  kakaoTalkId = 'kakaoTalkId',
   designation = 'designation',
   profileImg = 'profileImg',
   designationIcon = 'designationIcon',
@@ -2921,6 +3047,8 @@ export enum SortOrder {
 }
 export enum TeamScalarFieldEnum {
   teamName = 'teamName',
+  teamType = 'teamType',
+  teamIcon = 'teamIcon',
 }
 export enum TransactionIsolationLevel {
   ReadUncommitted = 'ReadUncommitted',
