@@ -7,9 +7,6 @@ debug.log
 # documentation
 /documentation
 
-# prisma schema / migrations
-/libs/prisma-clients/
-
 # compiled output
 /dist
 /tmp
