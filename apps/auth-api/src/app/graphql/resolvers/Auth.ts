@@ -118,10 +118,19 @@ export class AuthResolver {
 
   @Query()
   @UseGuards(GqlGuard)
-  async accountInfo(@Info() info: GraphQLResolveInfo, @Context() ctx: IContext, @GqlUser() reqUser: RequestUser) {
-    return resolvers.Query.Auth_findUniqueUser(undefined, PrismaSelectArgs(info, {
-      where: { id: reqUser.id },
-    }), ctx, info);
+  async accountInfo(
+    @Info() info: GraphQLResolveInfo,
+    @Context() ctx: IContext,
+    @GqlUser() reqUser: RequestUser
+  ) {
+    return resolvers.Query.Auth_findUniqueUser(
+      undefined,
+      PrismaSelectArgs(info, {
+        where: { id: reqUser.id },
+      }),
+      ctx,
+      info
+    );
   }
 
   @Query()

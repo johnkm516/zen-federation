@@ -21,6 +21,22 @@ export default gql`
       skip: Int
       distinct: UsersOnTeamsScalarFieldEnum
     ): [UsersOnTeams!]!
+    contacted(
+      where: Auth_UserWhereInput
+      orderBy: Auth_UserOrderByWithRelationInput
+      cursor: Auth_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: UserScalarFieldEnum
+    ): [User!]!
+    contactedBy(
+      where: Auth_UserWhereInput
+      orderBy: Auth_UserOrderByWithRelationInput
+      cursor: Auth_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: UserScalarFieldEnum
+    ): [User!]!
     _count: UserCountOutputType!
   }
 

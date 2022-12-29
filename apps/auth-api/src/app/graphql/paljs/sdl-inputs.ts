@@ -83,6 +83,8 @@ export default gql`
     firstName: StringNullableFilter
     profile: Auth_ProfileWhereInput
     teams: Auth_UsersOnTeamsListRelationFilter
+    contacted: Auth_UserListRelationFilter
+    contactedBy: Auth_UserListRelationFilter
   }
 
   input Auth_UserOrderByWithRelationInput {
@@ -98,6 +100,8 @@ export default gql`
     firstName: SortOrder
     profile: Auth_ProfileOrderByWithRelationInput
     teams: Auth_UsersOnTeamsOrderByRelationAggregateInput
+    contacted: Auth_UserOrderByRelationAggregateInput
+    contactedBy: Auth_UserOrderByRelationAggregateInput
   }
 
   input Auth_UserWhereUniqueInput {
@@ -116,6 +120,8 @@ export default gql`
     firstName: StringNullableFilter
     profile: Auth_ProfileWhereInput
     teams: Auth_UsersOnTeamsListRelationFilter
+    contacted: Auth_UserListRelationFilter
+    contactedBy: Auth_UserListRelationFilter
   }
 
   input Auth_UserOrderByWithAggregationInput {
@@ -317,6 +323,8 @@ export default gql`
     firstName: String
     profile: Auth_ProfileCreateNestedOneWithoutUserInput
     teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
+    contacted: Auth_UserCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserUncheckedCreateInput {
@@ -332,6 +340,8 @@ export default gql`
     firstName: String
     profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
     teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
+    contacted: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserUncheckedCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserUpdateInput {
@@ -346,6 +356,8 @@ export default gql`
     firstName: String
     profile: Auth_ProfileUpdateOneWithoutUserNestedInput
     teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_UserUncheckedUpdateInput {
@@ -361,6 +373,8 @@ export default gql`
     firstName: String
     profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
     teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_UserCreateManyInput {
@@ -629,7 +643,17 @@ export default gql`
     none: Auth_UsersOnTeamsWhereInput
   }
 
+  input Auth_UserListRelationFilter {
+    every: Auth_UserWhereInput
+    some: Auth_UserWhereInput
+    none: Auth_UserWhereInput
+  }
+
   input Auth_UsersOnTeamsOrderByRelationAggregateInput {
+    _count: SortOrder
+  }
+
+  input Auth_UserOrderByRelationAggregateInput {
     _count: SortOrder
   }
 
@@ -894,6 +918,18 @@ export default gql`
     connect: [Auth_UsersOnTeamsWhereUniqueInput!]
   }
 
+  input Auth_UserCreateNestedManyWithoutContactedByInput {
+    create: [Auth_UserCreateWithoutContactedByInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedByInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+  }
+
+  input Auth_UserCreateNestedManyWithoutContactedInput {
+    create: [Auth_UserCreateWithoutContactedInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+  }
+
   input Auth_ProfileUncheckedCreateNestedOneWithoutUserInput {
     create: Auth_ProfileUncheckedCreateWithoutUserInput
     connectOrCreate: Auth_ProfileCreateOrConnectWithoutUserInput
@@ -905,6 +941,18 @@ export default gql`
     connectOrCreate: [Auth_UsersOnTeamsCreateOrConnectWithoutUserInput!]
     createMany: Auth_UsersOnTeamsCreateManyUserInputEnvelope
     connect: [Auth_UsersOnTeamsWhereUniqueInput!]
+  }
+
+  input Auth_UserUncheckedCreateNestedManyWithoutContactedByInput {
+    create: [Auth_UserCreateWithoutContactedByInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedByInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+  }
+
+  input Auth_UserUncheckedCreateNestedManyWithoutContactedInput {
+    create: [Auth_UserCreateWithoutContactedInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedInput!]
+    connect: [Auth_UserWhereUniqueInput!]
   }
 
   input DateTimeFieldUpdateOperationsInput {
@@ -948,6 +996,32 @@ export default gql`
     deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
   }
 
+  input Auth_UserUpdateManyWithoutContactedByNestedInput {
+    create: [Auth_UserCreateWithoutContactedByInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedByInput!]
+    upsert: [Auth_UserUpsertWithWhereUniqueWithoutContactedByInput!]
+    set: [Auth_UserWhereUniqueInput!]
+    disconnect: [Auth_UserWhereUniqueInput!]
+    delete: [Auth_UserWhereUniqueInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+    update: [Auth_UserUpdateWithWhereUniqueWithoutContactedByInput!]
+    updateMany: [Auth_UserUpdateManyWithWhereWithoutContactedByInput!]
+    deleteMany: [Auth_UserScalarWhereInput!]
+  }
+
+  input Auth_UserUpdateManyWithoutContactedNestedInput {
+    create: [Auth_UserCreateWithoutContactedInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedInput!]
+    upsert: [Auth_UserUpsertWithWhereUniqueWithoutContactedInput!]
+    set: [Auth_UserWhereUniqueInput!]
+    disconnect: [Auth_UserWhereUniqueInput!]
+    delete: [Auth_UserWhereUniqueInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+    update: [Auth_UserUpdateWithWhereUniqueWithoutContactedInput!]
+    updateMany: [Auth_UserUpdateManyWithWhereWithoutContactedInput!]
+    deleteMany: [Auth_UserScalarWhereInput!]
+  }
+
   input IntFieldUpdateOperationsInput {
     set: Int
     increment: Int
@@ -978,6 +1052,32 @@ export default gql`
     update: [Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutUserInput!]
     updateMany: [Auth_UsersOnTeamsUpdateManyWithWhereWithoutUserInput!]
     deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
+  }
+
+  input Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput {
+    create: [Auth_UserCreateWithoutContactedByInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedByInput!]
+    upsert: [Auth_UserUpsertWithWhereUniqueWithoutContactedByInput!]
+    set: [Auth_UserWhereUniqueInput!]
+    disconnect: [Auth_UserWhereUniqueInput!]
+    delete: [Auth_UserWhereUniqueInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+    update: [Auth_UserUpdateWithWhereUniqueWithoutContactedByInput!]
+    updateMany: [Auth_UserUpdateManyWithWhereWithoutContactedByInput!]
+    deleteMany: [Auth_UserScalarWhereInput!]
+  }
+
+  input Auth_UserUncheckedUpdateManyWithoutContactedNestedInput {
+    create: [Auth_UserCreateWithoutContactedInput!]
+    connectOrCreate: [Auth_UserCreateOrConnectWithoutContactedInput!]
+    upsert: [Auth_UserUpsertWithWhereUniqueWithoutContactedInput!]
+    set: [Auth_UserWhereUniqueInput!]
+    disconnect: [Auth_UserWhereUniqueInput!]
+    delete: [Auth_UserWhereUniqueInput!]
+    connect: [Auth_UserWhereUniqueInput!]
+    update: [Auth_UserUpdateWithWhereUniqueWithoutContactedInput!]
+    updateMany: [Auth_UserUpdateManyWithWhereWithoutContactedInput!]
+    deleteMany: [Auth_UserScalarWhereInput!]
   }
 
   input Auth_UserCreateNestedOneWithoutProfileInput {
@@ -1288,6 +1388,78 @@ export default gql`
     skipDuplicates: Boolean
   }
 
+  input Auth_UserCreateWithoutContactedByInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
+    contacted: Auth_UserCreateNestedManyWithoutContactedByInput
+  }
+
+  input Auth_UserUncheckedCreateWithoutContactedByInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
+    contacted: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput
+  }
+
+  input Auth_UserCreateOrConnectWithoutContactedByInput {
+    where: Auth_UserWhereUniqueInput!
+    create: Auth_UserUncheckedCreateWithoutContactedByInput!
+  }
+
+  input Auth_UserCreateWithoutContactedInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
+    contactedBy: Auth_UserCreateNestedManyWithoutContactedInput
+  }
+
+  input Auth_UserUncheckedCreateWithoutContactedInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String!
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
+    teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
+    contactedBy: Auth_UserUncheckedCreateNestedManyWithoutContactedInput
+  }
+
+  input Auth_UserCreateOrConnectWithoutContactedInput {
+    where: Auth_UserWhereUniqueInput!
+    create: Auth_UserUncheckedCreateWithoutContactedInput!
+  }
+
   input Auth_ProfileUpsertWithoutUserInput {
     update: Auth_ProfileUncheckedUpdateWithoutUserInput!
     create: Auth_ProfileUncheckedCreateWithoutUserInput!
@@ -1342,6 +1514,54 @@ export default gql`
     assignedAt: DateTimeFilter
   }
 
+  input Auth_UserUpsertWithWhereUniqueWithoutContactedByInput {
+    where: Auth_UserWhereUniqueInput!
+    update: Auth_UserUncheckedUpdateWithoutContactedByInput!
+    create: Auth_UserUncheckedCreateWithoutContactedByInput!
+  }
+
+  input Auth_UserUpdateWithWhereUniqueWithoutContactedByInput {
+    where: Auth_UserWhereUniqueInput!
+    data: Auth_UserUncheckedUpdateWithoutContactedByInput!
+  }
+
+  input Auth_UserUpdateManyWithWhereWithoutContactedByInput {
+    where: Auth_UserScalarWhereInput!
+    data: Auth_UserUncheckedUpdateManyWithoutContactedInput!
+  }
+
+  input Auth_UserScalarWhereInput {
+    AND: [Auth_UserScalarWhereInput!]
+    OR: [Auth_UserScalarWhereInput!]
+    NOT: [Auth_UserScalarWhereInput!]
+    id: IntFilter
+    createdAt: DateTimeFilter
+    username: StringNullableFilter
+    password: StringNullableFilter
+    email: StringFilter
+    roles: StringNullableListFilter
+    googleId: StringNullableFilter
+    googleProfile: JsonNullableFilter
+    lastName: StringNullableFilter
+    firstName: StringNullableFilter
+  }
+
+  input Auth_UserUpsertWithWhereUniqueWithoutContactedInput {
+    where: Auth_UserWhereUniqueInput!
+    update: Auth_UserUncheckedUpdateWithoutContactedInput!
+    create: Auth_UserUncheckedCreateWithoutContactedInput!
+  }
+
+  input Auth_UserUpdateWithWhereUniqueWithoutContactedInput {
+    where: Auth_UserWhereUniqueInput!
+    data: Auth_UserUncheckedUpdateWithoutContactedInput!
+  }
+
+  input Auth_UserUpdateManyWithWhereWithoutContactedInput {
+    where: Auth_UserScalarWhereInput!
+    data: Auth_UserUncheckedUpdateManyWithoutContactedByInput!
+  }
+
   input Auth_UserCreateWithoutProfileInput {
     createdAt: DateTime
     username: String
@@ -1353,6 +1573,8 @@ export default gql`
     lastName: String
     firstName: String
     teams: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput
+    contacted: Auth_UserCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserUncheckedCreateWithoutProfileInput {
@@ -1367,6 +1589,8 @@ export default gql`
     lastName: String
     firstName: String
     teams: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput
+    contacted: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserUncheckedCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserCreateOrConnectWithoutProfileInput {
@@ -1396,6 +1620,8 @@ export default gql`
     lastName: String
     firstName: String
     teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_UserUncheckedUpdateWithoutProfileInput {
@@ -1410,6 +1636,8 @@ export default gql`
     lastName: String
     firstName: String
     teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_TeamCreateWithoutUsersInput {
@@ -1436,6 +1664,8 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileCreateNestedOneWithoutUserInput
+    contacted: Auth_UserCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserUncheckedCreateWithoutTeamsInput {
@@ -1450,6 +1680,8 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput
+    contacted: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput
+    contactedBy: Auth_UserUncheckedCreateNestedManyWithoutContactedInput
   }
 
   input Auth_UserCreateOrConnectWithoutTeamsInput {
@@ -1498,6 +1730,8 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUpdateOneWithoutUserNestedInput
+    contacted: Auth_UserUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_UserUncheckedUpdateWithoutTeamsInput {
@@ -1512,6 +1746,8 @@ export default gql`
     lastName: String
     firstName: String
     profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
+    contacted: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput
+    contactedBy: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput
   }
 
   input Auth_UsersOnTeamsCreateWithoutTeamInput {
@@ -1568,6 +1804,94 @@ export default gql`
   input Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamsInput {
     teamName: String
     assignedAt: DateTime
+  }
+
+  input Auth_UserUpdateWithoutContactedByInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUpdateManyWithoutContactedByNestedInput
+  }
+
+  input Auth_UserUncheckedUpdateWithoutContactedByInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
+    contacted: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput
+  }
+
+  input Auth_UserUncheckedUpdateManyWithoutContactedInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+  }
+
+  input Auth_UserUpdateWithoutContactedInput {
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput
+    contactedBy: Auth_UserUpdateManyWithoutContactedNestedInput
+  }
+
+  input Auth_UserUncheckedUpdateWithoutContactedInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
+    profile: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput
+    teams: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput
+    contactedBy: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput
+  }
+
+  input Auth_UserUncheckedUpdateManyWithoutContactedByInput {
+    id: Int
+    createdAt: DateTime
+    username: String
+    password: String
+    email: String
+    roles: [String!]
+    googleId: String
+    googleProfile: Json
+    lastName: String
+    firstName: String
   }
 
   input Auth_UsersOnTeamsCreateManyTeamInput {
@@ -1673,6 +1997,8 @@ export default gql`
 
   type UserCountOutputType @shareable {
     teams: Int!
+    contacted: Int!
+    contactedBy: Int!
   }
 
   type UserCountAggregateOutputType @key(fields: "id") @key(fields: "email") @shareable {

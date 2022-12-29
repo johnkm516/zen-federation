@@ -23,6 +23,9 @@ model User {
   firstName     String?
   profile       Profile?
   teams         UsersOnTeams[]
+
+  contacted      User[]  @relation("UserContact")
+  contactedBy    User[]  @relation("UserContact")
 }
 
 model Profile {

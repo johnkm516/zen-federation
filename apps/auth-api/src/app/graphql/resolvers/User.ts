@@ -58,7 +58,6 @@ export class UserResolver {
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    resolvers.Query.Auth_findUniqueUser(undefined, PrismaSelectArgs(info, args), ctx, info).then(response => console.log(response));
     return resolvers.Query.Auth_findUniqueUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 

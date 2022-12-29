@@ -78,6 +78,8 @@ export interface User {
   firstName?: Resolver<Client.User, {}, string | null>;
   profile?: Resolver<Client.User, {}, Client.Profile | null>;
   teams?: Resolver<Client.User, Auth_UserTeamsArgs, Client.UsersOnTeams[] | null>;
+  contacted?: Resolver<Client.User, Auth_UserContactedArgs, Client.User[] | null>;
+  contactedBy?: Resolver<Client.User, Auth_UserContactedByArgs, Client.User[] | null>;
   _count?: Resolver<Client.User, {}, Client.Prisma.UserCountOutputType>;
 
   __resolveReference?: any;
@@ -481,6 +483,8 @@ export interface AffectedRowsOutput {
 export interface UserCountOutputType {
   [key: string]: Resolver<any, any, any>;
   teams?: Resolver<Client.Prisma.UserCountOutputType, {}, number>;
+  contacted?: Resolver<Client.Prisma.UserCountOutputType, {}, number>;
+  contactedBy?: Resolver<Client.Prisma.UserCountOutputType, {}, number>;
 }
 
 export interface UserCountAggregateOutputType {
@@ -636,6 +640,24 @@ export interface Auth_UserTeamsArgs {
   take?: number | null;
   skip?: number | null;
   distinct?: UsersOnTeamsScalarFieldEnum[] | null;
+}
+
+export interface Auth_UserContactedArgs {
+  where?: Auth_UserWhereInput | null;
+  orderBy?: Auth_UserOrderByWithRelationInput[] | null;
+  cursor?: Auth_UserWhereUniqueInput | null;
+  take?: number | null;
+  skip?: number | null;
+  distinct?: UserScalarFieldEnum[] | null;
+}
+
+export interface Auth_UserContactedByArgs {
+  where?: Auth_UserWhereInput | null;
+  orderBy?: Auth_UserOrderByWithRelationInput[] | null;
+  cursor?: Auth_UserWhereUniqueInput | null;
+  take?: number | null;
+  skip?: number | null;
+  distinct?: UserScalarFieldEnum[] | null;
 }
 
 export interface Auth_TeamUsersArgs {
@@ -1028,6 +1050,8 @@ export interface Auth_UserWhereInput {
   firstName?: StringNullableFilter | null;
   profile?: Auth_ProfileWhereInput | null;
   teams?: Auth_UsersOnTeamsListRelationFilter;
+  contacted?: Auth_UserListRelationFilter;
+  contactedBy?: Auth_UserListRelationFilter;
 }
 
 export interface Auth_UserOrderByWithRelationInput {
@@ -1043,6 +1067,8 @@ export interface Auth_UserOrderByWithRelationInput {
   firstName?: SortOrder;
   profile?: Auth_ProfileOrderByWithRelationInput;
   teams?: Auth_UsersOnTeamsOrderByRelationAggregateInput;
+  contacted?: Auth_UserOrderByRelationAggregateInput;
+  contactedBy?: Auth_UserOrderByRelationAggregateInput;
 }
 
 export type Auth_UserWhereUniqueInput = AtLeast<
@@ -1062,6 +1088,8 @@ export type Auth_UserWhereUniqueInput = AtLeast<
     firstName?: StringNullableFilter | null;
     profile?: Auth_ProfileWhereInput | null;
     teams?: Auth_UsersOnTeamsListRelationFilter;
+    contacted?: Auth_UserListRelationFilter;
+    contactedBy?: Auth_UserListRelationFilter;
   },
   'id' | 'username' | 'email' | 'googleId'
 >;
@@ -1274,6 +1302,8 @@ export interface Auth_UserCreateInput {
   firstName?: string | null;
   profile?: Auth_ProfileCreateNestedOneWithoutUserInput;
   teams?: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserUncheckedCreateInput {
@@ -1289,6 +1319,8 @@ export interface Auth_UserUncheckedCreateInput {
   firstName?: string | null;
   profile?: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput;
   teams?: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserUncheckedCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserUpdateInput {
@@ -1303,6 +1335,8 @@ export interface Auth_UserUpdateInput {
   firstName?: string | null;
   profile?: Auth_ProfileUpdateOneWithoutUserNestedInput;
   teams?: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_UserUncheckedUpdateInput {
@@ -1318,6 +1352,8 @@ export interface Auth_UserUncheckedUpdateInput {
   firstName?: string | null;
   profile?: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput;
   teams?: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_UserCreateManyInput {
@@ -1586,7 +1622,17 @@ export interface Auth_UsersOnTeamsListRelationFilter {
   none?: Auth_UsersOnTeamsWhereInput;
 }
 
+export interface Auth_UserListRelationFilter {
+  every?: Auth_UserWhereInput;
+  some?: Auth_UserWhereInput;
+  none?: Auth_UserWhereInput;
+}
+
 export interface Auth_UsersOnTeamsOrderByRelationAggregateInput {
+  _count?: SortOrder;
+}
+
+export interface Auth_UserOrderByRelationAggregateInput {
   _count?: SortOrder;
 }
 
@@ -1851,6 +1897,18 @@ export interface Auth_UsersOnTeamsCreateNestedManyWithoutUserInput {
   connect?: Auth_UsersOnTeamsWhereUniqueInput[];
 }
 
+export interface Auth_UserCreateNestedManyWithoutContactedByInput {
+  create?: Auth_UserCreateWithoutContactedByInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedByInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+}
+
+export interface Auth_UserCreateNestedManyWithoutContactedInput {
+  create?: Auth_UserCreateWithoutContactedInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+}
+
 export interface Auth_ProfileUncheckedCreateNestedOneWithoutUserInput {
   create?: Auth_ProfileUncheckedCreateWithoutUserInput;
   connectOrCreate?: Auth_ProfileCreateOrConnectWithoutUserInput;
@@ -1862,6 +1920,18 @@ export interface Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput {
   connectOrCreate?: Auth_UsersOnTeamsCreateOrConnectWithoutUserInput[];
   createMany?: Auth_UsersOnTeamsCreateManyUserInputEnvelope;
   connect?: Auth_UsersOnTeamsWhereUniqueInput[];
+}
+
+export interface Auth_UserUncheckedCreateNestedManyWithoutContactedByInput {
+  create?: Auth_UserCreateWithoutContactedByInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedByInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+}
+
+export interface Auth_UserUncheckedCreateNestedManyWithoutContactedInput {
+  create?: Auth_UserCreateWithoutContactedInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedInput[];
+  connect?: Auth_UserWhereUniqueInput[];
 }
 
 export interface DateTimeFieldUpdateOperationsInput {
@@ -1905,6 +1975,32 @@ export interface Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput {
   deleteMany?: Auth_UsersOnTeamsScalarWhereInput[];
 }
 
+export interface Auth_UserUpdateManyWithoutContactedByNestedInput {
+  create?: Auth_UserCreateWithoutContactedByInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedByInput[];
+  upsert?: Auth_UserUpsertWithWhereUniqueWithoutContactedByInput[];
+  set?: Auth_UserWhereUniqueInput[];
+  disconnect?: Auth_UserWhereUniqueInput[];
+  delete?: Auth_UserWhereUniqueInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+  update?: Auth_UserUpdateWithWhereUniqueWithoutContactedByInput[];
+  updateMany?: Auth_UserUpdateManyWithWhereWithoutContactedByInput[];
+  deleteMany?: Auth_UserScalarWhereInput[];
+}
+
+export interface Auth_UserUpdateManyWithoutContactedNestedInput {
+  create?: Auth_UserCreateWithoutContactedInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedInput[];
+  upsert?: Auth_UserUpsertWithWhereUniqueWithoutContactedInput[];
+  set?: Auth_UserWhereUniqueInput[];
+  disconnect?: Auth_UserWhereUniqueInput[];
+  delete?: Auth_UserWhereUniqueInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+  update?: Auth_UserUpdateWithWhereUniqueWithoutContactedInput[];
+  updateMany?: Auth_UserUpdateManyWithWhereWithoutContactedInput[];
+  deleteMany?: Auth_UserScalarWhereInput[];
+}
+
 export interface IntFieldUpdateOperationsInput {
   set?: number;
   increment?: number;
@@ -1935,6 +2031,32 @@ export interface Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput {
   update?: Auth_UsersOnTeamsUpdateWithWhereUniqueWithoutUserInput[];
   updateMany?: Auth_UsersOnTeamsUpdateManyWithWhereWithoutUserInput[];
   deleteMany?: Auth_UsersOnTeamsScalarWhereInput[];
+}
+
+export interface Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput {
+  create?: Auth_UserCreateWithoutContactedByInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedByInput[];
+  upsert?: Auth_UserUpsertWithWhereUniqueWithoutContactedByInput[];
+  set?: Auth_UserWhereUniqueInput[];
+  disconnect?: Auth_UserWhereUniqueInput[];
+  delete?: Auth_UserWhereUniqueInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+  update?: Auth_UserUpdateWithWhereUniqueWithoutContactedByInput[];
+  updateMany?: Auth_UserUpdateManyWithWhereWithoutContactedByInput[];
+  deleteMany?: Auth_UserScalarWhereInput[];
+}
+
+export interface Auth_UserUncheckedUpdateManyWithoutContactedNestedInput {
+  create?: Auth_UserCreateWithoutContactedInput[];
+  connectOrCreate?: Auth_UserCreateOrConnectWithoutContactedInput[];
+  upsert?: Auth_UserUpsertWithWhereUniqueWithoutContactedInput[];
+  set?: Auth_UserWhereUniqueInput[];
+  disconnect?: Auth_UserWhereUniqueInput[];
+  delete?: Auth_UserWhereUniqueInput[];
+  connect?: Auth_UserWhereUniqueInput[];
+  update?: Auth_UserUpdateWithWhereUniqueWithoutContactedInput[];
+  updateMany?: Auth_UserUpdateManyWithWhereWithoutContactedInput[];
+  deleteMany?: Auth_UserScalarWhereInput[];
 }
 
 export interface Auth_UserCreateNestedOneWithoutProfileInput {
@@ -2245,6 +2367,78 @@ export interface Auth_UsersOnTeamsCreateManyUserInputEnvelope {
   skipDuplicates?: boolean;
 }
 
+export interface Auth_UserCreateWithoutContactedByInput {
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email: string;
+  roles?: Auth_UserCreaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileCreateNestedOneWithoutUserInput;
+  teams?: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserCreateNestedManyWithoutContactedByInput;
+}
+
+export interface Auth_UserUncheckedCreateWithoutContactedByInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email: string;
+  roles?: Auth_UserCreaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput;
+  teams?: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput;
+}
+
+export interface Auth_UserCreateOrConnectWithoutContactedByInput {
+  where: Auth_UserWhereUniqueInput;
+  create: Auth_UserUncheckedCreateWithoutContactedByInput;
+}
+
+export interface Auth_UserCreateWithoutContactedInput {
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email: string;
+  roles?: Auth_UserCreaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileCreateNestedOneWithoutUserInput;
+  teams?: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput;
+  contactedBy?: Auth_UserCreateNestedManyWithoutContactedInput;
+}
+
+export interface Auth_UserUncheckedCreateWithoutContactedInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email: string;
+  roles?: Auth_UserCreaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput;
+  teams?: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput;
+  contactedBy?: Auth_UserUncheckedCreateNestedManyWithoutContactedInput;
+}
+
+export interface Auth_UserCreateOrConnectWithoutContactedInput {
+  where: Auth_UserWhereUniqueInput;
+  create: Auth_UserUncheckedCreateWithoutContactedInput;
+}
+
 export interface Auth_ProfileUpsertWithoutUserInput {
   update: Auth_ProfileUncheckedUpdateWithoutUserInput;
   create: Auth_ProfileUncheckedCreateWithoutUserInput;
@@ -2299,6 +2493,54 @@ export interface Auth_UsersOnTeamsScalarWhereInput {
   assignedAt?: DateTimeFilter;
 }
 
+export interface Auth_UserUpsertWithWhereUniqueWithoutContactedByInput {
+  where: Auth_UserWhereUniqueInput;
+  update: Auth_UserUncheckedUpdateWithoutContactedByInput;
+  create: Auth_UserUncheckedCreateWithoutContactedByInput;
+}
+
+export interface Auth_UserUpdateWithWhereUniqueWithoutContactedByInput {
+  where: Auth_UserWhereUniqueInput;
+  data: Auth_UserUncheckedUpdateWithoutContactedByInput;
+}
+
+export interface Auth_UserUpdateManyWithWhereWithoutContactedByInput {
+  where: Auth_UserScalarWhereInput;
+  data: Auth_UserUncheckedUpdateManyWithoutContactedInput;
+}
+
+export interface Auth_UserScalarWhereInput {
+  AND?: Auth_UserScalarWhereInput[];
+  OR?: Auth_UserScalarWhereInput[];
+  NOT?: Auth_UserScalarWhereInput[];
+  id?: IntFilter;
+  createdAt?: DateTimeFilter;
+  username?: StringNullableFilter | null;
+  password?: StringNullableFilter | null;
+  email?: StringFilter;
+  roles?: StringNullableListFilter;
+  googleId?: StringNullableFilter | null;
+  googleProfile?: JsonNullableFilter;
+  lastName?: StringNullableFilter | null;
+  firstName?: StringNullableFilter | null;
+}
+
+export interface Auth_UserUpsertWithWhereUniqueWithoutContactedInput {
+  where: Auth_UserWhereUniqueInput;
+  update: Auth_UserUncheckedUpdateWithoutContactedInput;
+  create: Auth_UserUncheckedCreateWithoutContactedInput;
+}
+
+export interface Auth_UserUpdateWithWhereUniqueWithoutContactedInput {
+  where: Auth_UserWhereUniqueInput;
+  data: Auth_UserUncheckedUpdateWithoutContactedInput;
+}
+
+export interface Auth_UserUpdateManyWithWhereWithoutContactedInput {
+  where: Auth_UserScalarWhereInput;
+  data: Auth_UserUncheckedUpdateManyWithoutContactedByInput;
+}
+
 export interface Auth_UserCreateWithoutProfileInput {
   createdAt?: Date;
   username?: string | null;
@@ -2310,6 +2552,8 @@ export interface Auth_UserCreateWithoutProfileInput {
   lastName?: string | null;
   firstName?: string | null;
   teams?: Auth_UsersOnTeamsCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserUncheckedCreateWithoutProfileInput {
@@ -2324,6 +2568,8 @@ export interface Auth_UserUncheckedCreateWithoutProfileInput {
   lastName?: string | null;
   firstName?: string | null;
   teams?: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutUserInput;
+  contacted?: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserUncheckedCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserCreateOrConnectWithoutProfileInput {
@@ -2353,6 +2599,8 @@ export interface Auth_UserUpdateWithoutProfileInput {
   lastName?: string | null;
   firstName?: string | null;
   teams?: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_UserUncheckedUpdateWithoutProfileInput {
@@ -2367,6 +2615,8 @@ export interface Auth_UserUncheckedUpdateWithoutProfileInput {
   lastName?: string | null;
   firstName?: string | null;
   teams?: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_TeamCreateWithoutUsersInput {
@@ -2393,6 +2643,8 @@ export interface Auth_UserCreateWithoutTeamsInput {
   lastName?: string | null;
   firstName?: string | null;
   profile?: Auth_ProfileCreateNestedOneWithoutUserInput;
+  contacted?: Auth_UserCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserUncheckedCreateWithoutTeamsInput {
@@ -2407,6 +2659,8 @@ export interface Auth_UserUncheckedCreateWithoutTeamsInput {
   lastName?: string | null;
   firstName?: string | null;
   profile?: Auth_ProfileUncheckedCreateNestedOneWithoutUserInput;
+  contacted?: Auth_UserUncheckedCreateNestedManyWithoutContactedByInput;
+  contactedBy?: Auth_UserUncheckedCreateNestedManyWithoutContactedInput;
 }
 
 export interface Auth_UserCreateOrConnectWithoutTeamsInput {
@@ -2455,6 +2709,8 @@ export interface Auth_UserUpdateWithoutTeamsInput {
   lastName?: string | null;
   firstName?: string | null;
   profile?: Auth_ProfileUpdateOneWithoutUserNestedInput;
+  contacted?: Auth_UserUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_UserUncheckedUpdateWithoutTeamsInput {
@@ -2469,6 +2725,8 @@ export interface Auth_UserUncheckedUpdateWithoutTeamsInput {
   lastName?: string | null;
   firstName?: string | null;
   profile?: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput;
+  contacted?: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput;
+  contactedBy?: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput;
 }
 
 export interface Auth_UsersOnTeamsCreateWithoutTeamInput {
@@ -2525,6 +2783,94 @@ export interface Auth_UsersOnTeamsUncheckedUpdateWithoutUserInput {
 export interface Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamsInput {
   teamName?: string;
   assignedAt?: Date;
+}
+
+export interface Auth_UserUpdateWithoutContactedByInput {
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUpdateOneWithoutUserNestedInput;
+  teams?: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUpdateManyWithoutContactedByNestedInput;
+}
+
+export interface Auth_UserUncheckedUpdateWithoutContactedByInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput;
+  teams?: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput;
+  contacted?: Auth_UserUncheckedUpdateManyWithoutContactedByNestedInput;
+}
+
+export interface Auth_UserUncheckedUpdateManyWithoutContactedInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+}
+
+export interface Auth_UserUpdateWithoutContactedInput {
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUpdateOneWithoutUserNestedInput;
+  teams?: Auth_UsersOnTeamsUpdateManyWithoutUserNestedInput;
+  contactedBy?: Auth_UserUpdateManyWithoutContactedNestedInput;
+}
+
+export interface Auth_UserUncheckedUpdateWithoutContactedInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
+  profile?: Auth_ProfileUncheckedUpdateOneWithoutUserNestedInput;
+  teams?: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUserNestedInput;
+  contactedBy?: Auth_UserUncheckedUpdateManyWithoutContactedNestedInput;
+}
+
+export interface Auth_UserUncheckedUpdateManyWithoutContactedByInput {
+  id?: number;
+  createdAt?: Date;
+  username?: string | null;
+  password?: string | null;
+  email?: string;
+  roles?: Auth_UserUpdaterolesInput;
+  googleId?: string | null;
+  googleProfile?: NullableJsonNullValueInput;
+  lastName?: string | null;
+  firstName?: string | null;
 }
 
 export interface Auth_UsersOnTeamsCreateManyTeamInput {
