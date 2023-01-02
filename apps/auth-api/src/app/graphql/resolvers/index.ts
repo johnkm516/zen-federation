@@ -4,6 +4,9 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { typeDefs as GlobalTypeDefs } from '../global-schema.gql';
 import PALJS_TYPE_DEFS from '../paljs/typeDefs';
 import { AuthResolver, typeDefs as AuthTypeDefs } from './Auth';
+import { CalendarResolver, typeDefs as CalendarTypeDefs } from './Calendar';
+import { CalendarEventResolver, typeDefs as CalendarEventTypeDefs } from './CalendarEvent';
+import { CalendarsOnUsersResolver, typeDefs as CalendarsOnUsersTypeDefs } from './CalendarsOnUsers';
 import { ProfileResolver, typeDefs as ProfileTypeDefs } from './Profile';
 import { TeamResolver, typeDefs as TeamTypeDefs } from './Team';
 import {
@@ -15,6 +18,9 @@ import { UsersOnTeamsResolver, typeDefs as UsersOnTeamsTypeDefs } from './UsersO
 
 export const NEST_RESOLVERS = [
   AuthResolver,
+  CalendarResolver,
+  CalendarEventResolver,
+  CalendarsOnUsersResolver,
   ProfileResolver,
   TeamResolver,
   TransactionalBatchMutationResolver,
@@ -24,6 +30,9 @@ export const NEST_RESOLVERS = [
 
 export const NEST_TYPE_DEFS = [
   AuthTypeDefs,
+  CalendarTypeDefs,
+  CalendarEventTypeDefs,
+  CalendarsOnUsersTypeDefs,
   ProfileTypeDefs,
   TeamTypeDefs,
   TransactionalBatchMutationTypeDefs,

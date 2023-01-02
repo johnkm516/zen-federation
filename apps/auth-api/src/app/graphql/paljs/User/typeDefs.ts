@@ -21,6 +21,14 @@ export default gql`
       skip: Int
       distinct: UsersOnTeamsScalarFieldEnum
     ): [UsersOnTeams!]!
+    calendars(
+      where: Auth_CalendarsOnUsersWhereInput
+      orderBy: Auth_CalendarsOnUsersOrderByWithRelationInput
+      cursor: Auth_CalendarsOnUsersWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: CalendarsOnUsersScalarFieldEnum
+    ): [CalendarsOnUsers!]!
     contacted(
       where: Auth_UserWhereInput
       orderBy: Auth_UserOrderByWithRelationInput

@@ -23,9 +23,9 @@ model User {
   firstName     String?
   profile       Profile?
   teams         UsersOnTeams[]
-
-  contacted      User[]  @relation("UserContact")
-  contactedBy    User[]  @relation("UserContact")
+  calendars     CalendarsOnUsers[]
+  contacted     User[]  @relation("UserContact")
+  contactedBy   User[]  @relation("UserContact")
 }
 
 model Profile {
@@ -59,4 +59,30 @@ model Team {
   teamIcon      String?
 }
 
+model CalendarEvent {
+  id              Int      @id @default(autoincrement())
+  url             String?  @default("")
+  title           String   
+  start           DateTime
+  end             DateTime
+  allDay          Boolean
+  calendarId      Int
+  calendar        Calendar  @relation(fields: [calendarId], references: [id])
+}
+
+model CalendarsOnUsers {
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  calendar      Calendar @relation(fields: [calendarId], references: [id])
+  calendarId    Int     
+
+  @@id([userId, calendarId])
+}
+
+model Calendar {
+  id      Int     @id @default(autoincrement())
+  calendarType    String
+  users           CalendarsOnUsers[]
+  calendarEvents  CalendarEvent[]
+}
 

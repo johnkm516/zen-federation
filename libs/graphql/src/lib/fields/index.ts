@@ -7,3 +7,6 @@ export * from './Review.gql';
 export * from './Profile.gql';
 export * from './Team.gql';
 export * from './UsersOnTeams.gql';
+export * from './Calendar.gql';
+export * from './CalendarEvent.gql';
+export * from './CalendarsOnUsers.gql';
