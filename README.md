@@ -34,7 +34,7 @@ Table of contents
 <a name="intro_why"></a>
 ### **Why this is a standalone fork**: 
 
-I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three layers. For an enterprise architecture, I expect multiple frontend applications, and as both the frontend and backend get bigger and more bloated with libraries, having everything in a single Nx monorepo with shared dependencies means the container image size will grow too large. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
+I removed all frontend aspects of the original code. Rather than implementing a full-stack starter kit in a single monorepo, for my purposes I wanted separation of concerns between the backend and frontend as well as separate the entire stack into three core layers. For an enterprise architecture, I expect multiple frontend applications, and as both the frontend and backend get bigger and more bloated with libraries, having everything in a single Nx monorepo with shared dependencies means the container image size will grow too large. This repository is the data model layer of the software architecture that I envision. Further details about the architecture and changes that I made from the original repository are below. 
 
 Continuing the vision of the original Zen repository, this repository treats `schema.prisma` as a *single source of truth* for data models. From this single file (or in this case, a single *schema per service*), this project generates all the code necessary to start a GraphQL server in seconds by inputting just a few commands. The difference between the old repository and my fork is that not only can you generate CRUD for models declared in the `schema.prisma` file, you can generate an entire new backend service in seconds, which comes with its own Prisma client and `schema.prisma`, with a composable Apollo Federation 2 supergraph out of the box. 
 
@@ -60,12 +60,13 @@ Things I deleted from the original Zen repository :
 
 ![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/architecture.png?raw=true)
 
-The architecture I envision are separated into three layers : 
+The architecture I envision are separated into three core layers : 
 
 1.  The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
 2. The business logic layer ([Zen-Temporal](https://github.com/johnkm516/zen-temporal "Zen-Temporal"))
 3. Frontend layer (In whichever framework you choose, create web app(s) that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
-4. External / Other services. You can use Temporal workflows to communicate with external / other APIs, and create / use services like an ECM solution for file uploading
+
+For external / other services. You can use Temporal workflows to communicate with external / other APIs, and create / use services like an ECM solution for file uploading and storage.
 
 <a name="rationale"></a>
 ### **My rationale behind this architecture** : 
