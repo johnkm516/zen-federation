@@ -6,6 +6,8 @@
 
 **This repository is a standalone fork of https://github.com/ZenSoftware/zen.**
 
+**Check out the `test-model` branch for a sample schema that I am building for my full stack implementation!**
+
 Table of contents
 =================
 
