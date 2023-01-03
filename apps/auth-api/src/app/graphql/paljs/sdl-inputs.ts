@@ -13,7 +13,11 @@ export default gql`
     start
     end
     allDay
+  }
+
+  enum CalendarEventsOnCalendarsScalarFieldEnum {
     calendarId
+    calendarEventId
   }
 
   enum CalendarScalarFieldEnum {
@@ -288,7 +292,7 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsWhereUniqueInput {
-    teamName_userId: UsersOnTeamsTeamNameUserIdCompoundUniqueInput
+    teamName_userId: Auth_UsersOnTeamsTeamNameUserIdCompoundUniqueInput
     AND: [Auth_UsersOnTeamsWhereInput!]
     OR: [Auth_UsersOnTeamsWhereInput!]
     NOT: [Auth_UsersOnTeamsWhereInput!]
@@ -374,8 +378,7 @@ export default gql`
     start: DateTimeFilter
     end: DateTimeFilter
     allDay: BoolFilter
-    calendarId: IntFilter
-    calendar: Auth_CalendarWhereInput
+    calendar: Auth_CalendarEventsOnCalendarsListRelationFilter
   }
 
   input Auth_CalendarEventOrderByWithRelationInput {
@@ -385,8 +388,7 @@ export default gql`
     start: SortOrder
     end: SortOrder
     allDay: SortOrder
-    calendarId: SortOrder
-    calendar: Auth_CalendarOrderByWithRelationInput
+    calendar: Auth_CalendarEventsOnCalendarsOrderByRelationAggregateInput
   }
 
   input Auth_CalendarEventWhereUniqueInput {
@@ -399,8 +401,7 @@ export default gql`
     start: DateTimeFilter
     end: DateTimeFilter
     allDay: BoolFilter
-    calendarId: IntFilter
-    calendar: Auth_CalendarWhereInput
+    calendar: Auth_CalendarEventsOnCalendarsListRelationFilter
   }
 
   input Auth_CalendarEventOrderByWithAggregationInput {
@@ -410,7 +411,6 @@ export default gql`
     start: SortOrder
     end: SortOrder
     allDay: SortOrder
-    calendarId: SortOrder
     _count: Auth_CalendarEventCountOrderByAggregateInput
     _avg: Auth_CalendarEventAvgOrderByAggregateInput
     _max: Auth_CalendarEventMaxOrderByAggregateInput
@@ -428,7 +428,97 @@ export default gql`
     start: DateTimeWithAggregatesFilter
     end: DateTimeWithAggregatesFilter
     allDay: BoolWithAggregatesFilter
+  }
+
+  input Auth_CalendarEventsOnCalendarsWhereInput {
+    AND: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    OR: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    NOT: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    calendar: Auth_CalendarWhereInput
+    calendarId: IntFilter
+    calendarEvent: Auth_CalendarEventWhereInput
+    calendarEventId: IntFilter
+  }
+
+  input Auth_CalendarEventsOnCalendarsOrderByWithRelationInput {
+    calendar: Auth_CalendarOrderByWithRelationInput
+    calendarId: SortOrder
+    calendarEvent: Auth_CalendarEventOrderByWithRelationInput
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarEventsOnCalendarsWhereUniqueInput {
+    calendarId_calendarEventId: Auth_CalendarEventsOnCalendarsCalendarIdCalendarEventIdCompoundUniqueInput
+    AND: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    OR: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    NOT: [Auth_CalendarEventsOnCalendarsWhereInput!]
+    calendar: Auth_CalendarWhereInput
+    calendarId: IntFilter
+    calendarEvent: Auth_CalendarEventWhereInput
+    calendarEventId: IntFilter
+  }
+
+  input Auth_CalendarEventsOnCalendarsOrderByWithAggregationInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+    _count: Auth_CalendarEventsOnCalendarsCountOrderByAggregateInput
+    _avg: Auth_CalendarEventsOnCalendarsAvgOrderByAggregateInput
+    _max: Auth_CalendarEventsOnCalendarsMaxOrderByAggregateInput
+    _min: Auth_CalendarEventsOnCalendarsMinOrderByAggregateInput
+    _sum: Auth_CalendarEventsOnCalendarsSumOrderByAggregateInput
+  }
+
+  input Auth_CalendarEventsOnCalendarsScalarWhereWithAggregatesInput {
+    AND: [Auth_CalendarEventsOnCalendarsScalarWhereWithAggregatesInput!]
+    OR: [Auth_CalendarEventsOnCalendarsScalarWhereWithAggregatesInput!]
+    NOT: [Auth_CalendarEventsOnCalendarsScalarWhereWithAggregatesInput!]
     calendarId: IntWithAggregatesFilter
+    calendarEventId: IntWithAggregatesFilter
+  }
+
+  input Auth_CalendarWhereInput {
+    AND: [Auth_CalendarWhereInput!]
+    OR: [Auth_CalendarWhereInput!]
+    NOT: [Auth_CalendarWhereInput!]
+    id: IntFilter
+    calendarType: StringFilter
+    users: Auth_CalendarsOnUsersListRelationFilter
+    calendarEvents: Auth_CalendarEventsOnCalendarsListRelationFilter
+  }
+
+  input Auth_CalendarOrderByWithRelationInput {
+    id: SortOrder
+    calendarType: SortOrder
+    users: Auth_CalendarsOnUsersOrderByRelationAggregateInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsOrderByRelationAggregateInput
+  }
+
+  input Auth_CalendarWhereUniqueInput {
+    id: Int
+    AND: [Auth_CalendarWhereInput!]
+    OR: [Auth_CalendarWhereInput!]
+    NOT: [Auth_CalendarWhereInput!]
+    calendarType: StringFilter
+    users: Auth_CalendarsOnUsersListRelationFilter
+    calendarEvents: Auth_CalendarEventsOnCalendarsListRelationFilter
+  }
+
+  input Auth_CalendarOrderByWithAggregationInput {
+    id: SortOrder
+    calendarType: SortOrder
+    _count: Auth_CalendarCountOrderByAggregateInput
+    _avg: Auth_CalendarAvgOrderByAggregateInput
+    _max: Auth_CalendarMaxOrderByAggregateInput
+    _min: Auth_CalendarMinOrderByAggregateInput
+    _sum: Auth_CalendarSumOrderByAggregateInput
+  }
+
+  input Auth_CalendarScalarWhereWithAggregatesInput {
+    AND: [Auth_CalendarScalarWhereWithAggregatesInput!]
+    OR: [Auth_CalendarScalarWhereWithAggregatesInput!]
+    NOT: [Auth_CalendarScalarWhereWithAggregatesInput!]
+    id: IntWithAggregatesFilter
+    calendarType: StringWithAggregatesFilter
   }
 
   input Auth_CalendarsOnUsersWhereInput {
@@ -449,7 +539,7 @@ export default gql`
   }
 
   input Auth_CalendarsOnUsersWhereUniqueInput {
-    userId_calendarId: CalendarsOnUsersUserIdCalendarIdCompoundUniqueInput
+    userId_calendarId: Auth_CalendarsOnUsersUserIdCalendarIdCompoundUniqueInput
     AND: [Auth_CalendarsOnUsersWhereInput!]
     OR: [Auth_CalendarsOnUsersWhereInput!]
     NOT: [Auth_CalendarsOnUsersWhereInput!]
@@ -475,51 +565,6 @@ export default gql`
     NOT: [Auth_CalendarsOnUsersScalarWhereWithAggregatesInput!]
     userId: IntWithAggregatesFilter
     calendarId: IntWithAggregatesFilter
-  }
-
-  input Auth_CalendarWhereInput {
-    AND: [Auth_CalendarWhereInput!]
-    OR: [Auth_CalendarWhereInput!]
-    NOT: [Auth_CalendarWhereInput!]
-    id: IntFilter
-    calendarType: StringFilter
-    users: Auth_CalendarsOnUsersListRelationFilter
-    calendarEvents: Auth_CalendarEventListRelationFilter
-  }
-
-  input Auth_CalendarOrderByWithRelationInput {
-    id: SortOrder
-    calendarType: SortOrder
-    users: Auth_CalendarsOnUsersOrderByRelationAggregateInput
-    calendarEvents: Auth_CalendarEventOrderByRelationAggregateInput
-  }
-
-  input Auth_CalendarWhereUniqueInput {
-    id: Int
-    AND: [Auth_CalendarWhereInput!]
-    OR: [Auth_CalendarWhereInput!]
-    NOT: [Auth_CalendarWhereInput!]
-    calendarType: StringFilter
-    users: Auth_CalendarsOnUsersListRelationFilter
-    calendarEvents: Auth_CalendarEventListRelationFilter
-  }
-
-  input Auth_CalendarOrderByWithAggregationInput {
-    id: SortOrder
-    calendarType: SortOrder
-    _count: Auth_CalendarCountOrderByAggregateInput
-    _avg: Auth_CalendarAvgOrderByAggregateInput
-    _max: Auth_CalendarMaxOrderByAggregateInput
-    _min: Auth_CalendarMinOrderByAggregateInput
-    _sum: Auth_CalendarSumOrderByAggregateInput
-  }
-
-  input Auth_CalendarScalarWhereWithAggregatesInput {
-    AND: [Auth_CalendarScalarWhereWithAggregatesInput!]
-    OR: [Auth_CalendarScalarWhereWithAggregatesInput!]
-    NOT: [Auth_CalendarScalarWhereWithAggregatesInput!]
-    id: IntWithAggregatesFilter
-    calendarType: StringWithAggregatesFilter
   }
 
   input Auth_UserCreateInput {
@@ -812,7 +857,7 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
-    calendar: Auth_CalendarCreateNestedOneWithoutCalendarEventsInput!
+    calendar: Auth_CalendarEventsOnCalendarsCreateNestedManyWithoutCalendarEventInput
   }
 
   input Auth_CalendarEventUncheckedCreateInput {
@@ -822,7 +867,7 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
-    calendarId: Int!
+    calendar: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarEventInput
   }
 
   input Auth_CalendarEventUpdateInput {
@@ -831,7 +876,7 @@ export default gql`
     start: DateTime
     end: DateTime
     allDay: Boolean
-    calendar: Auth_CalendarUpdateOneRequiredWithoutCalendarEventsNestedInput
+    calendar: Auth_CalendarEventsOnCalendarsUpdateManyWithoutCalendarEventNestedInput
   }
 
   input Auth_CalendarEventUncheckedUpdateInput {
@@ -841,7 +886,7 @@ export default gql`
     start: DateTime
     end: DateTime
     allDay: Boolean
-    calendarId: Int
+    calendar: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarEventNestedInput
   }
 
   input Auth_CalendarEventCreateManyInput {
@@ -851,7 +896,6 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
-    calendarId: Int!
   }
 
   input Auth_CalendarEventUpdateManyMutationInput {
@@ -869,7 +913,76 @@ export default gql`
     start: DateTime
     end: DateTime
     allDay: Boolean
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateInput {
+    calendar: Auth_CalendarCreateNestedOneWithoutCalendarEventsInput!
+    calendarEvent: Auth_CalendarEventCreateNestedOneWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedCreateInput {
+    calendarId: Int!
+    calendarEventId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateInput {
+    calendar: Auth_CalendarUpdateOneRequiredWithoutCalendarEventsNestedInput
+    calendarEvent: Auth_CalendarEventUpdateOneRequiredWithoutCalendarNestedInput
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateInput {
     calendarId: Int
+    calendarEventId: Int
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateManyInput {
+    calendarId: Int!
+    calendarEventId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateManyInput {
+    calendarId: Int
+    calendarEventId: Int
+  }
+
+  input Auth_CalendarCreateInput {
+    calendarType: String!
+    users: Auth_CalendarsOnUsersCreateNestedManyWithoutCalendarInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsCreateNestedManyWithoutCalendarInput
+  }
+
+  input Auth_CalendarUncheckedCreateInput {
+    id: Int
+    calendarType: String!
+    users: Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput
+  }
+
+  input Auth_CalendarUpdateInput {
+    calendarType: String
+    users: Auth_CalendarsOnUsersUpdateManyWithoutCalendarNestedInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsUpdateManyWithoutCalendarNestedInput
+  }
+
+  input Auth_CalendarUncheckedUpdateInput {
+    id: Int
+    calendarType: String
+    users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput
+  }
+
+  input Auth_CalendarCreateManyInput {
+    id: Int
+    calendarType: String!
+  }
+
+  input Auth_CalendarUpdateManyMutationInput {
+    calendarType: String
+  }
+
+  input Auth_CalendarUncheckedUpdateManyInput {
+    id: Int
+    calendarType: String
   }
 
   input Auth_CalendarsOnUsersCreateInput {
@@ -900,46 +1013,6 @@ export default gql`
   input Auth_CalendarsOnUsersUncheckedUpdateManyInput {
     userId: Int
     calendarId: Int
-  }
-
-  input Auth_CalendarCreateInput {
-    calendarType: String!
-    users: Auth_CalendarsOnUsersCreateNestedManyWithoutCalendarInput
-    calendarEvents: Auth_CalendarEventCreateNestedManyWithoutCalendarInput
-  }
-
-  input Auth_CalendarUncheckedCreateInput {
-    id: Int
-    calendarType: String!
-    users: Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput
-    calendarEvents: Auth_CalendarEventUncheckedCreateNestedManyWithoutCalendarInput
-  }
-
-  input Auth_CalendarUpdateInput {
-    calendarType: String
-    users: Auth_CalendarsOnUsersUpdateManyWithoutCalendarNestedInput
-    calendarEvents: Auth_CalendarEventUpdateManyWithoutCalendarNestedInput
-  }
-
-  input Auth_CalendarUncheckedUpdateInput {
-    id: Int
-    calendarType: String
-    users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
-    calendarEvents: Auth_CalendarEventUncheckedUpdateManyWithoutCalendarNestedInput
-  }
-
-  input Auth_CalendarCreateManyInput {
-    id: Int
-    calendarType: String!
-  }
-
-  input Auth_CalendarUpdateManyMutationInput {
-    calendarType: String
-  }
-
-  input Auth_CalendarUncheckedUpdateManyInput {
-    id: Int
-    calendarType: String
   }
 
   input IntFilter {
@@ -1263,7 +1336,7 @@ export default gql`
     isNot: Auth_TeamWhereInput
   }
 
-  input UsersOnTeamsTeamNameUserIdCompoundUniqueInput {
+  input Auth_UsersOnTeamsTeamNameUserIdCompoundUniqueInput {
     teamName: String!
     userId: Int!
   }
@@ -1317,9 +1390,14 @@ export default gql`
     not: NestedBoolFilter
   }
 
-  input Auth_CalendarRelationFilter {
-    is: Auth_CalendarWhereInput
-    isNot: Auth_CalendarWhereInput
+  input Auth_CalendarEventsOnCalendarsListRelationFilter {
+    every: Auth_CalendarEventsOnCalendarsWhereInput
+    some: Auth_CalendarEventsOnCalendarsWhereInput
+    none: Auth_CalendarEventsOnCalendarsWhereInput
+  }
+
+  input Auth_CalendarEventsOnCalendarsOrderByRelationAggregateInput {
+    _count: SortOrder
   }
 
   input Auth_CalendarEventCountOrderByAggregateInput {
@@ -1329,12 +1407,10 @@ export default gql`
     start: SortOrder
     end: SortOrder
     allDay: SortOrder
-    calendarId: SortOrder
   }
 
   input Auth_CalendarEventAvgOrderByAggregateInput {
     id: SortOrder
-    calendarId: SortOrder
   }
 
   input Auth_CalendarEventMaxOrderByAggregateInput {
@@ -1344,7 +1420,6 @@ export default gql`
     start: SortOrder
     end: SortOrder
     allDay: SortOrder
-    calendarId: SortOrder
   }
 
   input Auth_CalendarEventMinOrderByAggregateInput {
@@ -1354,12 +1429,10 @@ export default gql`
     start: SortOrder
     end: SortOrder
     allDay: SortOrder
-    calendarId: SortOrder
   }
 
   input Auth_CalendarEventSumOrderByAggregateInput {
     id: SortOrder
-    calendarId: SortOrder
   }
 
   input BoolWithAggregatesFilter {
@@ -1370,7 +1443,70 @@ export default gql`
     _max: NestedBoolFilter
   }
 
-  input CalendarsOnUsersUserIdCalendarIdCompoundUniqueInput {
+  input Auth_CalendarRelationFilter {
+    is: Auth_CalendarWhereInput
+    isNot: Auth_CalendarWhereInput
+  }
+
+  input Auth_CalendarEventRelationFilter {
+    is: Auth_CalendarEventWhereInput
+    isNot: Auth_CalendarEventWhereInput
+  }
+
+  input Auth_CalendarEventsOnCalendarsCalendarIdCalendarEventIdCompoundUniqueInput {
+    calendarId: Int!
+    calendarEventId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsCountOrderByAggregateInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarEventsOnCalendarsAvgOrderByAggregateInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarEventsOnCalendarsMaxOrderByAggregateInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarEventsOnCalendarsMinOrderByAggregateInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarEventsOnCalendarsSumOrderByAggregateInput {
+    calendarId: SortOrder
+    calendarEventId: SortOrder
+  }
+
+  input Auth_CalendarCountOrderByAggregateInput {
+    id: SortOrder
+    calendarType: SortOrder
+  }
+
+  input Auth_CalendarAvgOrderByAggregateInput {
+    id: SortOrder
+  }
+
+  input Auth_CalendarMaxOrderByAggregateInput {
+    id: SortOrder
+    calendarType: SortOrder
+  }
+
+  input Auth_CalendarMinOrderByAggregateInput {
+    id: SortOrder
+    calendarType: SortOrder
+  }
+
+  input Auth_CalendarSumOrderByAggregateInput {
+    id: SortOrder
+  }
+
+  input Auth_CalendarsOnUsersUserIdCalendarIdCompoundUniqueInput {
     userId: Int!
     calendarId: Int!
   }
@@ -1398,39 +1534,6 @@ export default gql`
   input Auth_CalendarsOnUsersSumOrderByAggregateInput {
     userId: SortOrder
     calendarId: SortOrder
-  }
-
-  input Auth_CalendarEventListRelationFilter {
-    every: Auth_CalendarEventWhereInput
-    some: Auth_CalendarEventWhereInput
-    none: Auth_CalendarEventWhereInput
-  }
-
-  input Auth_CalendarEventOrderByRelationAggregateInput {
-    _count: SortOrder
-  }
-
-  input Auth_CalendarCountOrderByAggregateInput {
-    id: SortOrder
-    calendarType: SortOrder
-  }
-
-  input Auth_CalendarAvgOrderByAggregateInput {
-    id: SortOrder
-  }
-
-  input Auth_CalendarMaxOrderByAggregateInput {
-    id: SortOrder
-    calendarType: SortOrder
-  }
-
-  input Auth_CalendarMinOrderByAggregateInput {
-    id: SortOrder
-    calendarType: SortOrder
-  }
-
-  input Auth_CalendarSumOrderByAggregateInput {
-    id: SortOrder
   }
 
   input Auth_UserCreaterolesInput {
@@ -1742,14 +1845,62 @@ export default gql`
     deleteMany: [Auth_UsersOnTeamsScalarWhereInput!]
   }
 
+  input Auth_CalendarEventsOnCalendarsCreateNestedManyWithoutCalendarEventInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarEventInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarEventInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInputEnvelope
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarEventInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarEventInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarEventInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInputEnvelope
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+  }
+
+  input BoolFieldUpdateOperationsInput {
+    set: Boolean
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateManyWithoutCalendarEventNestedInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarEventInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarEventInput!]
+    upsert: [Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarEventInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInputEnvelope
+    set: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    disconnect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    delete: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    update: [Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarEventInput!]
+    updateMany: [Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarEventInput!]
+    deleteMany: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarEventNestedInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarEventInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarEventInput!]
+    upsert: [Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarEventInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInputEnvelope
+    set: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    disconnect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    delete: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    update: [Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarEventInput!]
+    updateMany: [Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarEventInput!]
+    deleteMany: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+  }
+
   input Auth_CalendarCreateNestedOneWithoutCalendarEventsInput {
     create: Auth_CalendarUncheckedCreateWithoutCalendarEventsInput
     connectOrCreate: Auth_CalendarCreateOrConnectWithoutCalendarEventsInput
     connect: Auth_CalendarWhereUniqueInput
   }
 
-  input BoolFieldUpdateOperationsInput {
-    set: Boolean
+  input Auth_CalendarEventCreateNestedOneWithoutCalendarInput {
+    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput
+    connectOrCreate: Auth_CalendarEventCreateOrConnectWithoutCalendarInput
+    connect: Auth_CalendarEventWhereUniqueInput
   }
 
   input Auth_CalendarUpdateOneRequiredWithoutCalendarEventsNestedInput {
@@ -1758,6 +1909,98 @@ export default gql`
     upsert: Auth_CalendarUpsertWithoutCalendarEventsInput
     connect: Auth_CalendarWhereUniqueInput
     update: Auth_CalendarUpdateWithoutCalendarEventsInput
+  }
+
+  input Auth_CalendarEventUpdateOneRequiredWithoutCalendarNestedInput {
+    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput
+    connectOrCreate: Auth_CalendarEventCreateOrConnectWithoutCalendarInput
+    upsert: Auth_CalendarEventUpsertWithoutCalendarInput
+    connect: Auth_CalendarEventWhereUniqueInput
+    update: Auth_CalendarEventUpdateWithoutCalendarInput
+  }
+
+  input Auth_CalendarsOnUsersCreateNestedManyWithoutCalendarInput {
+    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
+    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
+    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateNestedManyWithoutCalendarInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarInputEnvelope
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+  }
+
+  input Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput {
+    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
+    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
+    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarInputEnvelope
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+  }
+
+  input Auth_CalendarsOnUsersUpdateManyWithoutCalendarNestedInput {
+    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
+    upsert: [Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput!]
+    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
+    set: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    disconnect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    delete: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    update: [Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput!]
+    updateMany: [Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput!]
+    deleteMany: [Auth_CalendarsOnUsersScalarWhereInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateManyWithoutCalendarNestedInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarInput!]
+    upsert: [Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarInputEnvelope
+    set: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    disconnect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    delete: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    update: [Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarInput!]
+    updateMany: [Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarInput!]
+    deleteMany: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+  }
+
+  input Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput {
+    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
+    upsert: [Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput!]
+    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
+    set: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    disconnect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    delete: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
+    update: [Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput!]
+    updateMany: [Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput!]
+    deleteMany: [Auth_CalendarsOnUsersScalarWhereInput!]
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput {
+    create: [Auth_CalendarEventsOnCalendarsCreateWithoutCalendarInput!]
+    connectOrCreate: [Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarInput!]
+    upsert: [Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarInput!]
+    createMany: Auth_CalendarEventsOnCalendarsCreateManyCalendarInputEnvelope
+    set: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    disconnect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    delete: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    connect: [Auth_CalendarEventsOnCalendarsWhereUniqueInput!]
+    update: [Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarInput!]
+    updateMany: [Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarInput!]
+    deleteMany: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
   }
 
   input Auth_UserCreateNestedOneWithoutCalendarsInput {
@@ -1786,90 +2029,6 @@ export default gql`
     upsert: Auth_CalendarUpsertWithoutUsersInput
     connect: Auth_CalendarWhereUniqueInput
     update: Auth_CalendarUpdateWithoutUsersInput
-  }
-
-  input Auth_CalendarsOnUsersCreateNestedManyWithoutCalendarInput {
-    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
-    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
-    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-  }
-
-  input Auth_CalendarEventCreateNestedManyWithoutCalendarInput {
-    create: [Auth_CalendarEventCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarEventCreateOrConnectWithoutCalendarInput!]
-    createMany: Auth_CalendarEventCreateManyCalendarInputEnvelope
-    connect: [Auth_CalendarEventWhereUniqueInput!]
-  }
-
-  input Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput {
-    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
-    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
-    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-  }
-
-  input Auth_CalendarEventUncheckedCreateNestedManyWithoutCalendarInput {
-    create: [Auth_CalendarEventCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarEventCreateOrConnectWithoutCalendarInput!]
-    createMany: Auth_CalendarEventCreateManyCalendarInputEnvelope
-    connect: [Auth_CalendarEventWhereUniqueInput!]
-  }
-
-  input Auth_CalendarsOnUsersUpdateManyWithoutCalendarNestedInput {
-    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
-    upsert: [Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput!]
-    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
-    set: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    disconnect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    delete: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    update: [Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput!]
-    updateMany: [Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput!]
-    deleteMany: [Auth_CalendarsOnUsersScalarWhereInput!]
-  }
-
-  input Auth_CalendarEventUpdateManyWithoutCalendarNestedInput {
-    create: [Auth_CalendarEventCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarEventCreateOrConnectWithoutCalendarInput!]
-    upsert: [Auth_CalendarEventUpsertWithWhereUniqueWithoutCalendarInput!]
-    createMany: Auth_CalendarEventCreateManyCalendarInputEnvelope
-    set: [Auth_CalendarEventWhereUniqueInput!]
-    disconnect: [Auth_CalendarEventWhereUniqueInput!]
-    delete: [Auth_CalendarEventWhereUniqueInput!]
-    connect: [Auth_CalendarEventWhereUniqueInput!]
-    update: [Auth_CalendarEventUpdateWithWhereUniqueWithoutCalendarInput!]
-    updateMany: [Auth_CalendarEventUpdateManyWithWhereWithoutCalendarInput!]
-    deleteMany: [Auth_CalendarEventScalarWhereInput!]
-  }
-
-  input Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput {
-    create: [Auth_CalendarsOnUsersCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput!]
-    upsert: [Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput!]
-    createMany: Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope
-    set: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    disconnect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    delete: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    connect: [Auth_CalendarsOnUsersWhereUniqueInput!]
-    update: [Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput!]
-    updateMany: [Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput!]
-    deleteMany: [Auth_CalendarsOnUsersScalarWhereInput!]
-  }
-
-  input Auth_CalendarEventUncheckedUpdateManyWithoutCalendarNestedInput {
-    create: [Auth_CalendarEventCreateWithoutCalendarInput!]
-    connectOrCreate: [Auth_CalendarEventCreateOrConnectWithoutCalendarInput!]
-    upsert: [Auth_CalendarEventUpsertWithWhereUniqueWithoutCalendarInput!]
-    createMany: Auth_CalendarEventCreateManyCalendarInputEnvelope
-    set: [Auth_CalendarEventWhereUniqueInput!]
-    disconnect: [Auth_CalendarEventWhereUniqueInput!]
-    delete: [Auth_CalendarEventWhereUniqueInput!]
-    connect: [Auth_CalendarEventWhereUniqueInput!]
-    update: [Auth_CalendarEventUpdateWithWhereUniqueWithoutCalendarInput!]
-    updateMany: [Auth_CalendarEventUpdateManyWithWhereWithoutCalendarInput!]
-    deleteMany: [Auth_CalendarEventScalarWhereInput!]
   }
 
   input NestedIntFilter {
@@ -2577,6 +2736,48 @@ export default gql`
     data: Auth_UsersOnTeamsUncheckedUpdateManyWithoutUsersInput!
   }
 
+  input Auth_CalendarEventsOnCalendarsCreateWithoutCalendarEventInput {
+    calendar: Auth_CalendarCreateNestedOneWithoutCalendarEventsInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarEventInput {
+    calendarId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarEventInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    create: Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarEventInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInputEnvelope {
+    data: [Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInput!]!
+    skipDuplicates: Boolean
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarEventInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    update: Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarEventInput!
+    create: Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarEventInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarEventInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    data: Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarEventInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarEventInput {
+    where: Auth_CalendarEventsOnCalendarsScalarWhereInput!
+    data: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsScalarWhereInput {
+    AND: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+    OR: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+    NOT: [Auth_CalendarEventsOnCalendarsScalarWhereInput!]
+    calendarId: IntFilter
+    calendarEventId: IntFilter
+  }
+
   input Auth_CalendarCreateWithoutCalendarEventsInput {
     calendarType: String!
     users: Auth_CalendarsOnUsersCreateNestedManyWithoutCalendarInput
@@ -2591,6 +2792,28 @@ export default gql`
   input Auth_CalendarCreateOrConnectWithoutCalendarEventsInput {
     where: Auth_CalendarWhereUniqueInput!
     create: Auth_CalendarUncheckedCreateWithoutCalendarEventsInput!
+  }
+
+  input Auth_CalendarEventCreateWithoutCalendarInput {
+    url: String
+    title: String!
+    start: DateTime!
+    end: DateTime!
+    allDay: Boolean!
+  }
+
+  input Auth_CalendarEventUncheckedCreateWithoutCalendarInput {
+    id: Int
+    url: String
+    title: String!
+    start: DateTime!
+    end: DateTime!
+    allDay: Boolean!
+  }
+
+  input Auth_CalendarEventCreateOrConnectWithoutCalendarInput {
+    where: Auth_CalendarEventWhereUniqueInput!
+    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput!
   }
 
   input Auth_CalendarUpsertWithoutCalendarEventsInput {
@@ -2613,6 +2836,102 @@ export default gql`
     id: Int
     calendarType: String
     users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
+  }
+
+  input Auth_CalendarEventUpsertWithoutCalendarInput {
+    update: Auth_CalendarEventUncheckedUpdateWithoutCalendarInput!
+    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput!
+    where: Auth_CalendarEventWhereInput
+  }
+
+  input Auth_CalendarEventUpdateToOneWithWhereWithoutCalendarInput {
+    where: Auth_CalendarEventWhereInput
+    data: Auth_CalendarEventUncheckedUpdateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventUpdateWithoutCalendarInput {
+    url: String
+    title: String
+    start: DateTime
+    end: DateTime
+    allDay: Boolean
+  }
+
+  input Auth_CalendarEventUncheckedUpdateWithoutCalendarInput {
+    id: Int
+    url: String
+    title: String
+    start: DateTime
+    end: DateTime
+    allDay: Boolean
+  }
+
+  input Auth_CalendarsOnUsersCreateWithoutCalendarInput {
+    user: Auth_UserCreateNestedOneWithoutCalendarsInput!
+  }
+
+  input Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput {
+    userId: Int!
+  }
+
+  input Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput {
+    where: Auth_CalendarsOnUsersWhereUniqueInput!
+    create: Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope {
+    data: [Auth_CalendarsOnUsersCreateManyCalendarInput!]!
+    skipDuplicates: Boolean
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateWithoutCalendarInput {
+    calendarEvent: Auth_CalendarEventCreateNestedOneWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarInput {
+    calendarEventId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateOrConnectWithoutCalendarInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    create: Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsCreateManyCalendarInputEnvelope {
+    data: [Auth_CalendarEventsOnCalendarsCreateManyCalendarInput!]!
+    skipDuplicates: Boolean
+  }
+
+  input Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput {
+    where: Auth_CalendarsOnUsersWhereUniqueInput!
+    update: Auth_CalendarsOnUsersUncheckedUpdateWithoutCalendarInput!
+    create: Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput {
+    where: Auth_CalendarsOnUsersWhereUniqueInput!
+    data: Auth_CalendarsOnUsersUncheckedUpdateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput {
+    where: Auth_CalendarsOnUsersScalarWhereInput!
+    data: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutUsersInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpsertWithWhereUniqueWithoutCalendarInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    update: Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarInput!
+    create: Auth_CalendarEventsOnCalendarsUncheckedCreateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateWithWhereUniqueWithoutCalendarInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput!
+    data: Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarInput!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateManyWithWhereWithoutCalendarInput {
+    where: Auth_CalendarEventsOnCalendarsScalarWhereInput!
+    data: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarEventsInput!
   }
 
   input Auth_UserCreateWithoutCalendarsInput {
@@ -2655,13 +2974,13 @@ export default gql`
 
   input Auth_CalendarCreateWithoutUsersInput {
     calendarType: String!
-    calendarEvents: Auth_CalendarEventCreateNestedManyWithoutCalendarInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsCreateNestedManyWithoutCalendarInput
   }
 
   input Auth_CalendarUncheckedCreateWithoutUsersInput {
     id: Int
     calendarType: String!
-    calendarEvents: Auth_CalendarEventUncheckedCreateNestedManyWithoutCalendarInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput
   }
 
   input Auth_CalendarCreateOrConnectWithoutUsersInput {
@@ -2726,103 +3045,13 @@ export default gql`
 
   input Auth_CalendarUpdateWithoutUsersInput {
     calendarType: String
-    calendarEvents: Auth_CalendarEventUpdateManyWithoutCalendarNestedInput
+    calendarEvents: Auth_CalendarEventsOnCalendarsUpdateManyWithoutCalendarNestedInput
   }
 
   input Auth_CalendarUncheckedUpdateWithoutUsersInput {
     id: Int
     calendarType: String
-    calendarEvents: Auth_CalendarEventUncheckedUpdateManyWithoutCalendarNestedInput
-  }
-
-  input Auth_CalendarsOnUsersCreateWithoutCalendarInput {
-    user: Auth_UserCreateNestedOneWithoutCalendarsInput!
-  }
-
-  input Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput {
-    userId: Int!
-  }
-
-  input Auth_CalendarsOnUsersCreateOrConnectWithoutCalendarInput {
-    where: Auth_CalendarsOnUsersWhereUniqueInput!
-    create: Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarsOnUsersCreateManyCalendarInputEnvelope {
-    data: [Auth_CalendarsOnUsersCreateManyCalendarInput!]!
-    skipDuplicates: Boolean
-  }
-
-  input Auth_CalendarEventCreateWithoutCalendarInput {
-    url: String
-    title: String!
-    start: DateTime!
-    end: DateTime!
-    allDay: Boolean!
-  }
-
-  input Auth_CalendarEventUncheckedCreateWithoutCalendarInput {
-    id: Int
-    url: String
-    title: String!
-    start: DateTime!
-    end: DateTime!
-    allDay: Boolean!
-  }
-
-  input Auth_CalendarEventCreateOrConnectWithoutCalendarInput {
-    where: Auth_CalendarEventWhereUniqueInput!
-    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarEventCreateManyCalendarInputEnvelope {
-    data: [Auth_CalendarEventCreateManyCalendarInput!]!
-    skipDuplicates: Boolean
-  }
-
-  input Auth_CalendarsOnUsersUpsertWithWhereUniqueWithoutCalendarInput {
-    where: Auth_CalendarsOnUsersWhereUniqueInput!
-    update: Auth_CalendarsOnUsersUncheckedUpdateWithoutCalendarInput!
-    create: Auth_CalendarsOnUsersUncheckedCreateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarsOnUsersUpdateWithWhereUniqueWithoutCalendarInput {
-    where: Auth_CalendarsOnUsersWhereUniqueInput!
-    data: Auth_CalendarsOnUsersUncheckedUpdateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarsOnUsersUpdateManyWithWhereWithoutCalendarInput {
-    where: Auth_CalendarsOnUsersScalarWhereInput!
-    data: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutUsersInput!
-  }
-
-  input Auth_CalendarEventUpsertWithWhereUniqueWithoutCalendarInput {
-    where: Auth_CalendarEventWhereUniqueInput!
-    update: Auth_CalendarEventUncheckedUpdateWithoutCalendarInput!
-    create: Auth_CalendarEventUncheckedCreateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarEventUpdateWithWhereUniqueWithoutCalendarInput {
-    where: Auth_CalendarEventWhereUniqueInput!
-    data: Auth_CalendarEventUncheckedUpdateWithoutCalendarInput!
-  }
-
-  input Auth_CalendarEventUpdateManyWithWhereWithoutCalendarInput {
-    where: Auth_CalendarEventScalarWhereInput!
-    data: Auth_CalendarEventUncheckedUpdateManyWithoutCalendarEventsInput!
-  }
-
-  input Auth_CalendarEventScalarWhereInput {
-    AND: [Auth_CalendarEventScalarWhereInput!]
-    OR: [Auth_CalendarEventScalarWhereInput!]
-    NOT: [Auth_CalendarEventScalarWhereInput!]
-    id: IntFilter
-    url: StringNullableFilter
-    title: StringFilter
-    start: DateTimeFilter
-    end: DateTimeFilter
-    allDay: BoolFilter
-    calendarId: IntFilter
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput
   }
 
   input Auth_UsersOnTeamsCreateManyUserInput {
@@ -2973,17 +3202,28 @@ export default gql`
     assignedAt: DateTime
   }
 
+  input Auth_CalendarEventsOnCalendarsCreateManyCalendarEventInput {
+    calendarId: Int!
+  }
+
+  input Auth_CalendarEventsOnCalendarsUpdateWithoutCalendarEventInput {
+    calendar: Auth_CalendarUpdateOneRequiredWithoutCalendarEventsNestedInput
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarEventInput {
+    calendarId: Int
+  }
+
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarInput {
+    calendarId: Int
+  }
+
   input Auth_CalendarsOnUsersCreateManyCalendarInput {
     userId: Int!
   }
 
-  input Auth_CalendarEventCreateManyCalendarInput {
-    id: Int
-    url: String
-    title: String!
-    start: DateTime!
-    end: DateTime!
-    allDay: Boolean!
+  input Auth_CalendarEventsOnCalendarsCreateManyCalendarInput {
+    calendarEventId: Int!
   }
 
   input Auth_CalendarsOnUsersUpdateWithoutCalendarInput {
@@ -2998,30 +3238,16 @@ export default gql`
     userId: Int
   }
 
-  input Auth_CalendarEventUpdateWithoutCalendarInput {
-    url: String
-    title: String
-    start: DateTime
-    end: DateTime
-    allDay: Boolean
+  input Auth_CalendarEventsOnCalendarsUpdateWithoutCalendarInput {
+    calendarEvent: Auth_CalendarEventUpdateOneRequiredWithoutCalendarNestedInput
   }
 
-  input Auth_CalendarEventUncheckedUpdateWithoutCalendarInput {
-    id: Int
-    url: String
-    title: String
-    start: DateTime
-    end: DateTime
-    allDay: Boolean
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateWithoutCalendarInput {
+    calendarEventId: Int
   }
 
-  input Auth_CalendarEventUncheckedUpdateManyWithoutCalendarEventsInput {
-    id: Int
-    url: String
-    title: String
-    start: DateTime
-    end: DateTime
-    allDay: Boolean
+  input Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarEventsInput {
+    calendarEventId: Int
   }
 
   type AggregateUser @shareable {
@@ -3125,7 +3351,6 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
-    calendarId: Int!
     _count: CalendarEventCountAggregateOutputType
     _avg: CalendarEventAvgAggregateOutputType
     _sum: CalendarEventSumAggregateOutputType
@@ -3133,22 +3358,24 @@ export default gql`
     _max: CalendarEventMaxAggregateOutputType
   }
 
-  type AggregateCalendarsOnUsers @shareable {
-    _count: CalendarsOnUsersCountAggregateOutputType
-    _avg: CalendarsOnUsersAvgAggregateOutputType
-    _sum: CalendarsOnUsersSumAggregateOutputType
-    _min: CalendarsOnUsersMinAggregateOutputType
-    _max: CalendarsOnUsersMaxAggregateOutputType
+  type AggregateCalendarEventsOnCalendars @shareable {
+    _count: CalendarEventsOnCalendarsCountAggregateOutputType
+    _avg: CalendarEventsOnCalendarsAvgAggregateOutputType
+    _sum: CalendarEventsOnCalendarsSumAggregateOutputType
+    _min: CalendarEventsOnCalendarsMinAggregateOutputType
+    _max: CalendarEventsOnCalendarsMaxAggregateOutputType
   }
 
-  type CalendarsOnUsersGroupByOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Int!
+  type CalendarEventsOnCalendarsGroupByOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Int!
-    _count: CalendarsOnUsersCountAggregateOutputType
-    _avg: CalendarsOnUsersAvgAggregateOutputType
-    _sum: CalendarsOnUsersSumAggregateOutputType
-    _min: CalendarsOnUsersMinAggregateOutputType
-    _max: CalendarsOnUsersMaxAggregateOutputType
+    calendarEventId: Int!
+    _count: CalendarEventsOnCalendarsCountAggregateOutputType
+    _avg: CalendarEventsOnCalendarsAvgAggregateOutputType
+    _sum: CalendarEventsOnCalendarsSumAggregateOutputType
+    _min: CalendarEventsOnCalendarsMinAggregateOutputType
+    _max: CalendarEventsOnCalendarsMaxAggregateOutputType
   }
 
   type AggregateCalendar @shareable {
@@ -3167,6 +3394,24 @@ export default gql`
     _sum: CalendarSumAggregateOutputType
     _min: CalendarMinAggregateOutputType
     _max: CalendarMaxAggregateOutputType
+  }
+
+  type AggregateCalendarsOnUsers @shareable {
+    _count: CalendarsOnUsersCountAggregateOutputType
+    _avg: CalendarsOnUsersAvgAggregateOutputType
+    _sum: CalendarsOnUsersSumAggregateOutputType
+    _min: CalendarsOnUsersMinAggregateOutputType
+    _max: CalendarsOnUsersMaxAggregateOutputType
+  }
+
+  type CalendarsOnUsersGroupByOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Int!
+    calendarId: Int!
+    _count: CalendarsOnUsersCountAggregateOutputType
+    _avg: CalendarsOnUsersAvgAggregateOutputType
+    _sum: CalendarsOnUsersSumAggregateOutputType
+    _min: CalendarsOnUsersMinAggregateOutputType
+    _max: CalendarsOnUsersMaxAggregateOutputType
   }
 
   type UserCountOutputType @shareable {
@@ -3318,6 +3563,10 @@ export default gql`
     teamIcon: String
   }
 
+  type CalendarEventCountOutputType @shareable {
+    calendar: Int!
+  }
+
   type CalendarEventCountAggregateOutputType @key(fields: "id") @shareable {
     id: Int!
     url: Int!
@@ -3325,18 +3574,15 @@ export default gql`
     start: Int!
     end: Int!
     allDay: Int!
-    calendarId: Int!
     _all: Int!
   }
 
   type CalendarEventAvgAggregateOutputType @key(fields: "id") @shareable {
     id: Float
-    calendarId: Float
   }
 
   type CalendarEventSumAggregateOutputType @key(fields: "id") @shareable {
     id: Int
-    calendarId: Int
   }
 
   type CalendarEventMinAggregateOutputType @key(fields: "id") @shareable {
@@ -3346,7 +3592,6 @@ export default gql`
     start: DateTime
     end: DateTime
     allDay: Boolean
-    calendarId: Int
   }
 
   type CalendarEventMaxAggregateOutputType @key(fields: "id") @shareable {
@@ -3356,33 +3601,42 @@ export default gql`
     start: DateTime
     end: DateTime
     allDay: Boolean
-    calendarId: Int
   }
 
-  type CalendarsOnUsersCountAggregateOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Int!
+  type CalendarEventsOnCalendarsCountAggregateOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Int!
+    calendarEventId: Int!
     _all: Int!
   }
 
-  type CalendarsOnUsersAvgAggregateOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Float
+  type CalendarEventsOnCalendarsAvgAggregateOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Float
+    calendarEventId: Float
   }
 
-  type CalendarsOnUsersSumAggregateOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Int
+  type CalendarEventsOnCalendarsSumAggregateOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Int
+    calendarEventId: Int
   }
 
-  type CalendarsOnUsersMinAggregateOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Int
+  type CalendarEventsOnCalendarsMinAggregateOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Int
+    calendarEventId: Int
   }
 
-  type CalendarsOnUsersMaxAggregateOutputType @key(fields: "userId calendarId") @shareable {
-    userId: Int
+  type CalendarEventsOnCalendarsMaxAggregateOutputType
+    @key(fields: "calendarId calendarEventId")
+    @shareable {
     calendarId: Int
+    calendarEventId: Int
   }
 
   type CalendarCountOutputType @shareable {
@@ -3412,6 +3666,32 @@ export default gql`
   type CalendarMaxAggregateOutputType @key(fields: "id") @shareable {
     id: Int
     calendarType: String
+  }
+
+  type CalendarsOnUsersCountAggregateOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Int!
+    calendarId: Int!
+    _all: Int!
+  }
+
+  type CalendarsOnUsersAvgAggregateOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Float
+    calendarId: Float
+  }
+
+  type CalendarsOnUsersSumAggregateOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Int
+    calendarId: Int
+  }
+
+  type CalendarsOnUsersMinAggregateOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Int
+    calendarId: Int
+  }
+
+  type CalendarsOnUsersMaxAggregateOutputType @key(fields: "userId calendarId") @shareable {
+    userId: Int
+    calendarId: Int
   }
 
   type TransactionSucceeded @shareable {
@@ -3583,32 +3863,32 @@ export default gql`
     where: Auth_CalendarEventWhereInput
   }
 
-  input Auth_createOneCalendarsOnUsersInput {
-    data: Auth_CalendarsOnUsersCreateInput
+  input Auth_createOneCalendarEventsOnCalendarsInput {
+    data: Auth_CalendarEventsOnCalendarsCreateInput
   }
 
-  input Auth_upsertOneCalendarsOnUsersInput {
-    where: Auth_CalendarsOnUsersWhereUniqueInput
-    create: Auth_CalendarsOnUsersCreateInput
-    update: Auth_CalendarsOnUsersUpdateInput
+  input Auth_upsertOneCalendarEventsOnCalendarsInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput
+    create: Auth_CalendarEventsOnCalendarsCreateInput
+    update: Auth_CalendarEventsOnCalendarsUpdateInput
   }
 
-  input Auth_createManyCalendarsOnUsersInput {
-    data: [Auth_CalendarsOnUsersCreateManyInput]
+  input Auth_createManyCalendarEventsOnCalendarsInput {
+    data: [Auth_CalendarEventsOnCalendarsCreateManyInput]
     skipDuplicates: Boolean
   }
 
-  input Auth_deleteOneCalendarsOnUsersInput {
-    where: Auth_CalendarsOnUsersWhereUniqueInput
+  input Auth_deleteOneCalendarEventsOnCalendarsInput {
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput
   }
 
-  input Auth_updateOneCalendarsOnUsersInput {
-    data: Auth_CalendarsOnUsersUpdateInput
-    where: Auth_CalendarsOnUsersWhereUniqueInput
+  input Auth_updateOneCalendarEventsOnCalendarsInput {
+    data: Auth_CalendarEventsOnCalendarsUpdateInput
+    where: Auth_CalendarEventsOnCalendarsWhereUniqueInput
   }
 
-  input Auth_deleteManyCalendarsOnUsersInput {
-    where: Auth_CalendarsOnUsersWhereInput
+  input Auth_deleteManyCalendarEventsOnCalendarsInput {
+    where: Auth_CalendarEventsOnCalendarsWhereInput
   }
 
   input Auth_createOneCalendarInput {
@@ -3642,6 +3922,34 @@ export default gql`
 
   input Auth_deleteManyCalendarInput {
     where: Auth_CalendarWhereInput
+  }
+
+  input Auth_createOneCalendarsOnUsersInput {
+    data: Auth_CalendarsOnUsersCreateInput
+  }
+
+  input Auth_upsertOneCalendarsOnUsersInput {
+    where: Auth_CalendarsOnUsersWhereUniqueInput
+    create: Auth_CalendarsOnUsersCreateInput
+    update: Auth_CalendarsOnUsersUpdateInput
+  }
+
+  input Auth_createManyCalendarsOnUsersInput {
+    data: [Auth_CalendarsOnUsersCreateManyInput]
+    skipDuplicates: Boolean
+  }
+
+  input Auth_deleteOneCalendarsOnUsersInput {
+    where: Auth_CalendarsOnUsersWhereUniqueInput
+  }
+
+  input Auth_updateOneCalendarsOnUsersInput {
+    data: Auth_CalendarsOnUsersUpdateInput
+    where: Auth_CalendarsOnUsersWhereUniqueInput
+  }
+
+  input Auth_deleteManyCalendarsOnUsersInput {
+    where: Auth_CalendarsOnUsersWhereInput
   }
 
   input Auth_transactionalMutationInput {
@@ -3680,12 +3988,12 @@ export default gql`
     Auth_updateOneCalendarEvent: Auth_updateOneCalendarEventInput
     Auth_updateManyCalendarEvent: Auth_updateManyCalendarEventInput
     Auth_deleteManyCalendarEvent: Auth_deleteManyCalendarEventInput
-    Auth_createOneCalendarsOnUsers: Auth_createOneCalendarsOnUsersInput
-    Auth_upsertOneCalendarsOnUsers: Auth_upsertOneCalendarsOnUsersInput
-    Auth_createManyCalendarsOnUsers: Auth_createManyCalendarsOnUsersInput
-    Auth_deleteOneCalendarsOnUsers: Auth_deleteOneCalendarsOnUsersInput
-    Auth_updateOneCalendarsOnUsers: Auth_updateOneCalendarsOnUsersInput
-    Auth_deleteManyCalendarsOnUsers: Auth_deleteManyCalendarsOnUsersInput
+    Auth_createOneCalendarEventsOnCalendars: Auth_createOneCalendarEventsOnCalendarsInput
+    Auth_upsertOneCalendarEventsOnCalendars: Auth_upsertOneCalendarEventsOnCalendarsInput
+    Auth_createManyCalendarEventsOnCalendars: Auth_createManyCalendarEventsOnCalendarsInput
+    Auth_deleteOneCalendarEventsOnCalendars: Auth_deleteOneCalendarEventsOnCalendarsInput
+    Auth_updateOneCalendarEventsOnCalendars: Auth_updateOneCalendarEventsOnCalendarsInput
+    Auth_deleteManyCalendarEventsOnCalendars: Auth_deleteManyCalendarEventsOnCalendarsInput
     Auth_createOneCalendar: Auth_createOneCalendarInput
     Auth_upsertOneCalendar: Auth_upsertOneCalendarInput
     Auth_createManyCalendar: Auth_createManyCalendarInput
@@ -3693,5 +4001,11 @@ export default gql`
     Auth_updateOneCalendar: Auth_updateOneCalendarInput
     Auth_updateManyCalendar: Auth_updateManyCalendarInput
     Auth_deleteManyCalendar: Auth_deleteManyCalendarInput
+    Auth_createOneCalendarsOnUsers: Auth_createOneCalendarsOnUsersInput
+    Auth_upsertOneCalendarsOnUsers: Auth_upsertOneCalendarsOnUsersInput
+    Auth_createManyCalendarsOnUsers: Auth_createManyCalendarsOnUsersInput
+    Auth_deleteOneCalendarsOnUsers: Auth_deleteOneCalendarsOnUsersInput
+    Auth_updateOneCalendarsOnUsers: Auth_updateOneCalendarsOnUsersInput
+    Auth_deleteManyCalendarsOnUsers: Auth_deleteManyCalendarsOnUsersInput
   }
 `;

@@ -8,8 +8,15 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
-    calendarId: Int!
-    calendar: Calendar!
+    calendar(
+      where: Auth_CalendarEventsOnCalendarsWhereInput
+      orderBy: Auth_CalendarEventsOnCalendarsOrderByWithRelationInput
+      cursor: Auth_CalendarEventsOnCalendarsWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: CalendarEventsOnCalendarsScalarFieldEnum
+    ): [CalendarEventsOnCalendars!]!
+    _count: CalendarEventCountOutputType!
   }
 
   type Query {

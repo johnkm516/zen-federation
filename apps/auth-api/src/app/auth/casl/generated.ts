@@ -2,6 +2,7 @@ import { Subjects } from '@casl/prisma';
 import { 
   Calendar,
   CalendarEvent,
+  CalendarEventsOnCalendars,
   CalendarsOnUsers,
   Profile,
   Team,
@@ -12,6 +13,7 @@ import {
 export type PrismaSubjects = Subjects<{
   Calendar: Calendar;
   CalendarEvent: CalendarEvent;
+  CalendarEventsOnCalendars: CalendarEventsOnCalendars;
   CalendarsOnUsers: CalendarsOnUsers;
   Profile: Profile;
   Team: Team;

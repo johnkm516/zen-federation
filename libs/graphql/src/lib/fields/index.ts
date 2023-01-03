@@ -10,3 +10,4 @@ export * from './UsersOnTeams.gql';
 export * from './Calendar.gql';
 export * from './CalendarEvent.gql';
 export * from './CalendarsOnUsers.gql';
+export * from './CalendarEventsOnCalendars.gql';

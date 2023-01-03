@@ -1,5 +1,6 @@
 import Calendar from './Calendar/resolvers';
 import CalendarEvent from './CalendarEvent/resolvers';
+import CalendarEventsOnCalendars from './CalendarEventsOnCalendars/resolvers';
 import CalendarsOnUsers from './CalendarsOnUsers/resolvers';
 import TransactionalBatchMutation from './extended-resolvers';
 import Profile from './Profile/resolvers';
@@ -12,7 +13,8 @@ export default [
   UsersOnTeams,
   Team,
   CalendarEvent,
-  CalendarsOnUsers,
+  CalendarEventsOnCalendars,
   Calendar,
+  CalendarsOnUsers,
   TransactionalBatchMutation,
 ];

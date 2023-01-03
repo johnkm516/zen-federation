@@ -6,6 +6,10 @@ import PALJS_TYPE_DEFS from '../paljs/typeDefs';
 import { AuthResolver, typeDefs as AuthTypeDefs } from './Auth';
 import { CalendarResolver, typeDefs as CalendarTypeDefs } from './Calendar';
 import { CalendarEventResolver, typeDefs as CalendarEventTypeDefs } from './CalendarEvent';
+import {
+  CalendarEventsOnCalendarsResolver,
+  typeDefs as CalendarEventsOnCalendarsTypeDefs,
+} from './CalendarEventsOnCalendars';
 import { CalendarsOnUsersResolver, typeDefs as CalendarsOnUsersTypeDefs } from './CalendarsOnUsers';
 import { ProfileResolver, typeDefs as ProfileTypeDefs } from './Profile';
 import { TeamResolver, typeDefs as TeamTypeDefs } from './Team';
@@ -20,6 +24,7 @@ export const NEST_RESOLVERS = [
   AuthResolver,
   CalendarResolver,
   CalendarEventResolver,
+  CalendarEventsOnCalendarsResolver,
   CalendarsOnUsersResolver,
   ProfileResolver,
   TeamResolver,
@@ -32,6 +37,7 @@ export const NEST_TYPE_DEFS = [
   AuthTypeDefs,
   CalendarTypeDefs,
   CalendarEventTypeDefs,
+  CalendarEventsOnCalendarsTypeDefs,
   CalendarsOnUsersTypeDefs,
   ProfileTypeDefs,
   TeamTypeDefs,

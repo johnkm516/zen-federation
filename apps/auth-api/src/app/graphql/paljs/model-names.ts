@@ -8,8 +8,9 @@ export const modelNames = () => {
     'UsersOnTeams',
     'Team',
     'CalendarEvent',
-    'CalendarsOnUsers',
+    'CalendarEventsOnCalendars',
     'Calendar',
+    'CalendarsOnUsers',
   ];
 };
 

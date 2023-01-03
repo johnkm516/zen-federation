@@ -8,7 +8,7 @@ export async function seedCalendarsOnUsers(
     for (const calendar of calendars) {
         switch(calendar.calendarType) {
             case 'Personal': {
-
+                
                 break;
             }
             case 'Business': {
