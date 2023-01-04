@@ -86,7 +86,7 @@ export async function seedCalendarsOnUsers(
     calendars.push(
       await client.calendar.create({
         data: {
-          calendarType: 'Misc',
+          calendarType: 'ETC',
           users: {
             create: [
               {

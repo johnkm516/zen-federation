@@ -119,7 +119,7 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
         );
         break;
       }
-      case 'Misc': {
+      case 'ETC': {
         calendarEvents.push(
           await client.calendarEvent.create({
             data: {
