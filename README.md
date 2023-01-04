@@ -100,7 +100,7 @@ git clone https://github.com/johnkm516/zen-federation.git
 cd zen-federation
 cp .env.example .env
 npm i
-npm run build:dev
+npm run compose:up:dev
 npm run prisma:migrate
 ```
 
