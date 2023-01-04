@@ -7,6 +7,7 @@ import { seedTeams } from './seed/Team';
 import { seedUsersOnTeams } from './seed/UsersOnTeams';
 import { seedUsersContacts } from './seed/UserContacts';
 import { seedCalendarsOnUsers } from './seed/CalendarsOnUsers';
+import { seedCalendarEventsOnCalendar } from './seed/CalendarEvents';
 
 const client = new AuthPrismaClient();
 var chance = new Chance();
@@ -18,7 +19,7 @@ async function seed() {
   await seedUsersOnTeams(client, users, teams);
   await seedUsersContacts(client, users);
   const calendars = await seedCalendarsOnUsers(client, users);
-  
+  const calendarEvents = await seedCalendarEventsOnCalendar(client, calendars);
 }
 
 seed();
