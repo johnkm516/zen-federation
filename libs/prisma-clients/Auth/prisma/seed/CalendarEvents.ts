@@ -12,8 +12,8 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
 
   for (const calendar of calendars) {
     let startDate = randomDate(
-      new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       new Date(),
+      new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000),
       0,
       24
     );
@@ -33,7 +33,10 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
                   {
                     calendar: {
                       connect: {
-                        id: calendar.id,
+                        calendarOwnerId_calendarType: {
+                          calendarOwnerId: calendar.calendarOwnerId,
+                          calendarType: calendar.calendarType,
+                        },
                       },
                     },
                   },
@@ -58,7 +61,10 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
                   {
                     calendar: {
                       connect: {
-                        id: calendar.id,
+                        calendarOwnerId_calendarType: {
+                          calendarOwnerId: calendar.calendarOwnerId,
+                          calendarType: calendar.calendarType,
+                        },
                       },
                     },
                   },
@@ -83,7 +89,10 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
                   {
                     calendar: {
                       connect: {
-                        id: calendar.id,
+                        calendarOwnerId_calendarType: {
+                          calendarOwnerId: calendar.calendarOwnerId,
+                          calendarType: calendar.calendarType,
+                        },
                       },
                     },
                   },
@@ -108,7 +117,10 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
                   {
                     calendar: {
                       connect: {
-                        id: calendar.id,
+                        calendarOwnerId_calendarType: {
+                          calendarOwnerId: calendar.calendarOwnerId,
+                          calendarType: calendar.calendarType,
+                        },
                       },
                     },
                   },
@@ -133,7 +145,10 @@ export async function seedCalendarEventsOnCalendar(client: PrismaClient, calenda
                   {
                     calendar: {
                       connect: {
-                        id: calendar.id,
+                        calendarOwnerId_calendarType: {
+                          calendarOwnerId: calendar.calendarOwnerId,
+                          calendarType: calendar.calendarType,
+                        },
                       },
                     },
                   },

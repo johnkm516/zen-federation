@@ -1,8 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  type Calendar @key(fields: "id") @shareable {
-    id: Int!
+  type Calendar @key(fields: "calendarOwnerId calendarType") @shareable {
     calendarType: String!
     users(
       where: Auth_CalendarsOnUsersWhereInput
@@ -20,6 +19,8 @@ export default gql`
       skip: Int
       distinct: CalendarEventsOnCalendarsScalarFieldEnum
     ): [CalendarEventsOnCalendars!]!
+    calendarOwnerId: Int!
+    calendarOwner: User!
     _count: CalendarCountOutputType!
   }
 

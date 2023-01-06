@@ -8,6 +8,14 @@ export default gql`
     start: DateTime!
     end: DateTime!
     allDay: Boolean!
+    guests(
+      where: Auth_UsersOnCalendarEventsWhereInput
+      orderBy: Auth_UsersOnCalendarEventsOrderByWithRelationInput
+      cursor: Auth_UsersOnCalendarEventsWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: UsersOnCalendarEventsScalarFieldEnum
+    ): [UsersOnCalendarEvents!]!
     calendar(
       where: Auth_CalendarEventsOnCalendarsWhereInput
       orderBy: Auth_CalendarEventsOnCalendarsOrderByWithRelationInput

@@ -14,13 +14,18 @@ export async function seedCalendarsOnUsers(
           users: {
             create: [
               {
-                user: {
+                calendarAttributedTo: {
                   connect: {
                     id: user.id,
                   },
                 },
               },
             ],
+          },
+          calendarOwner: {
+            connect: {
+              id: user.id,
+            },
           },
         },
       })
@@ -33,13 +38,18 @@ export async function seedCalendarsOnUsers(
           users: {
             create: [
               {
-                user: {
+                calendarAttributedTo: {
                   connect: {
                     id: user.id,
                   },
                 },
               },
             ],
+          },
+          calendarOwner: {
+            connect: {
+              id: user.id,
+            },
           },
         },
       })
@@ -52,13 +62,18 @@ export async function seedCalendarsOnUsers(
           users: {
             create: [
               {
-                user: {
+                calendarAttributedTo: {
                   connect: {
                     id: user.id,
                   },
                 },
               },
             ],
+          },
+          calendarOwner: {
+            connect: {
+              id: user.id,
+            },
           },
         },
       })
@@ -71,13 +86,18 @@ export async function seedCalendarsOnUsers(
           users: {
             create: [
               {
-                user: {
+                calendarAttributedTo: {
                   connect: {
                     id: user.id,
                   },
                 },
               },
             ],
+          },
+          calendarOwner: {
+            connect: {
+              id: user.id,
+            },
           },
         },
       })
@@ -90,7 +110,7 @@ export async function seedCalendarsOnUsers(
           users: {
             create: [
               {
-                user: {
+                calendarAttributedTo: {
                   connect: {
                     id: user.id,
                   },
@@ -98,10 +118,15 @@ export async function seedCalendarsOnUsers(
               },
             ],
           },
+          calendarOwner: {
+            connect: {
+              id: user.id,
+            },
+          },
         },
       })
     );
-  };
+  }
 
   return calendars;
 }

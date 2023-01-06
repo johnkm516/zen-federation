@@ -7,6 +7,7 @@ import {
   Profile,
   Team,
   User,
+  UsersOnCalendarEvents,
   UsersOnTeams,
 } from '@nx-prisma/prisma-clients/Auth';
 
@@ -18,5 +19,6 @@ export type PrismaSubjects = Subjects<{
   Profile: Profile;
   Team: Team;
   User: User;
+  UsersOnCalendarEvents: UsersOnCalendarEvents;
   UsersOnTeams: UsersOnTeams;
 }>;

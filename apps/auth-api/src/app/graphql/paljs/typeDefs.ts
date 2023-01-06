@@ -9,6 +9,7 @@ import Profile from './Profile/typeDefs';
 import SDLInputs from './sdl-inputs';
 import Team from './Team/typeDefs';
 import User from './User/typeDefs';
+import UsersOnCalendarEvents from './UsersOnCalendarEvents/typeDefs';
 import UsersOnTeams from './UsersOnTeams/typeDefs';
 
 export default mergeTypeDefs([
@@ -20,6 +21,7 @@ export default mergeTypeDefs([
   Profile,
   Team,
   User,
+  UsersOnCalendarEvents,
   UsersOnTeams,
   typeDefsExtensions,
 ]);

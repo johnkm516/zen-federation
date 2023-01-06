@@ -7,6 +7,7 @@ export const modelNames = () => {
     'Profile',
     'UsersOnTeams',
     'Team',
+    'UsersOnCalendarEvents',
     'CalendarEvent',
     'CalendarEventsOnCalendars',
     'Calendar',

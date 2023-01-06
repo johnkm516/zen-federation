@@ -18,6 +18,10 @@ import {
   typeDefs as TransactionalBatchMutationTypeDefs,
 } from './TransactionalBatchMutation';
 import { UserResolver, typeDefs as UserTypeDefs } from './User';
+import {
+  UsersOnCalendarEventsResolver,
+  typeDefs as UsersOnCalendarEventsTypeDefs,
+} from './UsersOnCalendarEvents';
 import { UsersOnTeamsResolver, typeDefs as UsersOnTeamsTypeDefs } from './UsersOnTeams';
 
 export const NEST_RESOLVERS = [
@@ -30,6 +34,7 @@ export const NEST_RESOLVERS = [
   TeamResolver,
   TransactionalBatchMutationResolver,
   UserResolver,
+  UsersOnCalendarEventsResolver,
   UsersOnTeamsResolver,
 ];
 
@@ -43,6 +48,7 @@ export const NEST_TYPE_DEFS = [
   TeamTypeDefs,
   TransactionalBatchMutationTypeDefs,
   UserTypeDefs,
+  UsersOnCalendarEventsTypeDefs,
   UsersOnTeamsTypeDefs,
 ].filter(x => x);
 

@@ -29,6 +29,14 @@ export default gql`
       skip: Int
       distinct: CalendarsOnUsersScalarFieldEnum
     ): [CalendarsOnUsers!]!
+    eventsInvitedTo(
+      where: Auth_UsersOnCalendarEventsWhereInput
+      orderBy: Auth_UsersOnCalendarEventsOrderByWithRelationInput
+      cursor: Auth_UsersOnCalendarEventsWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: UsersOnCalendarEventsScalarFieldEnum
+    ): [UsersOnCalendarEvents!]!
     contacted(
       where: Auth_UserWhereInput
       orderBy: Auth_UserOrderByWithRelationInput
@@ -45,6 +53,14 @@ export default gql`
       skip: Int
       distinct: UserScalarFieldEnum
     ): [User!]!
+    calendarsCreated(
+      where: Auth_CalendarWhereInput
+      orderBy: Auth_CalendarOrderByWithRelationInput
+      cursor: Auth_CalendarWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: CalendarScalarFieldEnum
+    ): [Calendar!]!
     _count: UserCountOutputType!
   }
 

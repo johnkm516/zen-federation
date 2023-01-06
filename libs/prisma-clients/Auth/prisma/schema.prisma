@@ -11,21 +11,23 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  username      String?  @unique
-  password      String?
-  email         String   @unique
-  roles         String[]
-  googleId      String?  @unique
-  googleProfile Json?
-  lastName      String?
-  firstName     String?
-  profile       Profile?
-  teams         UsersOnTeams[]
-  calendars     CalendarsOnUsers[]
-  contacted     User[]  @relation("UserContact")
-  contactedBy   User[]  @relation("UserContact")
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  username          String?  @unique
+  password          String?
+  email             String   @unique
+  roles             String[]
+  googleId          String?  @unique
+  googleProfile     Json?
+  lastName          String?
+  firstName         String?
+  profile           Profile?
+  teams             UsersOnTeams[]
+  calendars         CalendarsOnUsers[]
+  eventsInvitedTo   UsersOnCalendarEvents[]
+  contacted         User[]  @relation("UserContact")
+  contactedBy       User[]  @relation("UserContact")
+  calendarsCreated  Calendar[]
 }
 
 model Profile {
@@ -59,6 +61,15 @@ model Team {
   teamIcon      String?
 }
 
+model UsersOnCalendarEvents {
+  user              User        @relation(fields:[userId], references: [id])
+  userId            Int         
+  calendarEvent     CalendarEvent   @relation(fields:[calendarEventId], references: [id])
+  calendarEventId   Int
+
+  @@id([userId, calendarEventId])
+}
+
 model CalendarEvent {
   id              Int      @id @default(autoincrement())
   url             String?  @default("")
@@ -66,31 +77,38 @@ model CalendarEvent {
   start           DateTime
   end             DateTime
   allDay          Boolean
+  guests          UsersOnCalendarEvents[]
   calendar        CalendarEventsOnCalendars[]
 }
 
 model CalendarEventsOnCalendars {
-  calendar          Calendar        @relation(fields:[calendarId], references: [id])
-  calendarId        Int         
+  calendar          Calendar        @relation(fields: [calendarType, calendarOwnerId], references: [calendarType, calendarOwnerId])
+  calendarType      String      
+  calendarOwnerId   Int   
   calendarEvent     CalendarEvent   @relation(fields:[calendarEventId], references: [id])
   calendarEventId   Int
 
-  @@id([calendarId, calendarEventId])
+  @@id([calendarType, calendarOwnerId, calendarEventId])
 }
 
 model Calendar {
-  id      Int     @id @default(autoincrement())
-  calendarType    String
-  users           CalendarsOnUsers[]
-  calendarEvents  CalendarEventsOnCalendars[]
-}
+  calendarType          String
+  users                 CalendarsOnUsers[]
+  calendarEvents        CalendarEventsOnCalendars[]
+  calendarOwnerId       Int       
+  calendarOwner         User      @relation(fields: [calendarOwnerId], references: [id])
+
+  @@id([calendarOwnerId, calendarType])
+} 
 
 model CalendarsOnUsers {
-  user          User     @relation(fields: [userId], references: [id])
-  userId        Int
-  calendar      Calendar @relation(fields: [calendarId], references: [id])
-  calendarId    Int     
+  calendarAttributedTo      User     @relation(fields: [calendarAttributedToId], references: [id])
+  calendarAttributedToId    Int
+  calendar                  Calendar @relation(fields: [calendarType, calendarOwnerId], references: [calendarType, calendarOwnerId])
+  calendarType              String
+  calendarOwnerId           Int
 
-  @@id([userId, calendarId])
+  @@unique([calendarType, calendarAttributedToId])
+  @@id([calendarAttributedToId, calendarType, calendarOwnerId])
 }
 

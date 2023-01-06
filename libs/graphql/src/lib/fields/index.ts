@@ -11,3 +11,4 @@ export * from './Calendar.gql';
 export * from './CalendarEvent.gql';
 export * from './CalendarsOnUsers.gql';
 export * from './CalendarEventsOnCalendars.gql';
+export * from './UsersOnCalendarEvents.gql';
