@@ -64,7 +64,7 @@ Things I deleted from the original Zen repository :
 
 The architecture I envision are separated into three core layers : 
 
-1.  The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
+1. The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
 2. The business logic layer ([Zen-Temporal](https://github.com/johnkm516/zen-temporal "Zen-Temporal"))
 3. Frontend layer (In whichever framework you choose, create web app(s) that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
 
@@ -73,7 +73,7 @@ For external / other services. You can use Temporal workflows to communicate wit
 <a name="rationale"></a>
 ### **My rationale behind this architecture** : 
 
-- GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` for each subgraph, and generate new subgraphs with ease.
+- There is an immense amount of boilerplate code when developing GraphQL resolvers, especially if you want all the input and outputs to be type-safe. By code-generating the CRUD resolvers using Prisma's DMMF, we can generate complicated resolvers that include most of what you would want from an SQL query, but in GraphQL API form. By utilizing Apollo Sandbox, a front-end developer with zero knowledge of SQL queries or GraphQL could click and build a GraphQL query in seconds. This is the data model layer. 
 
 - Any simple "one-off" queries and mutations can be called directly by frontend applications via Apollo Client. This project generates and supports GraphQL resolvers with `where` inputs, which you can use to implement *Optimistic Concurrency Control* in cases where it's assumed multiple users modifying the data simultaneously is rare. 
 
@@ -168,7 +168,7 @@ npm run build:prod
 ## 🕸️ **GraphQL**
 <a name="important_notes"></a>
 ### **Important Notes**
-You will notice queries, mutations, and input types all have a prefix with the subgraph name. This is because as GraphQL is strongly typed, you cannot union input types nor does Apollo Federation 2 merge input types with the same name at the supergraph. Therefore all resolvers and input types have a prefix with the service name. However, output types do not have the service name prefix on their type, and therefore are composable into a single entity in the supergraph. Currently this respository automatically detects keys and candidate keys and sets them as Apollo Federation key-fields in the output types' gql type definitions. This is to make any models you declare in Prisma Schema compose to a supergraph out of the box. In the future I plan to add customizable generator options to opt out specific models from code-generation so you can customize the types and resolvers as you wish. 
+You will notice queries, mutations, and input types all have a prefix with the subgraph name. This is because as GraphQL is strongly typed, you cannot union input types nor does Apollo Federation 2 merge input types with the same name at the supergraph. Therefore all resolvers and input types have a prefix with the service name. However, output types do not have the service name prefix on their type, and therefore are composable into a single entity in the supergraph. Currently this repository automatically detects keyfields and sets them as Apollo Federation key-fields in the output types' gql type definitions. This is to make any models you declare in Prisma Schema compose to a supergraph out of the box. In the future I plan to add customizable generator options to opt out specific models from code-generation so you can customize the types and resolvers as you wish. 
 
 <a name="graphql_usage"></a>
 ### **GraphQL Usage**
