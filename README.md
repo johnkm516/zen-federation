@@ -104,9 +104,9 @@ npm run compose:up:dev
 npm run prisma:migrate
 ```
 
-**Docker-compose up doesn't work? **
+**Docker-compose up doesn't work?**
 
-Make sure dockerfiles in `/deploy/api` and `/deploy/postgres` as well as the files `/pgadmin/init.sh` and `pgpass` have unix LF line endings and save : 
+Make sure dockerfiles in `/deploy/api` and `/deploy/postgres` as well as the files `/pgadmin/init.sh` and `pgpass` have unix `LF` line endings and not `CLRF` (then save) : 
 
 ![alt text](https://github.com/johnkm516/zen-federation/blob/base/assets/lineEndings.png?raw=true)
 
