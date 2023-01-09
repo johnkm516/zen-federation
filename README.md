@@ -64,7 +64,7 @@ Things I deleted from the original Zen repository :
 
 The architecture I envision are separated into three core layers : 
 
-1.  The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
+1. The data model layer ([Zen-Federation](https://github.com/johnkm516/zen-federation "Zen-Federation") YOU ARE HERE)
 2. The business logic layer ([Zen-Temporal](https://github.com/johnkm516/zen-temporal "Zen-Temporal"))
 3. Frontend layer (In whichever framework you choose, create web app(s) that uses Apollo Client and Temporal Client libraries to connect to layers 1 & 2)
 
@@ -73,7 +73,7 @@ For external / other services. You can use Temporal workflows to communicate wit
 <a name="rationale"></a>
 ### **My rationale behind this architecture** : 
 
-- GraphQL resolvers can become incredibly verbose and tedious to implement. I wanted to be able to automate generating all the CRUD resolvers for models defined in `schema.prisma` for each subgraph, and generate new subgraphs with ease.
+- There is an immense amount of boilerplate code when developing GraphQL resolvers, especially if you want all the input and outputs to be type-safe. By code-generating the CRUD resolvers using Prisma's DMMF, we can generate complicated resolvers that include most of what you would want from an SQL query, but in GraphQL API form. By utilizing Apollo Sandbox, a front-end developer with zero knowledge of SQL queries or GraphQL could click and build a GraphQL query in seconds. This is the data model layer. 
 
 - Any simple "one-off" queries and mutations can be called directly by frontend applications via Apollo Client. This project generates and supports GraphQL resolvers with `where` inputs, which you can use to implement *Optimistic Concurrency Control* in cases where it's assumed multiple users modifying the data simultaneously is rare. 
 
