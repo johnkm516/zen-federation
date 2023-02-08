@@ -9,3 +9,7 @@ datasource db {
   // DB URL is automatically replaced from localhost to docker image name in production
   url      = env("<%= constantName %>_SOURCE_URL")
 }
+
+model User {
+  id                Int   @unique
+}
