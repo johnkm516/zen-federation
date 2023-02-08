@@ -5,8 +5,8 @@ export const modelNames = () => {
   return ['User'];
 };
 
-//This subgraph's name is set to "crm".
-//Input type args is modified to be preceded by "crm_" because inputs are merged using the intersection strategy in the current version of Apollo Federation and directives are not supported with input types.
+//This subgraph's name is set to "<%= name %>".
+//Input type args is modified to be preceded by "<%= name %>_" because inputs are merged using the intersection strategy in the current version of Apollo Federation and directives are not supported with input types.
 export const renamedInputTypesSchema = async (schema: GraphQLSchema) => {
   const typeMap = schema.getTypeMap();
   const models: string = modelNames().join('|');
@@ -20,7 +20,7 @@ export const renamedInputTypesSchema = async (schema: GraphQLSchema) => {
   return wrapSchema({
     schema: schema,
     transforms: [
-      new RenameTypes(name => (inputTypes.includes(name) ? `crm_${name}` : name)),
+      new RenameTypes(name => (inputTypes.includes(name) ? `<%= name %>_${name}` : name)),
       new RenameRootFields((operation, fieldName) =>
         (operation == 'Query' || operation == 'Mutation') &&
         fieldName != '_entities' &&

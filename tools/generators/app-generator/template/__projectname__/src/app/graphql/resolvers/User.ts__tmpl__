@@ -16,17 +16,17 @@ import { PrismaSelectArgs } from '../../prisma';
 import { IContext } from '../models';
 import resolvers from '../paljs/User/resolvers';
 import type {
-  crm_AggregateUserArgs,
-  crm_CreateOneUserArgs,
-  crm_DeleteManyUserArgs,
-  crm_DeleteOneUserArgs,
-  crm_FindFirstUserArgs,
-  crm_FindFirstUserOrThrowArgs,
-  crm_FindManyUserArgs,
-  crm_FindUniqueUserArgs,
-  crm_FindUniqueUserOrThrowArgs,
-  crm_UpdateOneUserArgs,
-  crm_UpsertOneUserArgs,
+  <%= name %>_AggregateUserArgs,
+  <%= name %>_CreateOneUserArgs,
+  <%= name %>_DeleteManyUserArgs,
+  <%= name %>_DeleteOneUserArgs,
+  <%= name %>_FindFirstUserArgs,
+  <%= name %>_FindFirstUserOrThrowArgs,
+  <%= name %>_FindManyUserArgs,
+  <%= name %>_FindUniqueUserArgs,
+  <%= name %>_FindUniqueUserOrThrowArgs,
+  <%= name %>_UpdateOneUserArgs,
+  <%= name %>_UpsertOneUserArgs,
 } from '../resolversTypes';
 
 export const typeDefs = null;
@@ -52,22 +52,22 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findUniqueUser(
-    @Args() args: crm_FindUniqueUserArgs,
+  async <%= name %>_findUniqueUser(
+    @Args() args: <%= name %>_FindUniqueUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findUniqueUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Query.<%= name %>_findUniqueUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findUniqueUserOrThrow(
-    @Args() args: crm_FindUniqueUserOrThrowArgs,
+  async <%= name %>_findUniqueUserOrThrow(
+    @Args() args: <%= name %>_FindUniqueUserOrThrowArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findUniqueUserOrThrow(
+    return resolvers.Query.<%= name %>_findUniqueUserOrThrow(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -77,22 +77,22 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findFirstUser(
-    @Args() args: crm_FindFirstUserArgs,
+  async <%= name %>_findFirstUser(
+    @Args() args: <%= name %>_FindFirstUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findFirstUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Query.<%= name %>_findFirstUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findFirstUserOrThrow(
-    @Args() args: crm_FindFirstUserOrThrowArgs,
+  async <%= name %>_findFirstUserOrThrow(
+    @Args() args: <%= name %>_FindFirstUserOrThrowArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findFirstUserOrThrow(
+    return resolvers.Query.<%= name %>_findFirstUserOrThrow(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -102,22 +102,22 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findManyUser(
-    @Args() args: crm_FindManyUserArgs,
+  async <%= name %>_findManyUser(
+    @Args() args: <%= name %>_FindManyUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findManyUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Query.<%= name %>_findManyUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_findManyUserCount(
-    @Args() args: crm_FindManyUserArgs,
+  async <%= name %>_findManyUserCount(
+    @Args() args: <%= name %>_FindManyUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_findManyUserCount(
+    return resolvers.Query.<%= name %>_findManyUserCount(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,
@@ -127,74 +127,74 @@ export class UserResolver {
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_aggregateUser(
-    @Args() args: crm_AggregateUserArgs,
+  async <%= name %>_aggregateUser(
+    @Args() args: <%= name %>_AggregateUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_aggregateUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Query.<%= name %>_aggregateUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Query()
   @UseGuards(GqlCaslGuard('read'))
-  async crm_groupByUser(
+  async <%= name %>_groupByUser(
     @Args() args: any,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Query.crm_groupByUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Query.<%= name %>_groupByUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Mutation()
   @UseGuards(GqlCaslGuard('create'))
-  async crm_createOneUser(
-    @Args() args: crm_CreateOneUserArgs,
+  async <%= name %>_createOneUser(
+    @Args() args: <%= name %>_CreateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.crm_createOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Mutation.<%= name %>_createOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Mutation()
   @UseGuards(GqlCaslGuard('update'))
-  async crm_updateOneUser(
-    @Args() args: crm_UpdateOneUserArgs,
+  async <%= name %>_updateOneUser(
+    @Args() args: <%= name %>_UpdateOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.crm_updateOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Mutation.<%= name %>_updateOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   //UpdateMany is not generated as User has only unique fields or relations.
 
   @Mutation()
   @UseGuards(GqlCaslGuard('create', 'update'))
-  async crm_upsertOneUser(
-    @Args() args: crm_UpsertOneUserArgs,
+  async <%= name %>_upsertOneUser(
+    @Args() args: <%= name %>_UpsertOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.crm_upsertOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Mutation.<%= name %>_upsertOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Mutation()
   @UseGuards(GqlCaslGuard('delete'))
-  async crm_deleteOneUser(
-    @Args() args: crm_DeleteOneUserArgs,
+  async <%= name %>_deleteOneUser(
+    @Args() args: <%= name %>_DeleteOneUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.crm_deleteOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
+    return resolvers.Mutation.<%= name %>_deleteOneUser(undefined, PrismaSelectArgs(info, args), ctx, info);
   }
 
   @Mutation()
   @UseGuards(GqlCaslGuard('delete'))
-  async crm_deleteManyUser(
-    @Args() args: crm_DeleteManyUserArgs,
+  async <%= name %>_deleteManyUser(
+    @Args() args: <%= name %>_DeleteManyUserArgs,
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext
   ) {
-    return resolvers.Mutation.crm_deleteManyUser(
+    return resolvers.Mutation.<%= name %>_deleteManyUser(
       undefined,
       PrismaSelectArgs(info, args),
       ctx,

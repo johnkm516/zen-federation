@@ -8,7 +8,7 @@ const mutationRegex = new RegExp(
 
 const resolvers: Resolvers = {
   Mutation: {
-    crm_transactionalBatchMutation: async (_parent, args, { prisma }) => {
+    <%= name %>_transactionalBatchMutation: async (_parent, args, { prisma }) => {
       const prismaTasks = await prisma.$transaction(async prisma => {
         let mutationTasks = [];
         for (const mutationTypes of args.mutations) {

@@ -6,70 +6,70 @@ export default gql`
   }
 
   type Query {
-    crm_findUniqueUser(where: crm_UserWhereUniqueInput!): User
-    crm_findUniqueUserOrThrow(where: crm_UserWhereUniqueInput!): User
-    crm_findFirstUser(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithRelationInput]
-      cursor: crm_UserWhereUniqueInput
+    <%= name %>_findUniqueUser(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_findUniqueUserOrThrow(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_findFirstUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
     ): User
-    crm_findFirstUserOrThrow(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithRelationInput]
-      cursor: crm_UserWhereUniqueInput
+    <%= name %>_findFirstUserOrThrow(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
     ): User
-    crm_findManyUser(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithRelationInput]
-      cursor: crm_UserWhereUniqueInput
+    <%= name %>_findManyUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
     ): [User!]
-    crm_findManyUserCount(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithRelationInput]
-      cursor: crm_UserWhereUniqueInput
+    <%= name %>_findManyUserCount(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
       take: Int
       skip: Int
       distinct: [UserScalarFieldEnum]
     ): Int!
-    crm_aggregateUser(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithRelationInput]
-      cursor: crm_UserWhereUniqueInput
+    <%= name %>_aggregateUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
       take: Int
       skip: Int
     ): AggregateUser
-    crm_groupByUser(
-      where: crm_UserWhereInput
-      orderBy: [crm_UserOrderByWithAggregationInput]
+    <%= name %>_groupByUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithAggregationInput]
       by: [UserScalarFieldEnum!]
-      having: crm_UserScalarWhereWithAggregatesInput
+      having: <%= name %>_UserScalarWhereWithAggregatesInput
       take: Int
       skip: Int
     ): [UserGroupByOutputType]
   }
 
   type Mutation {
-    crm_createOneUser(data: crm_UserCreateInput!): User!
-    crm_updateOneUser(data: crm_UserUpdateInput!, where: crm_UserWhereUniqueInput!): User!
-    crm_deleteOneUser(where: crm_UserWhereUniqueInput!): User
-    crm_upsertOneUser(
-      where: crm_UserWhereUniqueInput!
-      create: crm_UserCreateInput!
-      update: crm_UserUpdateInput!
+    <%= name %>_createOneUser(data: <%= name %>_UserCreateInput!): User!
+    <%= name %>_updateOneUser(data: <%= name %>_UserUpdateInput!, where: <%= name %>_UserWhereUniqueInput!): User!
+    <%= name %>_deleteOneUser(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_upsertOneUser(
+      where: <%= name %>_UserWhereUniqueInput!
+      create: <%= name %>_UserCreateInput!
+      update: <%= name %>_UserUpdateInput!
     ): User
-    crm_deleteManyUser(where: crm_UserWhereInput): BatchPayload
-    crm_updateManyUser(
-      data: crm_UserUpdateManyMutationInput!
-      where: crm_UserWhereInput
+    <%= name %>_deleteManyUser(where: <%= name %>_UserWhereInput): BatchPayload
+    <%= name %>_updateManyUser(
+      data: <%= name %>_UserUpdateManyMutationInput!
+      where: <%= name %>_UserWhereInput
     ): BatchPayload
   }
 `;

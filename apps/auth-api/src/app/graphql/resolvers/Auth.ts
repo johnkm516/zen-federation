@@ -35,7 +35,7 @@ export const typeDefs = gql`
     authRegister(data: AuthRegisterInput!): AuthSession!
   }
 
-  type AuthSession {
+  type AuthSession @shareable {
     id: Int! # Change to Int! or String! respective to the typeof User['id']
     token: String!
     roles: [String!]!
@@ -44,7 +44,7 @@ export const typeDefs = gql`
     rules: [Json!]!
   }
 
-  type GoogleProfile {
+  type GoogleProfile @shareable {
     name: String
     given_name: String
     family_name: String
@@ -53,7 +53,7 @@ export const typeDefs = gql`
     picture: String
   }
 
-  type AccountInfo {
+  type AccountInfo @shareable {
     username: String
     hasPassword: Boolean!
     googleProfile: GoogleProfile

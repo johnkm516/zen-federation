@@ -1,7 +1,7 @@
 import { HttpException, UseGuards } from '@nestjs/common';
 import { Args, Context, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Throttle } from '@nestjs/throttler';
-import { PrismaClient } from '@nx-prisma/prisma-clients/Auth';
+import { PrismaClient } from '@nx-prisma/prisma-clients/<%= name %>';
 import { ApiError } from '@zen/api-interfaces';
 import bcrypt from 'bcryptjs';
 import gql from 'graphql-tag';
@@ -17,7 +17,7 @@ import resolvers from '../paljs/User/resolvers';
 
 export const typeDefs = gql`
   extend type Query {
-    accountInfo: User! @shareable
+    <%= name %>_accountInfo: User! @shareable
   }
 
   type AuthSession @shareable {
@@ -88,12 +88,12 @@ export class AuthResolver {
 
   @Query()
   @UseGuards(GqlGuard)
-  async accountInfo(
+  async <%= name %>_accountInfo(
     @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext,
     @GqlUser() reqUser: RequestUser
   ) {
-    return resolvers.Query.Auth_findUniqueUser(
+    return resolvers.Query.<%= name %>_findUniqueUser(
       undefined,
       PrismaSelectArgs(info, {
         where: { id: reqUser.id },

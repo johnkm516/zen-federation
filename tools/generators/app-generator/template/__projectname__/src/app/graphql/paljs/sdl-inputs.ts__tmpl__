@@ -22,65 +22,65 @@ export default gql`
     id
   }
 
-  input crm_UserWhereInput {
-    AND: [crm_UserWhereInput!]
-    OR: [crm_UserWhereInput!]
-    NOT: [crm_UserWhereInput!]
+  input <%= name %>_UserWhereInput {
+    AND: [<%= name %>_UserWhereInput!]
+    OR: [<%= name %>_UserWhereInput!]
+    NOT: [<%= name %>_UserWhereInput!]
     id: IntFilter
   }
 
-  input crm_UserOrderByWithRelationInput {
+  input <%= name %>_UserOrderByWithRelationInput {
     id: SortOrder
   }
 
-  input crm_UserWhereUniqueInput {
+  input <%= name %>_UserWhereUniqueInput {
     id: Int
-    AND: [crm_UserWhereInput!]
-    OR: [crm_UserWhereInput!]
-    NOT: [crm_UserWhereInput!]
+    AND: [<%= name %>_UserWhereInput!]
+    OR: [<%= name %>_UserWhereInput!]
+    NOT: [<%= name %>_UserWhereInput!]
   }
 
-  input crm_UserOrderByWithAggregationInput {
+  input <%= name %>_UserOrderByWithAggregationInput {
     id: SortOrder
-    _count: crm_UserCountOrderByAggregateInput
-    _avg: crm_UserAvgOrderByAggregateInput
-    _max: crm_UserMaxOrderByAggregateInput
-    _min: crm_UserMinOrderByAggregateInput
-    _sum: crm_UserSumOrderByAggregateInput
+    _count: <%= name %>_UserCountOrderByAggregateInput
+    _avg: <%= name %>_UserAvgOrderByAggregateInput
+    _max: <%= name %>_UserMaxOrderByAggregateInput
+    _min: <%= name %>_UserMinOrderByAggregateInput
+    _sum: <%= name %>_UserSumOrderByAggregateInput
   }
 
-  input crm_UserScalarWhereWithAggregatesInput {
-    AND: [crm_UserScalarWhereWithAggregatesInput!]
-    OR: [crm_UserScalarWhereWithAggregatesInput!]
-    NOT: [crm_UserScalarWhereWithAggregatesInput!]
+  input <%= name %>_UserScalarWhereWithAggregatesInput {
+    AND: [<%= name %>_UserScalarWhereWithAggregatesInput!]
+    OR: [<%= name %>_UserScalarWhereWithAggregatesInput!]
+    NOT: [<%= name %>_UserScalarWhereWithAggregatesInput!]
     id: IntWithAggregatesFilter
   }
 
-  input crm_UserCreateInput {
+  input <%= name %>_UserCreateInput {
     id: Int!
   }
 
-  input crm_UserUncheckedCreateInput {
+  input <%= name %>_UserUncheckedCreateInput {
     id: Int!
   }
 
-  input crm_UserUpdateInput {
+  input <%= name %>_UserUpdateInput {
     id: Int
   }
 
-  input crm_UserUncheckedUpdateInput {
+  input <%= name %>_UserUncheckedUpdateInput {
     id: Int
   }
 
-  input crm_UserCreateManyInput {
+  input <%= name %>_UserCreateManyInput {
     id: Int!
   }
 
-  input crm_UserUpdateManyMutationInput {
+  input <%= name %>_UserUpdateManyMutationInput {
     id: Int
   }
 
-  input crm_UserUncheckedUpdateManyInput {
+  input <%= name %>_UserUncheckedUpdateManyInput {
     id: Int
   }
 
@@ -95,23 +95,23 @@ export default gql`
     not: NestedIntFilter
   }
 
-  input crm_UserCountOrderByAggregateInput {
+  input <%= name %>_UserCountOrderByAggregateInput {
     id: SortOrder
   }
 
-  input crm_UserAvgOrderByAggregateInput {
+  input <%= name %>_UserAvgOrderByAggregateInput {
     id: SortOrder
   }
 
-  input crm_UserMaxOrderByAggregateInput {
+  input <%= name %>_UserMaxOrderByAggregateInput {
     id: SortOrder
   }
 
-  input crm_UserMinOrderByAggregateInput {
+  input <%= name %>_UserMinOrderByAggregateInput {
     id: SortOrder
   }
 
-  input crm_UserSumOrderByAggregateInput {
+  input <%= name %>_UserSumOrderByAggregateInput {
     id: SortOrder
   }
 
@@ -219,46 +219,46 @@ export default gql`
     transactionSucceeded: Boolean!
   }
 
-  input crm_createOneUserInput {
-    data: crm_UserCreateInput
+  input <%= name %>_createOneUserInput {
+    data: <%= name %>_UserCreateInput
   }
 
-  input crm_upsertOneUserInput {
-    where: crm_UserWhereUniqueInput
-    create: crm_UserCreateInput
-    update: crm_UserUpdateInput
+  input <%= name %>_upsertOneUserInput {
+    where: <%= name %>_UserWhereUniqueInput
+    create: <%= name %>_UserCreateInput
+    update: <%= name %>_UserUpdateInput
   }
 
-  input crm_createManyUserInput {
-    data: [crm_UserCreateManyInput]
+  input <%= name %>_createManyUserInput {
+    data: [<%= name %>_UserCreateManyInput]
     skipDuplicates: Boolean
   }
 
-  input crm_deleteOneUserInput {
-    where: crm_UserWhereUniqueInput
+  input <%= name %>_deleteOneUserInput {
+    where: <%= name %>_UserWhereUniqueInput
   }
 
-  input crm_updateOneUserInput {
-    data: crm_UserUpdateInput
-    where: crm_UserWhereUniqueInput
+  input <%= name %>_updateOneUserInput {
+    data: <%= name %>_UserUpdateInput
+    where: <%= name %>_UserWhereUniqueInput
   }
 
-  input crm_updateManyUserInput {
-    data: crm_UserUpdateManyMutationInput
-    where: crm_UserWhereInput
+  input <%= name %>_updateManyUserInput {
+    data: <%= name %>_UserUpdateManyMutationInput
+    where: <%= name %>_UserWhereInput
   }
 
-  input crm_deleteManyUserInput {
-    where: crm_UserWhereInput
+  input <%= name %>_deleteManyUserInput {
+    where: <%= name %>_UserWhereInput
   }
 
-  input crm_transactionalMutationInput {
-    crm_createOneUser: crm_createOneUserInput
-    crm_upsertOneUser: crm_upsertOneUserInput
-    crm_createManyUser: crm_createManyUserInput
-    crm_deleteOneUser: crm_deleteOneUserInput
-    crm_updateOneUser: crm_updateOneUserInput
-    crm_updateManyUser: crm_updateManyUserInput
-    crm_deleteManyUser: crm_deleteManyUserInput
+  input <%= name %>_transactionalMutationInput {
+    <%= name %>_createOneUser: <%= name %>_createOneUserInput
+    <%= name %>_upsertOneUser: <%= name %>_upsertOneUserInput
+    <%= name %>_createManyUser: <%= name %>_createManyUserInput
+    <%= name %>_deleteOneUser: <%= name %>_deleteOneUserInput
+    <%= name %>_updateOneUser: <%= name %>_updateOneUserInput
+    <%= name %>_updateManyUser: <%= name %>_updateManyUserInput
+    <%= name %>_deleteManyUser: <%= name %>_deleteManyUserInput
   }
 `;

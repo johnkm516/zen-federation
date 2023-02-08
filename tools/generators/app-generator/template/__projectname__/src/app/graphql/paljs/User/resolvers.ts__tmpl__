@@ -4,28 +4,28 @@ import { Resolvers } from '../../resolversTypes';
 
 const resolvers: Resolvers = {
   Query: {
-    crm_findUniqueUser: (_parent, args, { prisma }) => {
+    <%= name %>_findUniqueUser: (_parent, args, { prisma }) => {
       return prisma.user.findUnique(args);
     },
-    crm_findUniqueUserOrThrow: (_parent, args, { prisma }) => {
+    <%= name %>_findUniqueUserOrThrow: (_parent, args, { prisma }) => {
       return prisma.user.findUniqueOrThrow(args);
     },
-    crm_findFirstUser: (_parent, args, { prisma }) => {
+    <%= name %>_findFirstUser: (_parent, args, { prisma }) => {
       return prisma.user.findFirst(args);
     },
-    crm_findFirstUserOrThrow: (_parent, args, { prisma }) => {
+    <%= name %>_findFirstUserOrThrow: (_parent, args, { prisma }) => {
       return prisma.user.findFirstOrThrow(args);
     },
-    crm_findManyUser: (_parent, args, { prisma }) => {
+    <%= name %>_findManyUser: (_parent, args, { prisma }) => {
       return prisma.user.findMany(args);
     },
-    crm_findManyUserCount: (_parent, args, { prisma }) => {
+    <%= name %>_findManyUserCount: (_parent, args, { prisma }) => {
       return prisma.user.count(args);
     },
-    crm_aggregateUser: (_parent, args, { prisma }) => {
+    <%= name %>_aggregateUser: (_parent, args, { prisma }) => {
       return prisma.user.aggregate(args);
     },
-    crm_groupByUser: async (_parent, args, { prisma }) => {
+    <%= name %>_groupByUser: async (_parent, args, { prisma }) => {
       try {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
@@ -43,22 +43,22 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    crm_createOneUser: (_parent, args, { prisma }) => {
+    <%= name %>_createOneUser: (_parent, args, { prisma }) => {
       return prisma.user.create(args);
     },
-    crm_updateOneUser: (_parent, args, { prisma }) => {
+    <%= name %>_updateOneUser: (_parent, args, { prisma }) => {
       return prisma.user.update(args);
     },
-    crm_deleteOneUser: async (_parent, args, { prisma }) => {
+    <%= name %>_deleteOneUser: async (_parent, args, { prisma }) => {
       return prisma.user.delete(args);
     },
-    crm_upsertOneUser: async (_parent, args, { prisma }) => {
+    <%= name %>_upsertOneUser: async (_parent, args, { prisma }) => {
       return prisma.user.upsert(args);
     },
-    crm_deleteManyUser: async (_parent, args, { prisma }) => {
+    <%= name %>_deleteManyUser: async (_parent, args, { prisma }) => {
       return prisma.user.deleteMany(args);
     },
-    crm_updateManyUser: (_parent, args, { prisma }) => {
+    <%= name %>_updateManyUser: (_parent, args, { prisma }) => {
       return prisma.user.updateMany(args);
     },
   },
