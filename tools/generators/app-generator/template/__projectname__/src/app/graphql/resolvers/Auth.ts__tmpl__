@@ -17,7 +17,7 @@ import resolvers from '../paljs/User/resolvers';
 
 export const typeDefs = gql`
   extend type Query {
-    <%= name %>_accountInfo: User! @shareable
+    <%= name %>_accountInfo: User!
   }
 
   type AuthSession @shareable {
