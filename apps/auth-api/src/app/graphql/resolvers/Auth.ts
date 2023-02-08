@@ -1,17 +1,18 @@
 import { HttpException, UseGuards } from '@nestjs/common';
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Throttle } from '@nestjs/throttler';
 import { PrismaClient } from '@nx-prisma/prisma-clients/Auth';
 import { ApiError } from '@zen/api-interfaces';
 import bcrypt from 'bcryptjs';
 import gql from 'graphql-tag';
+import { GraphQLResolveInfo } from 'graphql/type';
 
 import { AuthService, GqlGuard, GqlThrottlerGuard, GqlUser, RequestUser } from '../../auth';
 import { ConfigService } from '../../config';
 import { JwtService } from '../../jwt';
 import { MailService } from '../../mail';
+import { PrismaSelectArgs } from '../../prisma/prisma-select-args';
 import {
-  AccountInfo,
   AuthExchangeTokenInput,
   AuthLoginInput,
   AuthPasswordChangeInput,
@@ -20,13 +21,14 @@ import {
   AuthRegisterInput,
   IContext,
 } from '../models';
+import resolvers from '../paljs/User/resolvers';
 
 export const typeDefs = gql`
   extend type Query {
     authLogin(data: AuthLoginInput!): AuthSession!
     authExchangeToken(data: AuthExchangeTokenInput): AuthSession!
     authPasswordResetRequest(data: AuthPasswordResetRequestInput!): Boolean
-    accountInfo: AccountInfo!
+    accountInfo: User!
   }
 
   extend type Mutation {
@@ -116,18 +118,18 @@ export class AuthResolver {
   @Query()
   @UseGuards(GqlGuard)
   async accountInfo(
+    @Info() info: GraphQLResolveInfo,
     @Context() ctx: IContext,
     @GqlUser() reqUser: RequestUser
-  ): Promise<AccountInfo> {
-    const user = await ctx.prisma.user.findUnique({
-      where: { id: reqUser.id },
-    });
-
-    return {
-      username: user.username,
-      hasPassword: !!user.password,
-      googleProfile: user.googleProfile as any,
-    };
+  ) {
+    return resolvers.Query.Auth_findUniqueUser(
+      undefined,
+      PrismaSelectArgs(info, {
+        where: { id: reqUser.id },
+      }),
+      ctx,
+      info
+    );
   }
 
   @Query()
