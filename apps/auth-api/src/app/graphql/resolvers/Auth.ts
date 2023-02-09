@@ -46,7 +46,7 @@ export const typeDefs = gql`
     rules: [Json!]!
   }
 
-  type GoogleProfile @shareable {
+  type GoogleProfile {
     name: String
     given_name: String
     family_name: String
@@ -55,7 +55,7 @@ export const typeDefs = gql`
     picture: String
   }
 
-  type AccountInfo @shareable {
+  type AccountInfo {
     username: String
     hasPassword: Boolean!
     googleProfile: GoogleProfile

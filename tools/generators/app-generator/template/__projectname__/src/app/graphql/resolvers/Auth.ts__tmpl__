@@ -28,51 +28,6 @@ export const typeDefs = gql`
     expiresIn: Int!
     rules: [Json!]!
   }
-
-  type GoogleProfile @shareable {
-    name: String
-    given_name: String
-    family_name: String
-    locale: String
-    email: String
-    picture: String
-  }
-
-  type AccountInfo @shareable {
-    username: String
-    hasPassword: Boolean!
-    googleProfile: GoogleProfile
-  }
-
-  input AuthLoginInput {
-    username: String!
-    password: String!
-    rememberMe: Boolean!
-  }
-
-  input AuthExchangeTokenInput {
-    rememberMe: Boolean!
-  }
-
-  input AuthPasswordChangeInput {
-    oldPassword: String!
-    newPassword: String!
-  }
-
-  input AuthPasswordResetConfirmationInput {
-    newPassword: String!
-    token: String!
-  }
-
-  input AuthPasswordResetRequestInput {
-    emailOrUsername: String!
-  }
-
-  input AuthRegisterInput {
-    username: String!
-    email: String!
-    password: String!
-  }
 `;
 
 @Resolver()
