@@ -1,4 +1,4 @@
-FROM dpage/pgadmin4:latest
+FROM dpage/pgadmin4:6.17
 
 ARG PGADMIN_EMAIL
 
