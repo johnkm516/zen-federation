@@ -6,5 +6,15 @@ rover subgraph introspect \
   --schema - \
   --routing-url http://localhost:###API_PORT###/graphql
 
+rover subgraph introspect \
+  http://localhost:###SUBGRAPH PORT###/graphql | \
+  APOLLO_KEY=###YOUR APOLLO STUDIO KEY### \
+  rover subgraph publish ###YOUR MANAGED GRAPH REF### \
+  --name ###YOUR OTHER SUBGRAPH NAME ### \
+  --schema - \
+  --routing-url http://localhost:###API_PORT###/graphql
 
-APOLLO_KEY=###YOUR APOLLO STUDIO KEY### APOLLO_GRAPH_REF=###YOUR MANAGED GRAPH REF### ./router --config ./router.yaml
+
+
+APOLLO_KEY=###YOUR APOLLO STUDIO KEY### APOLLO_GRAPH_REF=###YOUR MANAGED GRAPH REF### ./router --config ./router-dev.yaml
+APOLLO_KEY=###YOUR APOLLO STUDIO KEY### APOLLO_GRAPH_REF=###YOUR MANAGED GRAPH REF### ./router --config ./router-prod.yaml

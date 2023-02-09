@@ -1,0 +1,75 @@
+import gql from 'graphql-tag';
+
+export default gql`
+  type User @key(fields: "id") @shareable {
+    id: Int!
+  }
+
+  type Query {
+    <%= name %>_findUniqueUser(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_findUniqueUserOrThrow(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_findFirstUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    <%= name %>_findFirstUserOrThrow(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): User
+    <%= name %>_findManyUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): [User!]
+    <%= name %>_findManyUserCount(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
+      take: Int
+      skip: Int
+      distinct: [UserScalarFieldEnum]
+    ): Int!
+    <%= name %>_aggregateUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithRelationInput]
+      cursor: <%= name %>_UserWhereUniqueInput
+      take: Int
+      skip: Int
+    ): AggregateUser
+    <%= name %>_groupByUser(
+      where: <%= name %>_UserWhereInput
+      orderBy: [<%= name %>_UserOrderByWithAggregationInput]
+      by: [UserScalarFieldEnum!]
+      having: <%= name %>_UserScalarWhereWithAggregatesInput
+      take: Int
+      skip: Int
+    ): [UserGroupByOutputType]
+  }
+
+  type Mutation {
+    <%= name %>_createOneUser(data: <%= name %>_UserCreateInput!): User!
+    <%= name %>_updateOneUser(data: <%= name %>_UserUpdateInput!, where: <%= name %>_UserWhereUniqueInput!): User!
+    <%= name %>_deleteOneUser(where: <%= name %>_UserWhereUniqueInput!): User
+    <%= name %>_upsertOneUser(
+      where: <%= name %>_UserWhereUniqueInput!
+      create: <%= name %>_UserCreateInput!
+      update: <%= name %>_UserUpdateInput!
+    ): User
+    <%= name %>_deleteManyUser(where: <%= name %>_UserWhereInput): BatchPayload
+    <%= name %>_updateManyUser(
+      data: <%= name %>_UserUpdateManyMutationInput!
+      where: <%= name %>_UserWhereInput
+    ): BatchPayload
+  }
+`;

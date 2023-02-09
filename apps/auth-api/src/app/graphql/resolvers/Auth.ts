@@ -13,7 +13,6 @@ import { JwtService } from '../../jwt';
 import { MailService } from '../../mail';
 import { PrismaSelectArgs } from '../../prisma/prisma-select-args';
 import {
-  AccountInfo,
   AuthExchangeTokenInput,
   AuthLoginInput,
   AuthPasswordChangeInput,
@@ -38,7 +37,7 @@ export const typeDefs = gql`
     authRegister(data: AuthRegisterInput!): AuthSession!
   }
 
-  type AuthSession {
+  type AuthSession @shareable {
     id: Int! # Change to Int! or String! respective to the typeof User['id']
     token: String!
     roles: [String!]!

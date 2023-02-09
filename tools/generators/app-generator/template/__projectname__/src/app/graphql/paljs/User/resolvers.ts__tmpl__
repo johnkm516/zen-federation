@@ -1,0 +1,72 @@
+import { GraphQLError } from 'graphql/error';
+
+import { Resolvers } from '../../resolversTypes';
+
+const resolvers: Resolvers = {
+  Query: {
+    <%= name %>_findUniqueUser: (_parent, args, { prisma }) => {
+      return prisma.user.findUnique(args);
+    },
+    <%= name %>_findUniqueUserOrThrow: (_parent, args, { prisma }) => {
+      return prisma.user.findUniqueOrThrow(args);
+    },
+    <%= name %>_findFirstUser: (_parent, args, { prisma }) => {
+      return prisma.user.findFirst(args);
+    },
+    <%= name %>_findFirstUserOrThrow: (_parent, args, { prisma }) => {
+      return prisma.user.findFirstOrThrow(args);
+    },
+    <%= name %>_findManyUser: (_parent, args, { prisma }) => {
+      return prisma.user.findMany(args);
+    },
+    <%= name %>_findManyUserCount: (_parent, args, { prisma }) => {
+      return prisma.user.count(args);
+    },
+    <%= name %>_aggregateUser: (_parent, args, { prisma }) => {
+      return prisma.user.aggregate(args);
+    },
+    <%= name %>_groupByUser: async (_parent, args, { prisma }) => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        let result = await prisma.user.groupBy(args);
+        return result;
+      } catch (e) {
+        if (e.toString().includes('Argument by is missing')) {
+          throw new GraphQLError(`Argument 'by' is missing`, {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+            },
+          });
+        }
+      }
+    },
+  },
+  Mutation: {
+    <%= name %>_createOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.create(args);
+    },
+    <%= name %>_updateOneUser: (_parent, args, { prisma }) => {
+      return prisma.user.update(args);
+    },
+    <%= name %>_deleteOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.delete(args);
+    },
+    <%= name %>_upsertOneUser: async (_parent, args, { prisma }) => {
+      return prisma.user.upsert(args);
+    },
+    <%= name %>_deleteManyUser: async (_parent, args, { prisma }) => {
+      return prisma.user.deleteMany(args);
+    },
+    <%= name %>_updateManyUser: (_parent, args, { prisma }) => {
+      return prisma.user.updateMany(args);
+    },
+  },
+  User: {
+    __resolveReference(reference, { prisma }) {
+      const [field, value] = Object.entries(reference).find(e => e[0] !== '__typename');
+      return prisma.user.findUnique({ where: { [field]: value } });
+    },
+  },
+};
+export default resolvers;
