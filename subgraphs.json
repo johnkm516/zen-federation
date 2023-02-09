@@ -1,7 +1,7 @@
 {
-    "version": 2,
-    "subgraphs": {
-      "Auth": "apps/auth-api"
-    }
+  "version": 2,
+  "subgraphs": {
+    "Auth": "apps/auth-api",
+    "crm": "apps/crm"
   }
-  
+}

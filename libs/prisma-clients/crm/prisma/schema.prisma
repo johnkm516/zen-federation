@@ -1,0 +1,21 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../../../../node_modules/.prisma/crm-client"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  // DB URL is automatically replaced from localhost to docker image name in production
+  url      = env("CRM_SOURCE_URL")
+}
+
+model User {
+  id Int @unique
+  order   String?
+  test    String?
+}

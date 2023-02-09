@@ -23,7 +23,7 @@ services:
     networks:
       - postgres-network
     restart: always
-  
+
   apollo-router:
     image: ghcr.io/apollographql/router:v1.4.0
     container_name: apollo-router
@@ -31,6 +31,7 @@ services:
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
       APOLLO_KEY: ${APOLLO_KEY}
       AUTH_API_PORT: ${AUTH_API_PORT}
+      CRM_API_PORT: ${CRM_API_PORT}
     networks:
       - postgres-network
     ports:
@@ -81,10 +82,55 @@ services:
       - postgres-network
     depends_on:
       - postgres-auth-api
+  postgres-crm:
+    image: postgres:14
+    container_name: postgres-crm
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${CRM_PGDATABASE}
+    volumes:
+      - postgres-crm:/var/lib/postgresql/data
+    ports:
+      - ${CRM_PGDATABASE_PORT}:5432
+    networks:
+      - postgres-network
+  subgraph-crm:
+    image: zen/subgraph-crm
+    container_name: subgraph-crm
+    build:
+      context: ./
+      dockerfile: ./deploy/api/Dockerfile
+      args:
+        API_NAME: crm
+        API_PORT: ${CRM_API_PORT}
+        PROJECT_NAME: crm
+    environment:
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      SMTP_SERVER: ${SMTP_SERVER}
+      SMTP_LOGIN: ${SMTP_LOGIN}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      CRM_SOURCE_URL: ${CRM_SOURCE_URL}
+      CRM_API_PORT: ${CRM_API_PORT}
+      CRM_PGDATABASE: ${CRM_PGDATABASE}
+    ports:
+      - ${CRM_API_PORT}:${CRM_API_PORT}
+    networks:
+      - postgres-network
+    depends_on:
+      - postgres-crm
 
 volumes:
   postgres-auth-api:
   pgadmin:
+  postgres-crm:
 networks:
   postgres-network:
     driver: bridge

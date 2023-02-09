@@ -52,10 +52,25 @@ services:
       - ${AUTH_PGDATABASE_PORT}:5432
     networks:
       - postgres-network
+  postgres-crm:
+    image: postgres:14
+    container_name: postgres-crm
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${CRM_PGDATABASE}
+    volumes:
+      - postgres-crm:/var/lib/postgresql/data
+    ports:
+      - ${CRM_PGDATABASE_PORT}:5432
+    networks:
+      - postgres-network
 
 volumes:
   postgres-auth-api:
   pgadmin:
+  postgres-crm:
 networks:
   postgres-network:
     driver: bridge

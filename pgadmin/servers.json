@@ -9,6 +9,16 @@
       "Username": "admin",
       "PassFile": "/pgpass",
       "SSLMode": "prefer"
+    },
+    "crm": {
+      "Name": "crm",
+      "Group": "docker_postgres_group",
+      "Host": "postgres-crm",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "admin",
+      "PassFile": "/pgpass",
+      "SSLMode": "prefer"
     }
   }
 }

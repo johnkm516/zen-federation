@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "start:auth": "nx serve auth-api --verbose",
-    "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && ts-node generate.ts",
+    "api:gen": "prisma generate --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && prisma generate --schema=./libs/prisma-clients/crm/prisma/schema.prisma && ts-node generate.ts",
     "reset:auth": "npx prisma db push --force-reset --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && npx prisma db seed",
-    "build:dev": "nx build auth-api",
-    "build:prod": "nx build auth-api --prod",
-    "prisma:migrate": "npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma",
+    "build:dev": "nx build auth-api && nx build crm",
+    "build:prod": "nx build auth-api --prod && nx build crm --prod",
+    "prisma:migrate": "npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma && prisma migrate dev --schema=./libs/prisma-clients/crm/prisma/schema.prisma",
     "prisma:migrate:auth": "npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/Auth/prisma/schema.prisma",
     "prisma:create-only": "prisma migrate dev --create-only",
     "prisma:deploy": "prisma migrate deploy",
@@ -21,7 +21,9 @@
     "docs": "ng compodoc api",
     "test": "nx run-many --all --target=test --parallel",
     "lint": "nx run-many --all --target=lint --parallel",
-    "format": "nx format:write --all"
+    "format": "nx format:write --all",
+    "start:crm": "nx serve crm --verbose",
+    "prisma:migrate:crm": "npm run api:gen && prisma migrate dev --schema=./libs/prisma-clients/crm/prisma/schema.prisma"
   },
   "dependencies": {
     "@apollo/federation": "^0.38.1",

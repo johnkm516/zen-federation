@@ -118,7 +118,7 @@ export interface User {
   googleProfile?: Resolver<Client.User, {}, any | null>;
   lastName?: Resolver<Client.User, {}, string | null>;
   firstName?: Resolver<Client.User, {}, string | null>;
-  profile?: Resolver<Client.User, {}, Client.Profile | null>;
+  profile?: Resolver<Client.User, Auth_UserProfileArgs, Client.Profile | null>;
   teams?: Resolver<Client.User, Auth_UserTeamsArgs, Client.UsersOnTeams[] | null>;
   calendars?: Resolver<Client.User, Auth_UserCalendarsArgs, Client.CalendarsOnUsers[] | null>;
   eventsInvitedTo?: Resolver<
@@ -1676,6 +1676,10 @@ export interface CalendarsOnUsersMaxAggregateOutputType {
     {},
     number | null
   >;
+}
+
+export interface Auth_UserProfileArgs {
+  where?: Auth_ProfileWhereInput | null;
 }
 
 export interface Auth_UserTeamsArgs {

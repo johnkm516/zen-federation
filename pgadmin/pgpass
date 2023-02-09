@@ -1,2 +1,3 @@
 #host:port:db:user:pass
 postgres-auth-api:5432:*:admin:temp
+postgres-crm:5432:*:admin:temp

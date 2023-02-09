@@ -3,9 +3,11 @@ supergraph:
 include_subgraph_errors:
   all: true # Propagate errors from all subgraphs
 headers:
-  all: # Header rules for all subgraphs
+  all:
+    # Header rules for all subgraphs
     request:
       - propagate:
-          named: "Authorization"
+          named: 'Authorization'
 override_subgraph_url:
-  auth: "http://subgraph-auth-api:${env.AUTH_API_PORT}"
+  auth: 'http://subgraph-auth-api:${env.AUTH_API_PORT}'
+  crm: '"http://subgraph-crm:${env.CRM_API_PORT}"'

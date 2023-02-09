@@ -125,6 +125,9 @@ CREATE UNIQUE INDEX "Profile_kakaoTalkId_key" ON "Profile"("kakaoTalkId");
 CREATE UNIQUE INDEX "Team_teamName_key" ON "Team"("teamName");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "CalendarsOnUsers_calendarType_calendarAttributedToId_key" ON "CalendarsOnUsers"("calendarType", "calendarAttributedToId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_UserContact_AB_unique" ON "_UserContact"("A", "B");
 
 -- CreateIndex
