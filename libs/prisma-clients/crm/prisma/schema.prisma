@@ -4,9 +4,6 @@ generator client {
   previewFeatures = ["extendedWhereUnique"]
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
 
 datasource db {
   provider = "postgresql"

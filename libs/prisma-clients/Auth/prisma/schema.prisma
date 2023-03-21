@@ -4,10 +4,6 @@ generator client {
   previewFeatures = ["extendedWhereUnique"]
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
-
 datasource db {
   provider = "postgresql"
   // DB URL is automatically replaced from localhost to docker image name in production
