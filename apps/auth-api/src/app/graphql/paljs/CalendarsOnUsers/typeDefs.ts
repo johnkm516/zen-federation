@@ -5,11 +5,11 @@ export default gql`
     @key(fields: "calendarAttributedToId calendarType calendarOwnerId")
     @key(fields: "calendarType calendarAttributedToId")
     @shareable {
-    calendarAttributedTo: User!
     calendarAttributedToId: Int!
-    calendar: Calendar!
     calendarType: String!
     calendarOwnerId: Int!
+    calendarAttributedTo: User!
+    calendar: Calendar!
   }
 
   type Query {

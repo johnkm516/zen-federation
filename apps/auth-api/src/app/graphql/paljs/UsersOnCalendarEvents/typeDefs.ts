@@ -2,10 +2,10 @@ import gql from 'graphql-tag';
 
 export default gql`
   type UsersOnCalendarEvents @key(fields: "userId calendarEventId") @shareable {
-    user: User!
     userId: Int!
-    calendarEvent: CalendarEvent!
     calendarEventId: Int!
+    user: User!
+    calendarEvent: CalendarEvent!
   }
 
   type Query {

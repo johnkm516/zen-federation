@@ -1,11 +1,12 @@
+import { ApolloServerPlugin } from '@apollo/server';
+import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/disabled';
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from '@apollo/server/plugin/landingPage/default';
 import { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { GqlOptionsFactory } from '@nestjs/graphql';
-import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/disabled';
-import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
-import {
-  ApolloServerPlugin,
-} from '@apollo/server';
 import { print } from 'graphql';
 
 import { ConfigService } from '../config';

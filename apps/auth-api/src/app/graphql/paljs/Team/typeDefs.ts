@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 export default gql`
   type Team @key(fields: "teamName") @shareable {
     teamName: String!
+    teamType: String
+    teamIcon: String
     users(
       where: Auth_UsersOnTeamsWhereInput
       orderBy: Auth_UsersOnTeamsOrderByWithRelationInput
@@ -11,8 +13,6 @@ export default gql`
       skip: Int
       distinct: UsersOnTeamsScalarFieldEnum
     ): [UsersOnTeams!]!
-    teamType: String
-    teamIcon: String
     _count: TeamCountOutputType!
   }
 

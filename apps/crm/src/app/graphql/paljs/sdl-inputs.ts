@@ -354,7 +354,7 @@ export default gql`
   }
 
   input crm_createManyUserInput {
-    data: [crm_UserCreateManyInput]
+    data: crm_UserCreateManyInput
     skipDuplicates: Boolean
   }
 

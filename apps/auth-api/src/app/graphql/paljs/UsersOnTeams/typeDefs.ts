@@ -2,11 +2,11 @@ import gql from 'graphql-tag';
 
 export default gql`
   type UsersOnTeams @key(fields: "teamName userId") @shareable {
-    team: Team!
     teamName: String!
-    user: User!
     userId: Int!
     assignedAt: DateTime!
+    team: Team!
+    user: User!
   }
 
   type Query {

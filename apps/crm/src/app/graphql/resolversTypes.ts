@@ -234,7 +234,7 @@ export interface crm_UpsertOneUserArgs {
 }
 
 export interface crm_CreateManyUserArgs {
-  data: crm_UserCreateManyInput[];
+  data: crm_UserCreateManyInput;
   skipDuplicates?: boolean;
 }
 

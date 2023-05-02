@@ -289,19 +289,19 @@ export default gql`
     AND: [Auth_UsersOnTeamsWhereInput!]
     OR: [Auth_UsersOnTeamsWhereInput!]
     NOT: [Auth_UsersOnTeamsWhereInput!]
-    team: Auth_TeamWhereInput
     teamName: StringFilter
-    user: Auth_UserWhereInput
     userId: IntFilter
     assignedAt: DateTimeFilter
+    team: Auth_TeamWhereInput
+    user: Auth_UserWhereInput
   }
 
   input Auth_UsersOnTeamsOrderByWithRelationInput {
-    team: Auth_TeamOrderByWithRelationInput
     teamName: SortOrder
-    user: Auth_UserOrderByWithRelationInput
     userId: SortOrder
     assignedAt: SortOrder
+    team: Auth_TeamOrderByWithRelationInput
+    user: Auth_UserOrderByWithRelationInput
   }
 
   input Auth_UsersOnTeamsWhereUniqueInput {
@@ -309,11 +309,11 @@ export default gql`
     AND: [Auth_UsersOnTeamsWhereInput!]
     OR: [Auth_UsersOnTeamsWhereInput!]
     NOT: [Auth_UsersOnTeamsWhereInput!]
-    team: Auth_TeamWhereInput
     teamName: StringFilter
-    user: Auth_UserWhereInput
     userId: IntFilter
     assignedAt: DateTimeFilter
+    team: Auth_TeamWhereInput
+    user: Auth_UserWhereInput
   }
 
   input Auth_UsersOnTeamsOrderByWithAggregationInput {
@@ -341,16 +341,16 @@ export default gql`
     OR: [Auth_TeamWhereInput!]
     NOT: [Auth_TeamWhereInput!]
     teamName: StringFilter
-    users: Auth_UsersOnTeamsListRelationFilter
     teamType: StringNullableFilter
     teamIcon: StringNullableFilter
+    users: Auth_UsersOnTeamsListRelationFilter
   }
 
   input Auth_TeamOrderByWithRelationInput {
     teamName: SortOrder
-    users: Auth_UsersOnTeamsOrderByRelationAggregateInput
     teamType: SortOrder
     teamIcon: SortOrder
+    users: Auth_UsersOnTeamsOrderByRelationAggregateInput
   }
 
   input Auth_TeamWhereUniqueInput {
@@ -358,9 +358,9 @@ export default gql`
     AND: [Auth_TeamWhereInput!]
     OR: [Auth_TeamWhereInput!]
     NOT: [Auth_TeamWhereInput!]
-    users: Auth_UsersOnTeamsListRelationFilter
     teamType: StringNullableFilter
     teamIcon: StringNullableFilter
+    users: Auth_UsersOnTeamsListRelationFilter
   }
 
   input Auth_TeamOrderByWithAggregationInput {
@@ -385,17 +385,17 @@ export default gql`
     AND: [Auth_UsersOnCalendarEventsWhereInput!]
     OR: [Auth_UsersOnCalendarEventsWhereInput!]
     NOT: [Auth_UsersOnCalendarEventsWhereInput!]
-    user: Auth_UserWhereInput
     userId: IntFilter
-    calendarEvent: Auth_CalendarEventWhereInput
     calendarEventId: IntFilter
+    user: Auth_UserWhereInput
+    calendarEvent: Auth_CalendarEventWhereInput
   }
 
   input Auth_UsersOnCalendarEventsOrderByWithRelationInput {
-    user: Auth_UserOrderByWithRelationInput
     userId: SortOrder
-    calendarEvent: Auth_CalendarEventOrderByWithRelationInput
     calendarEventId: SortOrder
+    user: Auth_UserOrderByWithRelationInput
+    calendarEvent: Auth_CalendarEventOrderByWithRelationInput
   }
 
   input Auth_UsersOnCalendarEventsWhereUniqueInput {
@@ -403,10 +403,10 @@ export default gql`
     AND: [Auth_UsersOnCalendarEventsWhereInput!]
     OR: [Auth_UsersOnCalendarEventsWhereInput!]
     NOT: [Auth_UsersOnCalendarEventsWhereInput!]
-    user: Auth_UserWhereInput
     userId: IntFilter
-    calendarEvent: Auth_CalendarEventWhereInput
     calendarEventId: IntFilter
+    user: Auth_UserWhereInput
+    calendarEvent: Auth_CalendarEventWhereInput
   }
 
   input Auth_UsersOnCalendarEventsOrderByWithAggregationInput {
@@ -496,19 +496,19 @@ export default gql`
     AND: [Auth_CalendarEventsOnCalendarsWhereInput!]
     OR: [Auth_CalendarEventsOnCalendarsWhereInput!]
     NOT: [Auth_CalendarEventsOnCalendarsWhereInput!]
-    calendar: Auth_CalendarWhereInput
     calendarType: StringFilter
     calendarOwnerId: IntFilter
-    calendarEvent: Auth_CalendarEventWhereInput
     calendarEventId: IntFilter
+    calendar: Auth_CalendarWhereInput
+    calendarEvent: Auth_CalendarEventWhereInput
   }
 
   input Auth_CalendarEventsOnCalendarsOrderByWithRelationInput {
-    calendar: Auth_CalendarOrderByWithRelationInput
     calendarType: SortOrder
     calendarOwnerId: SortOrder
-    calendarEvent: Auth_CalendarEventOrderByWithRelationInput
     calendarEventId: SortOrder
+    calendar: Auth_CalendarOrderByWithRelationInput
+    calendarEvent: Auth_CalendarEventOrderByWithRelationInput
   }
 
   input Auth_CalendarEventsOnCalendarsWhereUniqueInput {
@@ -516,11 +516,11 @@ export default gql`
     AND: [Auth_CalendarEventsOnCalendarsWhereInput!]
     OR: [Auth_CalendarEventsOnCalendarsWhereInput!]
     NOT: [Auth_CalendarEventsOnCalendarsWhereInput!]
-    calendar: Auth_CalendarWhereInput
     calendarType: StringFilter
     calendarOwnerId: IntFilter
-    calendarEvent: Auth_CalendarEventWhereInput
     calendarEventId: IntFilter
+    calendar: Auth_CalendarWhereInput
+    calendarEvent: Auth_CalendarEventWhereInput
   }
 
   input Auth_CalendarEventsOnCalendarsOrderByWithAggregationInput {
@@ -548,17 +548,17 @@ export default gql`
     OR: [Auth_CalendarWhereInput!]
     NOT: [Auth_CalendarWhereInput!]
     calendarType: StringFilter
+    calendarOwnerId: IntFilter
     users: Auth_CalendarsOnUsersListRelationFilter
     calendarEvents: Auth_CalendarEventsOnCalendarsListRelationFilter
-    calendarOwnerId: IntFilter
     calendarOwner: Auth_UserWhereInput
   }
 
   input Auth_CalendarOrderByWithRelationInput {
     calendarType: SortOrder
+    calendarOwnerId: SortOrder
     users: Auth_CalendarsOnUsersOrderByRelationAggregateInput
     calendarEvents: Auth_CalendarEventsOnCalendarsOrderByRelationAggregateInput
-    calendarOwnerId: SortOrder
     calendarOwner: Auth_UserOrderByWithRelationInput
   }
 
@@ -568,9 +568,9 @@ export default gql`
     OR: [Auth_CalendarWhereInput!]
     NOT: [Auth_CalendarWhereInput!]
     calendarType: StringFilter
+    calendarOwnerId: IntFilter
     users: Auth_CalendarsOnUsersListRelationFilter
     calendarEvents: Auth_CalendarEventsOnCalendarsListRelationFilter
-    calendarOwnerId: IntFilter
     calendarOwner: Auth_UserWhereInput
   }
 
@@ -596,19 +596,19 @@ export default gql`
     AND: [Auth_CalendarsOnUsersWhereInput!]
     OR: [Auth_CalendarsOnUsersWhereInput!]
     NOT: [Auth_CalendarsOnUsersWhereInput!]
-    calendarAttributedTo: Auth_UserWhereInput
     calendarAttributedToId: IntFilter
-    calendar: Auth_CalendarWhereInput
     calendarType: StringFilter
     calendarOwnerId: IntFilter
+    calendarAttributedTo: Auth_UserWhereInput
+    calendar: Auth_CalendarWhereInput
   }
 
   input Auth_CalendarsOnUsersOrderByWithRelationInput {
-    calendarAttributedTo: Auth_UserOrderByWithRelationInput
     calendarAttributedToId: SortOrder
-    calendar: Auth_CalendarOrderByWithRelationInput
     calendarType: SortOrder
     calendarOwnerId: SortOrder
+    calendarAttributedTo: Auth_UserOrderByWithRelationInput
+    calendar: Auth_CalendarOrderByWithRelationInput
   }
 
   input Auth_CalendarsOnUsersWhereUniqueInput {
@@ -617,11 +617,11 @@ export default gql`
     AND: [Auth_CalendarsOnUsersWhereInput!]
     OR: [Auth_CalendarsOnUsersWhereInput!]
     NOT: [Auth_CalendarsOnUsersWhereInput!]
-    calendarAttributedTo: Auth_UserWhereInput
     calendarAttributedToId: IntFilter
-    calendar: Auth_CalendarWhereInput
     calendarType: StringFilter
     calendarOwnerId: IntFilter
+    calendarAttributedTo: Auth_UserWhereInput
+    calendar: Auth_CalendarWhereInput
   }
 
   input Auth_CalendarsOnUsersOrderByWithAggregationInput {
@@ -851,9 +851,9 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsCreateInput {
+    assignedAt: DateTime
     team: Auth_TeamCreateNestedOneWithoutUsersInput!
     user: Auth_UserCreateNestedOneWithoutTeamsInput!
-    assignedAt: DateTime
   }
 
   input Auth_UsersOnTeamsUncheckedCreateInput {
@@ -863,9 +863,9 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsUpdateInput {
+    assignedAt: DateTime
     team: Auth_TeamUpdateOneRequiredWithoutUsersNestedInput
     user: Auth_UserUpdateOneRequiredWithoutTeamsNestedInput
-    assignedAt: DateTime
   }
 
   input Auth_UsersOnTeamsUncheckedUpdateInput {
@@ -892,30 +892,30 @@ export default gql`
 
   input Auth_TeamCreateInput {
     teamName: String!
-    users: Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput
     teamType: String
     teamIcon: String
+    users: Auth_UsersOnTeamsCreateNestedManyWithoutTeamInput
   }
 
   input Auth_TeamUncheckedCreateInput {
     teamName: String!
-    users: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput
     teamType: String
     teamIcon: String
+    users: Auth_UsersOnTeamsUncheckedCreateNestedManyWithoutTeamInput
   }
 
   input Auth_TeamUpdateInput {
     teamName: String
-    users: Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput
     teamType: String
     teamIcon: String
+    users: Auth_UsersOnTeamsUpdateManyWithoutTeamNestedInput
   }
 
   input Auth_TeamUncheckedUpdateInput {
     teamName: String
-    users: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput
     teamType: String
     teamIcon: String
+    users: Auth_UsersOnTeamsUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   input Auth_TeamCreateManyInput {
@@ -1077,9 +1077,9 @@ export default gql`
 
   input Auth_CalendarUncheckedCreateInput {
     calendarType: String!
+    calendarOwnerId: Int!
     users: Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput
     calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput
-    calendarOwnerId: Int!
   }
 
   input Auth_CalendarUpdateInput {
@@ -1091,9 +1091,9 @@ export default gql`
 
   input Auth_CalendarUncheckedUpdateInput {
     calendarType: String
+    calendarOwnerId: Int
     users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
     calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput
-    calendarOwnerId: Int
   }
 
   input Auth_CalendarCreateManyInput {
@@ -2056,10 +2056,6 @@ export default gql`
     update: Auth_UserUpdateWithoutProfileInput
   }
 
-  input NullableDateTimeFieldUpdateOperationsInput {
-    set: DateTime
-  }
-
   input Auth_TeamCreateNestedOneWithoutUsersInput {
     create: Auth_TeamUncheckedCreateWithoutUsersInput
     connectOrCreate: Auth_TeamCreateOrConnectWithoutUsersInput
@@ -2620,8 +2616,8 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsCreateWithoutUserInput {
-    team: Auth_TeamCreateNestedOneWithoutUsersInput!
     assignedAt: DateTime
+    team: Auth_TeamCreateNestedOneWithoutUsersInput!
   }
 
   input Auth_UsersOnTeamsUncheckedCreateWithoutUserInput {
@@ -3184,8 +3180,8 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsCreateWithoutTeamInput {
-    user: Auth_UserCreateNestedOneWithoutTeamsInput!
     assignedAt: DateTime
+    user: Auth_UserCreateNestedOneWithoutTeamsInput!
   }
 
   input Auth_UsersOnTeamsUncheckedCreateWithoutTeamInput {
@@ -3449,8 +3445,8 @@ export default gql`
 
   input Auth_CalendarUncheckedCreateWithoutCalendarEventsInput {
     calendarType: String!
-    users: Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput
     calendarOwnerId: Int!
+    users: Auth_CalendarsOnUsersUncheckedCreateNestedManyWithoutCalendarInput
   }
 
   input Auth_CalendarCreateOrConnectWithoutCalendarEventsInput {
@@ -3501,8 +3497,8 @@ export default gql`
 
   input Auth_CalendarUncheckedUpdateWithoutCalendarEventsInput {
     calendarType: String
-    users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
     calendarOwnerId: Int
+    users: Auth_CalendarsOnUsersUncheckedUpdateManyWithoutCalendarNestedInput
   }
 
   input Auth_CalendarEventUpsertWithoutCalendarInput {
@@ -3743,8 +3739,8 @@ export default gql`
 
   input Auth_CalendarUncheckedCreateWithoutUsersInput {
     calendarType: String!
-    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput
     calendarOwnerId: Int!
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedCreateNestedManyWithoutCalendarInput
   }
 
   input Auth_CalendarCreateOrConnectWithoutUsersInput {
@@ -3819,8 +3815,8 @@ export default gql`
 
   input Auth_CalendarUncheckedUpdateWithoutUsersInput {
     calendarType: String
-    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput
     calendarOwnerId: Int
+    calendarEvents: Auth_CalendarEventsOnCalendarsUncheckedUpdateManyWithoutCalendarNestedInput
   }
 
   input Auth_UsersOnTeamsCreateManyUserInput {
@@ -3842,8 +3838,8 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsUpdateWithoutUserInput {
-    team: Auth_TeamUpdateOneRequiredWithoutUsersNestedInput
     assignedAt: DateTime
+    team: Auth_TeamUpdateOneRequiredWithoutUsersNestedInput
   }
 
   input Auth_UsersOnTeamsUncheckedUpdateWithoutUserInput {
@@ -4004,8 +4000,8 @@ export default gql`
   }
 
   input Auth_UsersOnTeamsUpdateWithoutTeamInput {
-    user: Auth_UserUpdateOneRequiredWithoutTeamsNestedInput
     assignedAt: DateTime
+    user: Auth_UserUpdateOneRequiredWithoutTeamsNestedInput
   }
 
   input Auth_UsersOnTeamsUncheckedUpdateWithoutTeamInput {
@@ -4683,7 +4679,7 @@ export default gql`
   }
 
   input Auth_createManyUsersOnTeamsInput {
-    data: [Auth_UsersOnTeamsCreateManyInput]
+    data: Auth_UsersOnTeamsCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4716,7 +4712,7 @@ export default gql`
   }
 
   input Auth_createManyTeamInput {
-    data: [Auth_TeamCreateManyInput]
+    data: Auth_TeamCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4749,7 +4745,7 @@ export default gql`
   }
 
   input Auth_createManyUsersOnCalendarEventsInput {
-    data: [Auth_UsersOnCalendarEventsCreateManyInput]
+    data: Auth_UsersOnCalendarEventsCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4777,7 +4773,7 @@ export default gql`
   }
 
   input Auth_createManyCalendarEventInput {
-    data: [Auth_CalendarEventCreateManyInput]
+    data: Auth_CalendarEventCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4810,7 +4806,7 @@ export default gql`
   }
 
   input Auth_createManyCalendarEventsOnCalendarsInput {
-    data: [Auth_CalendarEventsOnCalendarsCreateManyInput]
+    data: Auth_CalendarEventsOnCalendarsCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4838,7 +4834,7 @@ export default gql`
   }
 
   input Auth_createManyCalendarInput {
-    data: [Auth_CalendarCreateManyInput]
+    data: Auth_CalendarCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4871,7 +4867,7 @@ export default gql`
   }
 
   input Auth_createManyCalendarsOnUsersInput {
-    data: [Auth_CalendarsOnUsersCreateManyInput]
+    data: Auth_CalendarsOnUsersCreateManyInput
     skipDuplicates: Boolean
   }
 
