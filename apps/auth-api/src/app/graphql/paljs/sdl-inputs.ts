@@ -208,7 +208,6 @@ export default gql`
     OR: [Auth_ProfileWhereInput!]
     NOT: [Auth_ProfileWhereInput!]
     userId: IntFilter
-    user: Auth_UserWhereInput
     location: StringNullableFilter
     joiningDate: DateTimeNullableFilter
     businessPhone: StringNullableFilter
@@ -218,11 +217,11 @@ export default gql`
     profileImg: StringNullableFilter
     designationIcon: StringNullableFilter
     coverImg: StringNullableFilter
+    user: Auth_UserWhereInput
   }
 
   input Auth_ProfileOrderByWithRelationInput {
     userId: SortOrder
-    user: Auth_UserOrderByWithRelationInput
     location: SortOrder
     joiningDate: SortOrder
     businessPhone: SortOrder
@@ -232,6 +231,7 @@ export default gql`
     profileImg: SortOrder
     designationIcon: SortOrder
     coverImg: SortOrder
+    user: Auth_UserOrderByWithRelationInput
   }
 
   input Auth_ProfileWhereUniqueInput {
@@ -242,13 +242,13 @@ export default gql`
     AND: [Auth_ProfileWhereInput!]
     OR: [Auth_ProfileWhereInput!]
     NOT: [Auth_ProfileWhereInput!]
-    user: Auth_UserWhereInput
     location: StringNullableFilter
     joiningDate: DateTimeNullableFilter
     designation: StringNullableFilter
     profileImg: StringNullableFilter
     designationIcon: StringNullableFilter
     coverImg: StringNullableFilter
+    user: Auth_UserWhereInput
   }
 
   input Auth_ProfileOrderByWithAggregationInput {
@@ -761,7 +761,6 @@ export default gql`
   }
 
   input Auth_ProfileCreateInput {
-    user: Auth_UserCreateNestedOneWithoutProfileInput!
     location: String
     joiningDate: DateTime
     businessPhone: String
@@ -771,6 +770,7 @@ export default gql`
     profileImg: String
     designationIcon: String
     coverImg: String
+    user: Auth_UserCreateNestedOneWithoutProfileInput!
   }
 
   input Auth_ProfileUncheckedCreateInput {
@@ -787,7 +787,6 @@ export default gql`
   }
 
   input Auth_ProfileUpdateInput {
-    user: Auth_UserUpdateOneRequiredWithoutProfileNestedInput
     location: String
     joiningDate: DateTime
     businessPhone: String
@@ -797,6 +796,7 @@ export default gql`
     profileImg: String
     designationIcon: String
     coverImg: String
+    user: Auth_UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   input Auth_ProfileUncheckedUpdateInput {
@@ -1403,11 +1403,6 @@ export default gql`
     _max: NestedJsonNullableFilter
   }
 
-  input Auth_UserRelationFilter {
-    is: Auth_UserWhereInput
-    isNot: Auth_UserWhereInput
-  }
-
   input DateTimeNullableFilter {
     equals: DateTime
     in: [DateTime!]
@@ -1417,6 +1412,11 @@ export default gql`
     gt: DateTime
     gte: DateTime
     not: NestedDateTimeNullableFilter
+  }
+
+  input Auth_UserRelationFilter {
+    is: Auth_UserWhereInput
+    isNot: Auth_UserWhereInput
   }
 
   input Auth_ProfileCountOrderByAggregateInput {
@@ -2042,6 +2042,10 @@ export default gql`
     create: Auth_UserUncheckedCreateWithoutProfileInput
     connectOrCreate: Auth_UserCreateOrConnectWithoutProfileInput
     connect: Auth_UserWhereUniqueInput
+  }
+
+  input NullableDateTimeFieldUpdateOperationsInput {
+    set: DateTime
   }
 
   input Auth_UserUpdateOneRequiredWithoutProfileNestedInput {
@@ -4613,7 +4617,7 @@ export default gql`
   }
 
   input Auth_createManyUserInput {
-    data: [Auth_UserCreateManyInput]
+    data: Auth_UserCreateManyInput
     skipDuplicates: Boolean
   }
 
@@ -4646,7 +4650,7 @@ export default gql`
   }
 
   input Auth_createManyProfileInput {
-    data: [Auth_ProfileCreateManyInput]
+    data: Auth_ProfileCreateManyInput
     skipDuplicates: Boolean
   }
 

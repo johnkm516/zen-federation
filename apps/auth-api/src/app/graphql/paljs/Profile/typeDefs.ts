@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 export default gql`
   type Profile @key(fields: "userId") @shareable {
     userId: Int!
-    user: User!
     location: String
     joiningDate: DateTime
     businessPhone: String
@@ -13,6 +12,7 @@ export default gql`
     profileImg: String
     designationIcon: String
     coverImg: String
+    user: User!
   }
 
   type Query {
