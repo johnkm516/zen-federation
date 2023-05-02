@@ -1,7 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../../../../node_modules/.prisma/Auth-client"
-  previewFeatures = ["extendedWhereUnique"]
+  previewFeatures = ["extendedWhereUnique", "jsonProtocol"]
 }
 
 datasource db {

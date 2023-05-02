@@ -12,7 +12,7 @@ export default gql`
     googleProfile: Json
     lastName: String
     firstName: String
-    profile: Profile
+    profile(where: Auth_ProfileWhereInput): Profile
   }
 
   type Query {

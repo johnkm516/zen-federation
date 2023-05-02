@@ -60,7 +60,7 @@ export interface User {
   googleProfile?: Resolver<Client.User, {}, any | null>;
   lastName?: Resolver<Client.User, {}, string | null>;
   firstName?: Resolver<Client.User, {}, string | null>;
-  profile?: Resolver<Client.User, {}, Client.Profile | null>;
+  profile?: Resolver<Client.User, Auth_UserProfileArgs, Client.Profile | null>;
 
   __resolveReference?: any;
 }
@@ -68,13 +68,13 @@ export interface User {
 export interface Profile {
   [key: string]: Resolver<any, any, any>;
   userId?: Resolver<Client.Profile, {}, number>;
-  user?: Resolver<Client.Profile, {}, Client.User>;
   location?: Resolver<Client.Profile, {}, string | null>;
   joiningDate?: Resolver<Client.Profile, {}, Date | null>;
   designation?: Resolver<Client.Profile, {}, string | null>;
   profileImg?: Resolver<Client.Profile, {}, string | null>;
   designationIcon?: Resolver<Client.Profile, {}, string | null>;
   coverImg?: Resolver<Client.Profile, {}, string | null>;
+  user?: Resolver<Client.Profile, {}, Client.User>;
 
   __resolveReference?: any;
 }
@@ -361,6 +361,10 @@ export interface ProfileMaxAggregateOutputType {
   coverImg?: Resolver<Client.Prisma.ProfileMaxAggregateOutputType, {}, string | null>;
 }
 
+export interface Auth_UserProfileArgs {
+  where?: Auth_ProfileWhereInput | null;
+}
+
 export interface Auth_FindFirstUserArgs {
   where?: Auth_UserWhereInput | null;
   orderBy?: Auth_UserOrderByWithRelationInput[] | null;
@@ -486,7 +490,7 @@ export interface Auth_UpsertOneUserArgs {
 }
 
 export interface Auth_CreateManyUserArgs {
-  data: Auth_UserCreateManyInput[];
+  data: Auth_UserCreateManyInput;
   skipDuplicates?: boolean;
 }
 
@@ -519,7 +523,7 @@ export interface Auth_UpsertOneProfileArgs {
 }
 
 export interface Auth_CreateManyProfileArgs {
-  data: Auth_ProfileCreateManyInput[];
+  data: Auth_ProfileCreateManyInput;
   skipDuplicates?: boolean;
 }
 
@@ -641,24 +645,24 @@ export interface Auth_ProfileWhereInput {
   OR?: Auth_ProfileWhereInput[];
   NOT?: Auth_ProfileWhereInput[];
   userId?: IntFilter;
-  user?: Auth_UserWhereInput;
   location?: StringNullableFilter | null;
   joiningDate?: DateTimeNullableFilter | null;
   designation?: StringNullableFilter | null;
   profileImg?: StringNullableFilter | null;
   designationIcon?: StringNullableFilter | null;
   coverImg?: StringNullableFilter | null;
+  user?: Auth_UserWhereInput;
 }
 
 export interface Auth_ProfileOrderByWithRelationInput {
   userId?: SortOrder;
-  user?: Auth_UserOrderByWithRelationInput;
   location?: SortOrder;
   joiningDate?: SortOrder;
   designation?: SortOrder;
   profileImg?: SortOrder;
   designationIcon?: SortOrder;
   coverImg?: SortOrder;
+  user?: Auth_UserOrderByWithRelationInput;
 }
 
 export type Auth_ProfileWhereUniqueInput = AtLeast<
@@ -667,13 +671,13 @@ export type Auth_ProfileWhereUniqueInput = AtLeast<
     AND?: Auth_ProfileWhereInput[];
     OR?: Auth_ProfileWhereInput[];
     NOT?: Auth_ProfileWhereInput[];
-    user?: Auth_UserWhereInput;
     location?: StringNullableFilter | null;
     joiningDate?: DateTimeNullableFilter | null;
     designation?: StringNullableFilter | null;
     profileImg?: StringNullableFilter | null;
     designationIcon?: StringNullableFilter | null;
     coverImg?: StringNullableFilter | null;
+    user?: Auth_UserWhereInput;
   },
   'userId'
 >;
@@ -799,13 +803,13 @@ export interface Auth_UserUncheckedUpdateManyInput {
 }
 
 export interface Auth_ProfileCreateInput {
-  user: Auth_UserCreateNestedOneWithoutProfileInput;
   location?: string | null;
   joiningDate?: Date | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
   coverImg?: string | null;
+  user: Auth_UserCreateNestedOneWithoutProfileInput;
 }
 
 export interface Auth_ProfileUncheckedCreateInput {
@@ -819,13 +823,13 @@ export interface Auth_ProfileUncheckedCreateInput {
 }
 
 export interface Auth_ProfileUpdateInput {
-  user?: Auth_UserUpdateOneRequiredWithoutProfileNestedInput;
   location?: string | null;
   joiningDate?: Date | null;
   designation?: string | null;
   profileImg?: string | null;
   designationIcon?: string | null;
   coverImg?: string | null;
+  user?: Auth_UserUpdateOneRequiredWithoutProfileNestedInput;
 }
 
 export interface Auth_ProfileUncheckedUpdateInput {
@@ -1076,11 +1080,6 @@ export interface JsonNullableWithAggregatesFilter {
   _max?: NestedJsonNullableFilter;
 }
 
-export interface Auth_UserRelationFilter {
-  is?: Auth_UserWhereInput;
-  isNot?: Auth_UserWhereInput;
-}
-
 export interface DateTimeNullableFilter {
   equals?: Date | null;
   in?: Date[] | null;
@@ -1090,6 +1089,11 @@ export interface DateTimeNullableFilter {
   gt?: Date;
   gte?: Date;
   not?: NestedDateTimeNullableFilter | null;
+}
+
+export interface Auth_UserRelationFilter {
+  is?: Auth_UserWhereInput;
+  isNot?: Auth_UserWhereInput;
 }
 
 export interface Auth_ProfileCountOrderByAggregateInput {
@@ -1211,16 +1215,16 @@ export interface Auth_UserCreateNestedOneWithoutProfileInput {
   connect?: Auth_UserWhereUniqueInput;
 }
 
+export interface NullableDateTimeFieldUpdateOperationsInput {
+  set?: Date | null;
+}
+
 export interface Auth_UserUpdateOneRequiredWithoutProfileNestedInput {
   create?: Auth_UserUncheckedCreateWithoutProfileInput;
   connectOrCreate?: Auth_UserCreateOrConnectWithoutProfileInput;
   upsert?: Auth_UserUpsertWithoutProfileInput;
   connect?: Auth_UserWhereUniqueInput;
   update?: Auth_UserUpdateWithoutProfileInput;
-}
-
-export interface NullableDateTimeFieldUpdateOperationsInput {
-  set?: Date | null;
 }
 
 export interface NestedIntFilter {
