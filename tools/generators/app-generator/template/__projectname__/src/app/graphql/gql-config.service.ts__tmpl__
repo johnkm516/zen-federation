@@ -1,12 +1,12 @@
+import { ApolloServerPlugin } from '@apollo/server';
+import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/disabled';
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from '@apollo/server/plugin/landingPage/default';
 import { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { GqlOptionsFactory } from '@nestjs/graphql';
-import {
-  ApolloServerPluginInlineTraceDisabled,
-  Context,
-  PluginDefinition,
-} from 'apollo-server-core';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { print } from 'graphql';
 
 import { ConfigService } from '../config';
@@ -19,24 +19,22 @@ export class GqlConfigService implements GqlOptionsFactory {
   constructor(private readonly config: ConfigService, private readonly prisma: PrismaService) {}
 
   createGqlOptions(): ApolloFederationDriverConfig {
-    const plugins: PluginDefinition[] = [];
-    if (this.config.graphql.sandbox) plugins.push(ApolloServerPluginLandingPageLocalDefault);
+    const plugins: ApolloServerPlugin[] = [];
+    if (this.config.graphql.sandbox) plugins.push(ApolloServerPluginLandingPageLocalDefault());
     if (!this.config.graphql.trace) plugins.push(ApolloServerPluginInlineTraceDisabled());
 
     return {
       typeDefs: print(ALL_TYPE_DEFS),
-      debug: !this.config.production,
       playground: false,
       plugins,
       introspection: this.config.graphql.introspection,
-      cors: this.config.cors,
       csrfPrevention: this.config.graphql.csrfPrevention,
       cache: 'bounded',
       installSubscriptionHandlers: this.config.graphql.subscriptions,
       subscriptions: this.config.graphql.subscriptions
         ? {
             'graphql-ws': {
-              onConnect: (context: Context<any>) => {
+              onConnect: (context: any) => {
                 const { connectionParams, extra } = context;
                 extra.token = connectionParams.token;
               },
